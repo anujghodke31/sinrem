@@ -1,0 +1,71 @@
+/* ============================================================
+   marquee.css — Infinite scrolling tech strip
+   ============================================================ */
+
+#marquee-strip {
+  width: 100%;
+  height: 56px;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Fade edges (mask effect) ───────────────────────────── */
+#marquee-strip::before,
+#marquee-strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#marquee-strip::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-surface), transparent);
+}
+
+#marquee-strip::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-surface), transparent);
+}
+
+/* ── Scrolling Track ────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  white-space: nowrap;
+  animation: marqueeScroll 32s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track span {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.marquee-track .sep {
+  color: var(--accent);
+  margin-inline: var(--space-1);
+  opacity: 0.6;
+}
+
+/* ── Keyframe: scroll left ──────────────────────────────── */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pause on hover for accessibility */
+#marquee-strip:hover .marquee-track {
+  animation-play-state: paused;
+}

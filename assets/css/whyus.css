@@ -1,0 +1,58 @@
+/* ============================================================
+   whyus.css — 3-column "Why Us" section with vertical dividers
+   ============================================================ */
+
+#why-us {
+  background-color: var(--bg-surface);
+}
+
+/* ── 3-column grid ──────────────────────────────────────── */
+.whyus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* ── Each Column ────────────────────────────────────────── */
+.whyus-col {
+  padding: var(--space-5);
+  border-right: 1px solid var(--border);
+  transition: background-color var(--transition-normal);
+}
+
+.whyus-col:last-child {
+  border-right: none;
+}
+
+.whyus-col:hover {
+  background-color: rgba(79, 142, 247, 0.02);
+}
+
+/* ── Symbol ─────────────────────────────────────────────── */
+.whyus-symbol {
+  display: block;
+  font-size: 22px;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+  line-height: 1;
+}
+
+/* ── Title ──────────────────────────────────────────────── */
+.whyus-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.3;
+}
+
+/* ── Detail text ────────────────────────────────────────── */
+.whyus-detail {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
