@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Dashboard · sinrem Admin</title>
+  <link rel="stylesheet" href="assets/css/admin-reset.css" />
+  <link rel="stylesheet" href="assets/css/admin-variables.css" />
+  <link rel="stylesheet" href="assets/css/admin-layout.css" />
+  <link rel="stylesheet" href="assets/css/admin-sidebar.css" />
+  <link rel="stylesheet" href="assets/css/admin-components.css" />
+  <link rel="stylesheet" href="assets/css/admin-table.css" />
+  <link rel="stylesheet" href="assets/css/admin-dashboard.css" />
+  <link rel="stylesheet" href="assets/css/admin-responsive.css" />
+</head>
+<body>
+
+  <!-- Mobile toggle -->
+  <button class="admin-mobile-toggle" id="sidebar-toggle" aria-label="Toggle menu">☰</button>
+
+  <div class="admin-wrapper">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark"></div>
+        <div>
+          <span class="sidebar-logo-text">sinrem</span>
+          <span class="sidebar-logo-sub">Admin Panel</span>
+        </div>
+      </a>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="active"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="messages.html"><span class="nav-icon">✉</span> Messages <span class="sidebar-badge" id="messages-badge"></span></a>
+        <a href="applications.html"><span class="nav-icon">👤</span> Applications <span class="sidebar-badge" id="apps-badge"></span></a>
+        <a href="blog.html"><span class="nav-icon">✐</span> Blog</a>
+        <a href="projects.html"><span class="nav-icon">◈</span> Projects</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-divider"></div>
+        <a href="/" target="_blank"><span class="nav-icon">↗</span> View Site</a>
+        <button data-logout><span class="nav-icon">⏻</span> Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+      <h1 class="dashboard-greeting" id="greeting-text">Good morning, <span>Admin.</span></h1>
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total-messages">—</span>
+          <span class="stat-lbl">Total Messages</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-unread-messages">—</span>
+          <span class="stat-lbl">Unread Messages</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total-apps">—</span>
+          <span class="stat-lbl">Applications</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-new-apps">—</span>
+          <span class="stat-lbl">New Applications</span>
+        </div>
+      </div>
+
+      <!-- Recent Messages -->
+      <section class="admin-section">
+        <div class="page-header" style="border:none;margin-bottom:var(--space-2);padding-bottom:0;">
+          <h2 class="admin-section-title">Recent Messages</h2>
+          <a href="messages.html" class="btn btn-ghost btn-sm">View All →</a>
+        </div>
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="recent-messages">
+              <tr><td colspan="5" class="empty-state">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Recent Applications -->
+      <section class="admin-section">
+        <div class="page-header" style="border:none;margin-bottom:var(--space-2);padding-bottom:0;">
+          <h2 class="admin-section-title">Recent Applications</h2>
+          <a href="applications.html" class="btn btn-ghost btn-sm">View All →</a>
+        </div>
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="recent-applications">
+              <tr><td colspan="5" class="empty-state">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/admin-auth.js"></script>
+  <script type="module" src="assets/js/admin-dashboard.js"></script>
+</body>
+</html>

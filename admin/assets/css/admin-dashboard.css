@@ -1,0 +1,15 @@
+/* ============================================================
+   admin/assets/css/admin-dashboard.css
+   ============================================================ */
+
+.dashboard-greeting {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.dashboard-greeting span {
+  color: var(--accent);
+}

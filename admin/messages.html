@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Messages · sinrem Admin</title>
+  <link rel="stylesheet" href="assets/css/admin-reset.css" />
+  <link rel="stylesheet" href="assets/css/admin-variables.css" />
+  <link rel="stylesheet" href="assets/css/admin-layout.css" />
+  <link rel="stylesheet" href="assets/css/admin-sidebar.css" />
+  <link rel="stylesheet" href="assets/css/admin-components.css" />
+  <link rel="stylesheet" href="assets/css/admin-table.css" />
+  <link rel="stylesheet" href="assets/css/admin-responsive.css" />
+</head>
+<body>
+
+  <button class="admin-mobile-toggle" id="sidebar-toggle" aria-label="Toggle menu">☰</button>
+
+  <!-- Message Detail Modal -->
+  <div class="modal-overlay" id="message-modal" role="dialog" aria-modal="true" aria-label="Message detail">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark"></div>
+        <div>
+          <span class="sidebar-logo-text">sinrem</span>
+          <span class="sidebar-logo-sub">Admin Panel</span>
+        </div>
+      </a>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="messages.html" class="active"><span class="nav-icon">✉</span> Messages</a>
+        <a href="applications.html"><span class="nav-icon">👤</span> Applications</a>
+        <a href="blog.html"><span class="nav-icon">✐</span> Blog</a>
+        <a href="projects.html"><span class="nav-icon">◈</span> Projects</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-divider"></div>
+        <a href="/" target="_blank"><span class="nav-icon">↗</span> View Site</a>
+        <button data-logout><span class="nav-icon">⏻</span> Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="page-header">
+        <h1>Contact Messages</h1>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="unread">Unread</button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="messages-tbody">
+            <tr><td colspan="7" class="empty-state">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/admin-auth.js"></script>
+  <script type="module" src="assets/js/admin-messages.js"></script>
+</body>
+</html>

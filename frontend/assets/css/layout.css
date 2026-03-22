@@ -1,0 +1,86 @@
+/* ============================================================
+   layout.css — Container, grid helpers, flex utilities, spacing
+   ============================================================ */
+
+/* ── Container ──────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+/* ── Section wrapper ────────────────────────────────────── */
+.section {
+  padding-block: var(--section-pad-y);
+}
+
+/* ── Grid helpers ───────────────────────────────────────── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+/* ── Flex helpers ───────────────────────────────────────── */
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Dot-grid background utility ────────────────────────── */
+/* Applied to --bg-primary sections for subtle texture */
+.dot-grid {
+  background-image:
+    radial-gradient(circle, rgba(79, 142, 247, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: var(--bg-primary);
+}
+
+/* ── Section intro block ────────────────────────────────── */
+.section-intro {
+  margin-bottom: var(--space-8);
+}
+
+.section-intro .section-label {
+  display: inline-flex;
+  margin-bottom: var(--space-2);
+}
+
+.section-intro h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-intro > p {
+  color: var(--text-secondary);
+  max-width: 560px;
+  font-size: var(--text-small);
+}

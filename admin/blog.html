@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Blog · sinrem Admin</title>
+  <link rel="stylesheet" href="assets/css/admin-reset.css" />
+  <link rel="stylesheet" href="assets/css/admin-variables.css" />
+  <link rel="stylesheet" href="assets/css/admin-layout.css" />
+  <link rel="stylesheet" href="assets/css/admin-sidebar.css" />
+  <link rel="stylesheet" href="assets/css/admin-components.css" />
+  <link rel="stylesheet" href="assets/css/admin-forms.css" />
+  <link rel="stylesheet" href="assets/css/admin-responsive.css" />
+</head>
+<body>
+
+  <button class="admin-mobile-toggle" id="sidebar-toggle" aria-label="Toggle menu">☰</button>
+
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark"></div>
+        <div>
+          <span class="sidebar-logo-text">sinrem</span>
+          <span class="sidebar-logo-sub">Admin Panel</span>
+        </div>
+      </a>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="messages.html"><span class="nav-icon">✉</span> Messages</a>
+        <a href="applications.html"><span class="nav-icon">👤</span> Applications</a>
+        <a href="blog.html" class="active"><span class="nav-icon">✐</span> Blog</a>
+        <a href="projects.html"><span class="nav-icon">◈</span> Projects</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-divider"></div>
+        <a href="/" target="_blank"><span class="nav-icon">↗</span> View Site</a>
+        <button data-logout><span class="nav-icon">⏻</span> Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="page-header">
+        <h1>Blog Posts</h1>
+        <button class="btn btn-primary" id="new-post-btn">+ New Post</button>
+      </div>
+
+      <!-- Split panel: list + editor -->
+      <div class="blog-split" style="display:flex;gap:var(--space-3);align-items:flex-start;">
+
+        <!-- Post List -->
+        <div class="post-list table-wrapper" style="flex:1;min-width:0;">
+          <div id="post-list" style="min-height:200px;">
+            <div class="empty-state">Loading…</div>
+          </div>
+        </div>
+
+        <!-- Editor -->
+        <div class="editor-panel" id="editor-panel" style="display:none;width:480px;flex-shrink:0;">
+          <h2 id="editor-heading">New Post</h2>
+          <form id="blog-form" novalidate>
+            <div class="form-group">
+              <label for="post-title">Title</label>
+              <input type="text" id="post-title" name="title" placeholder="Post title" required />
+            </div>
+            <div class="form-group">
+              <label for="post-category">Category</label>
+              <select id="post-category" name="category">
+                <option value="Insights">Insights</option>
+                <option value="Case Study">Case Study</option>
+                <option value="Tutorial">Tutorial</option>
+                <option value="News">News</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="post-tags">Tags <small style="color:var(--text-muted)">(comma separated)</small></label>
+              <input type="text" id="post-tags" name="tags" placeholder="Android, Mobile Development" />
+            </div>
+            <div class="form-group">
+              <label for="post-excerpt">Excerpt</label>
+              <textarea id="post-excerpt" name="excerpt" rows="3" placeholder="One paragraph summary" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="post-content">Content <small style="color:var(--text-muted)">(HTML allowed)</small></label>
+              <textarea id="post-content" name="content" rows="10" placeholder="Full post content…" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="post-cover">Cover Image URL <small style="color:var(--text-muted)">(optional)</small></label>
+              <input type="url" id="post-cover" name="coverImage" placeholder="https://…" />
+            </div>
+            <div class="toggle-group">
+              <input type="checkbox" id="post-published" name="isPublished" />
+              <span>Publish immediately</span>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Post</button>
+              <button type="button" class="btn btn-ghost" id="cancel-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/admin-auth.js"></script>
+  <script type="module" src="assets/js/admin-blog.js"></script>
+</body>
+</html>

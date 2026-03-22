@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Applications · sinrem Admin</title>
+  <link rel="stylesheet" href="assets/css/admin-reset.css" />
+  <link rel="stylesheet" href="assets/css/admin-variables.css" />
+  <link rel="stylesheet" href="assets/css/admin-layout.css" />
+  <link rel="stylesheet" href="assets/css/admin-sidebar.css" />
+  <link rel="stylesheet" href="assets/css/admin-components.css" />
+  <link rel="stylesheet" href="assets/css/admin-table.css" />
+  <link rel="stylesheet" href="assets/css/admin-responsive.css" />
+</head>
+<body>
+
+  <button class="admin-mobile-toggle" id="sidebar-toggle" aria-label="Toggle menu">☰</button>
+
+  <!-- Application Detail Modal -->
+  <div class="modal-overlay" id="app-modal" role="dialog" aria-modal="true" aria-label="Application detail">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark"></div>
+        <div>
+          <span class="sidebar-logo-text">sinrem</span>
+          <span class="sidebar-logo-sub">Admin Panel</span>
+        </div>
+      </a>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="messages.html"><span class="nav-icon">✉</span> Messages</a>
+        <a href="applications.html" class="active"><span class="nav-icon">👤</span> Applications</a>
+        <a href="blog.html"><span class="nav-icon">✐</span> Blog</a>
+        <a href="projects.html"><span class="nav-icon">◈</span> Projects</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-divider"></div>
+        <a href="/" target="_blank"><span class="nav-icon">↗</span> View Site</a>
+        <button data-logout><span class="nav-icon">⏻</span> Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="page-header">
+        <h1>Job Applications</h1>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="new">New</button>
+        <button class="filter-btn" data-filter="reviewed">Reviewed</button>
+        <button class="filter-btn" data-filter="shortlisted">Shortlisted</button>
+        <button class="filter-btn" data-filter="rejected">Rejected</button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Position</th>
+              <th>Experience</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="apps-tbody">
+            <tr><td colspan="8" class="empty-state">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/admin-auth.js"></script>
+  <script type="module" src="assets/js/admin-applications.js"></script>
+</body>
+</html>

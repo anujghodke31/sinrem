@@ -1,0 +1,94 @@
+/* ============================================================
+   admin/assets/css/admin-components.css — Buttons, tags, utils
+   ============================================================ */
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity var(--transition-fast), background var(--transition-fast);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-danger {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--danger);
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+/* ── Status Badges ──────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.badge-new         { background: var(--accent-dim); color: var(--accent); }
+.badge-reviewed    { background: rgba(251,191,36,0.1); color: var(--warning); }
+.badge-shortlisted { background: rgba(16,185,129,0.1); color: var(--success); }
+.badge-rejected    { background: rgba(239,68,68,0.1); color: var(--danger); }
+.badge-published   { background: rgba(16,185,129,0.1); color: var(--success); }
+.badge-draft       { background: rgba(71,85,105,0.2); color: var(--text-muted); }
+.badge-unread      { background: var(--accent-dim); color: var(--accent); }
+.badge-read        { background: rgba(71,85,105,0.2); color: var(--text-muted); }
+
+/* ── Inline text utilities ──────────────────────────────────── */
+.text-accent  { color: var(--accent); }
+.text-muted   { color: var(--text-muted); }
+.text-danger  { color: var(--danger); }
+.text-success { color: var(--success); }
+
+/* ── Loading / empty states ─────────────────────────────────── */
+.empty-state {
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-2) 0;
+}

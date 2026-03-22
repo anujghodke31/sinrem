@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Projects · sinrem Admin</title>
+  <link rel="stylesheet" href="assets/css/admin-reset.css" />
+  <link rel="stylesheet" href="assets/css/admin-variables.css" />
+  <link rel="stylesheet" href="assets/css/admin-layout.css" />
+  <link rel="stylesheet" href="assets/css/admin-sidebar.css" />
+  <link rel="stylesheet" href="assets/css/admin-components.css" />
+  <link rel="stylesheet" href="assets/css/admin-forms.css" />
+  <link rel="stylesheet" href="assets/css/admin-responsive.css" />
+</head>
+<body>
+
+  <button class="admin-mobile-toggle" id="sidebar-toggle" aria-label="Toggle menu">☰</button>
+
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark"></div>
+        <div>
+          <span class="sidebar-logo-text">sinrem</span>
+          <span class="sidebar-logo-sub">Admin Panel</span>
+        </div>
+      </a>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="messages.html"><span class="nav-icon">✉</span> Messages</a>
+        <a href="applications.html"><span class="nav-icon">👤</span> Applications</a>
+        <a href="blog.html"><span class="nav-icon">✐</span> Blog</a>
+        <a href="projects.html" class="active"><span class="nav-icon">◈</span> Projects</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-divider"></div>
+        <a href="/" target="_blank"><span class="nav-icon">↗</span> View Site</a>
+        <button data-logout><span class="nav-icon">⏻</span> Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="page-header">
+        <h1>Portfolio Projects</h1>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-ghost btn-sm" id="reorder-btn">Reorder</button>
+          <button class="btn btn-primary" id="add-project-btn">+ Add Project</button>
+        </div>
+      </div>
+
+      <!-- Project list -->
+      <div id="project-list" style="margin-bottom:var(--space-3);">
+        <div class="empty-state">Loading…</div>
+      </div>
+
+      <!-- Add / Edit form -->
+      <div class="editor-panel" id="project-form-panel" style="display:none;max-width:600px;">
+        <h2 id="form-heading">Add Project</h2>
+        <form id="project-form" novalidate>
+          <div class="form-group">
+            <label for="proj-title">Title</label>
+            <input type="text" id="proj-title" name="title" placeholder="Project name" required />
+          </div>
+          <div class="form-group">
+            <label for="proj-type">Type</label>
+            <select id="proj-type" name="type" required>
+              <option value="" disabled selected>Select type</option>
+              <option value="Web Application">Web Application</option>
+              <option value="Android App">Android App</option>
+              <option value="Desktop App">Desktop App</option>
+              <option value="Technical Writing">Technical Writing</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="proj-description">Description</label>
+            <textarea id="proj-description" name="description" rows="4" placeholder="Brief project description (max 500 chars)" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="proj-tech">Tech Stack <small style="color:var(--text-muted)">(comma separated)</small></label>
+            <input type="text" id="proj-tech" name="techStack" placeholder="React, Django, PostgreSQL" />
+          </div>
+          <div class="form-group">
+            <label for="proj-live">Live URL <small style="color:var(--text-muted)">(optional)</small></label>
+            <input type="url" id="proj-live" name="liveUrl" placeholder="https://…" />
+          </div>
+          <div class="toggle-group">
+            <input type="checkbox" id="proj-featured" name="featured" />
+            <span>Mark as Featured</span>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Project</button>
+            <button type="button" class="btn btn-ghost" id="cancel-project-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/admin-auth.js"></script>
+  <script type="module" src="assets/js/admin-projects.js"></script>
+</body>
+</html>
