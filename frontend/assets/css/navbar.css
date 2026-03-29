@@ -43,14 +43,17 @@
   letter-spacing: -0.01em;
 }
 
-/* Geometric diamond mark — CSS only, no image */
-.logo-mark {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: var(--accent);
-  transform: rotate(45deg);
+/* SVG logo image inside nav-logo */
+.nav-logo img {
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
+  display: block;
+}
+
+/* Legacy: hide old CSS-only diamond if still in DOM */
+.logo-mark {
+  display: none;
 }
 
 /* ── Desktop Nav Links ──────────────────────────────────── */

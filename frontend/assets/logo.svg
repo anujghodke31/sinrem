@@ -1,0 +1,16 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0_linear_Favicon" x1="49.3207" y1="14.0402" x2="11.3779" y2="50.0221" gradientUnits="userSpaceOnUse">
+      <stop offset="0.352781" stop-color="#7c3aed"/>
+      <stop offset="0.693006" stop-color="#7c3aed" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_Favicon" x1="52.6544" y1="10.7148" x2="2.55539" y2="61.0416" gradientUnits="userSpaceOnUse">
+      <stop offset="0.62969" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M30.8366 57.3392C44.4931 57.3392 55.5639 46.3185 55.5639 32.7238C55.5639 19.1291 44.4931 8.1084 30.8366 8.1084C17.1802 8.1084 6.10938 19.1291 6.10938 32.7238C6.10938 46.3185 17.1802 57.3392 30.8366 57.3392Z" stroke="url(#paint0_linear_Favicon)" stroke-width="4"/>
+  <path d="M40.1454 47.7829C39.234 34.2076 39.5877 21.3635 50.0363 13.3213" stroke="#7c3aed" stroke-width="3"/>
+  <path d="M52.6544 10.7148L2.32715 60.8144" stroke="url(#paint1_linear_Favicon)" stroke-width="3" stroke-linecap="square"/>
+  <path d="M15.8545 23.1674C30.9873 23.2022 40.8922 23.4543 50.4474 12.9141" stroke="#7c3aed" stroke-width="3" opacity="0.6"/>
+</svg>
