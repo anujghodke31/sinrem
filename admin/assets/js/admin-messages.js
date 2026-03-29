@@ -2,7 +2,7 @@
 // admin/assets/js/admin-messages.js
 // ============================================================
 
-import { fetchWithAuth } from './admin-auth.js';
+import { fetchWithAuth, ready as authReady } from './admin-auth.js';
 
 let allContacts   = [];
 let currentFilter = 'all';
@@ -132,4 +132,4 @@ document.querySelectorAll('[data-filter]').forEach((btn) => {
   });
 });
 
-fetchContacts();
+authReady.then((ok) => { if (ok) fetchContacts(); });

@@ -2,7 +2,7 @@
 // admin/assets/js/admin-blog.js
 // ============================================================
 
-import { fetchWithAuth } from './admin-auth.js';
+import { fetchWithAuth, ready as authReady } from './admin-auth.js';
 
 let allPosts  = [];
 let editingId = null;
@@ -129,4 +129,4 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-fetchPosts();
+authReady.then((ok) => { if (ok) fetchPosts(); });

@@ -2,7 +2,7 @@
 // admin/assets/js/admin-projects.js
 // ============================================================
 
-import { fetchWithAuth } from './admin-auth.js';
+import { fetchWithAuth, ready as authReady } from './admin-auth.js';
 
 let allProjects = [];
 let editingId   = null;
@@ -172,4 +172,4 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-fetchProjects();
+authReady.then((ok) => { if (ok) fetchProjects(); });

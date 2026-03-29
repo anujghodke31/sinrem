@@ -17,6 +17,12 @@ let _accessToken   = null;
 let _refreshTimer  = null;
 let _tokenExpiry   = 0; // Unix ms
 
+// ── Auth ready promise ────────────────────────────────────────
+// Resolves true when the initial silent refresh succeeds; false if not.
+// Other modules must await this before making authenticated requests.
+let _readyResolve;
+export const ready = new Promise((resolve) => { _readyResolve = resolve; });
+
 // ── Public: get current access token ─────────────────────────
 export const getToken = () => _accessToken;
 
@@ -113,6 +119,7 @@ export function logout() {
 // If no valid session exists, the server returns 401 → logout.
 (async () => {
   const ok = await silentRefresh();
+  _readyResolve(ok); // Unblock any awaiting modules
   if (!ok) {
     // silentRefresh already called logout() which redirects
     return;

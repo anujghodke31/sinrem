@@ -30,9 +30,9 @@
     grid-column: 1 / -1;
   }
 
-  /* Footer: 2 columns */
+  /* Footer: brand full-width, then 3 link columns below */
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-5);
   }
 

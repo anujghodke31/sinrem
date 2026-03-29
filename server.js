@@ -131,7 +131,12 @@ app.use('/uploads', authMiddleware, express.static(path.join(__dirname, 'uploads
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
 // ── Static: Public frontend ───────────────────────────────────
-app.use(express.static(path.join(__dirname, 'frontend')));
+// In development: disable caching so CSS/JS changes are served immediately.
+// In production: Express default ETags + max-age apply.
+const staticOptions = process.env.NODE_ENV !== 'production'
+  ? { etag: false, lastModified: false, setHeaders: (res) => res.setHeader('Cache-Control', 'no-store') }
+  : {};
+app.use(express.static(path.join(__dirname, 'frontend'), staticOptions));
 
 // ── SPA fallback ─────────────────────────────────────────────
 app.get(/^(?!\/api|\/uploads|\/admin).*$/, (req, res) => {

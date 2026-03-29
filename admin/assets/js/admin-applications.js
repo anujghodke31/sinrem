@@ -2,7 +2,7 @@
 // admin/assets/js/admin-applications.js
 // ============================================================
 
-import { fetchWithAuth } from './admin-auth.js';
+import { fetchWithAuth, ready as authReady } from './admin-auth.js';
 
 let allApps       = [];
 let currentFilter = 'all';
@@ -131,4 +131,4 @@ document.querySelectorAll('[data-filter]').forEach((btn) => {
   });
 });
 
-fetchApps();
+authReady.then((ok) => { if (ok) fetchApps(); });

@@ -2,7 +2,7 @@
 // admin/assets/js/admin-dashboard.js
 // ============================================================
 
-import { fetchWithAuth } from './admin-auth.js';
+import { fetchWithAuth, ready as authReady } from './admin-auth.js';
 
 // ── Time-aware greeting ────────────────────────────────────────
 const greetingEl = document.getElementById('greeting-text');
@@ -75,6 +75,11 @@ function renderApplications(apps) {
 
 // ── Load all data ──────────────────────────────────────────────
 (async () => {
+  // Wait for auth module to finish its initial silent refresh.
+  // Without this, API calls fire with _accessToken = null → instant 401 → logout.
+  const authed = await authReady;
+  if (!authed) return; // Auth failed — already redirected to login
+
   const [contactRes, appRes] = await Promise.all([
     apiFetch('/api/contact?limit=5'),
     apiFetch('/api/jobs?limit=5'),
