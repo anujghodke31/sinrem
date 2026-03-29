@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SharadChandra TechVentures — boutique software studio from India. Android apps, web development, desktop software, and technical writing." />
+  <meta name="description" content="SharadChandra TechVentures — boutique software studio from India. Android apps, web development, desktop software, technical writing." />
   <title>SharadChandra TechVentures | Software Studio</title>
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 
   <!-- Google Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 
   <!-- CSS: loaded in dependency order -->
   <link rel="stylesheet" href="assets/css/reset.css" />
@@ -20,16 +19,15 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/navbar.css" />
   <link rel="stylesheet" href="assets/css/hero.css" />
+  <link rel="stylesheet" href="assets/css/shapegrid.css" />
   <link rel="stylesheet" href="assets/css/marquee.css" />
   <link rel="stylesheet" href="assets/css/services.css" />
   <link rel="stylesheet" href="assets/css/whyus.css" />
   <link rel="stylesheet" href="assets/css/process.css" />
   <link rel="stylesheet" href="assets/css/techstack.css" />
   <link rel="stylesheet" href="assets/css/projects.css" />
-  <link rel="stylesheet" href="assets/css/blog.css" />
   <link rel="stylesheet" href="assets/css/testimonials.css" />
   <link rel="stylesheet" href="assets/css/about.css" />
-  <link rel="stylesheet" href="assets/css/careers.css" />
   <link rel="stylesheet" href="assets/css/contact.css" />
   <link rel="stylesheet" href="assets/css/footer.css" />
   <link rel="stylesheet" href="assets/css/animations.css" />
@@ -47,7 +45,7 @@
     <div class="nav-container container">
       <!-- Logo -->
       <a href="#hero" class="nav-logo" aria-label="sinrem home">
-        <img src="assets/logo.svg" alt="" width="20" height="20" aria-hidden="true" />
+        <span class="logo-mark" aria-hidden="true"></span>
         sinrem
       </a>
 
@@ -56,8 +54,6 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#process">Process</a></li>
-        <li><a href="#blog">Insights</a></li>
-        <li><a href="#careers">Careers</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -81,8 +77,6 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#process">Process</a></li>
-      <li><a href="#blog">Insights</a></li>
-      <li><a href="#careers">Careers</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -94,7 +88,10 @@
     <!-- ═══════════════════════════════════════
          HERO
     ═══════════════════════════════════════ -->
-    <section id="hero" class="dot-grid" aria-label="Hero — introduction">
+    <section id="hero" aria-label="Hero — introduction">
+      <!-- ShapeGrid animated canvas background -->
+      <canvas id="shapegrid-canvas" aria-hidden="true"></canvas>
+
       <div class="hero-inner container">
 
         <!-- Text Column -->
@@ -113,9 +110,9 @@
 
           <!-- Sub -->
           <p class="hero-sub body-large reveal">
-            Sharadchandra Techventures is a boutique software studio based in Pune, India. We build
-            bespoke software solutions — websites, mobile apps, SaaS platforms, and technical documentation
-            — built for performance, scale, and security.
+            SharadChandra TechVentures is a boutique software studio from India. We design
+            and build Android apps, websites, desktop software, and technical documentation
+            — with clarity, care, and zero fluff.
           </p>
 
           <!-- CTAs -->
@@ -242,90 +239,46 @@
         </header>
 
         <div class="services-grid reveal-group">
+          <!-- Card 01 -->
           <article class="service-card card">
             <span class="service-number" aria-hidden="true">01</span>
             <h3 class="service-name">Software Development &amp; Engineering</h3>
             <div class="service-divider" aria-hidden="true"></div>
             <p class="service-desc">
-              Custom web apps, mobile apps (Android &amp; iOS), SaaS platforms, API development,
-              QA, IT automation, and AI/ML-based software solutions.
+              Custom apps, SaaS platforms, APIs, QA, and AI-first builds tailored to your specific operational needs.
             </p>
             <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
 
+          <!-- Card 02 -->
           <article class="service-card card">
             <span class="service-number" aria-hidden="true">02</span>
             <h3 class="service-name">Web &amp; Digital Presence</h3>
             <div class="service-divider" aria-hidden="true"></div>
             <p class="service-desc">
-              Corporate websites, e-commerce, CMS (WordPress, Drupal), UI/UX design,
-              logo &amp; branding, technical content writing, and ongoing maintenance.
+              High-performance corporate sites, e-commerce, UI/UX, branding, and comprehensive ongoing technical support.
             </p>
             <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
 
+          <!-- Card 03 -->
           <article class="service-card card">
             <span class="service-number" aria-hidden="true">03</span>
             <h3 class="service-name">Data &amp; AI Solutions</h3>
             <div class="service-divider" aria-hidden="true"></div>
             <p class="service-desc">
-              Business intelligence dashboards, predictive analytics, AI chatbots, NLP
-              solutions, image &amp; video recognition, and recommendation engines.
+              Business intelligence dashboards, predictive analytics, NLP integrations, and recommendation engine development.
             </p>
             <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
 
+          <!-- Card 04 -->
           <article class="service-card card">
             <span class="service-number" aria-hidden="true">04</span>
-            <h3 class="service-name">Business Operations &amp; Productivity</h3>
-            <div class="service-divider" aria-hidden="true"></div>
-            <p class="service-desc">
-              ERP systems, CRM software, project management tools (Trello, Asana, Jira),
-              and collaboration suite integrations (Google Workspace, Microsoft 365).
-            </p>
-            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="service-card card">
-            <span class="service-number" aria-hidden="true">05</span>
             <h3 class="service-name">Cloud &amp; Infrastructure</h3>
             <div class="service-divider" aria-hidden="true"></div>
             <p class="service-desc">
-              Cloud hosting on AWS, Azure, and GCP. Scalable virtual machines, IT support
-              &amp; maintenance systems built for reliability.
-            </p>
-            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="service-card card">
-            <span class="service-number" aria-hidden="true">06</span>
-            <h3 class="service-name">Digital Payments &amp; Transactions</h3>
-            <div class="service-divider" aria-hidden="true"></div>
-            <p class="service-desc">
-              Secure payment gateway integrations, billing &amp; invoicing software,
-              and accounting software integration (Tally, Zoho Books, QuickBooks).
-            </p>
-            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="service-card card">
-            <span class="service-number" aria-hidden="true">07</span>
-            <h3 class="service-name">Cybersecurity &amp; Compliance</h3>
-            <div class="service-divider" aria-hidden="true"></div>
-            <p class="service-desc">
-              SSL certificates &amp; website security, endpoint security (antivirus,
-              anti-malware), and compliance readiness for modern web operations.
-            </p>
-            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="service-card card">
-            <span class="service-number" aria-hidden="true">08</span>
-            <h3 class="service-name">Technical Writing &amp; Documentation</h3>
-            <div class="service-divider" aria-hidden="true"></div>
-            <p class="service-desc">
-              API references, user guides, onboarding manuals, and 89-page technical
-              manuals. Documentation your team will actually use.
+              Cloud hosting on AWS/Azure/GCP, scalable virtual machines, and completely managed IT support and maintenance.
             </p>
             <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
@@ -429,6 +382,7 @@
           <h2 class="heading-2">Tools We Know Well</h2>
         </header>
 
+        <!-- Frontend -->
         <div class="tech-category reveal">
           <span class="tech-cat-label">Frontend</span>
           <div class="tech-tags">
@@ -441,18 +395,17 @@
           </div>
         </div>
 
+        <!-- Backend -->
         <div class="tech-category reveal">
           <span class="tech-cat-label">Backend &amp; Tools</span>
           <div class="tech-tags">
             <span class="tag">Python</span>
             <span class="tag">Django</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">Express</span>
-            <span class="tag">MongoDB</span>
             <span class="tag">Ruby on Rails</span>
           </div>
         </div>
 
+        <!-- Design & Tooling -->
         <div class="tech-category reveal">
           <span class="tech-cat-label">Design &amp; Tooling</span>
           <div class="tech-tags">
@@ -480,18 +433,17 @@
           <!-- Project 1 — Wide card -->
           <article class="project-card project-wide">
             <div class="project-inner">
-              <span class="tag-accent project-type mono micro">Corporate Website</span>
-              <h3 class="project-name">Shree Metal Industries — Digital Foundation</h3>
+              <span class="tag-accent project-type mono micro">Web &amp; Media</span>
+              <h3 class="project-name">Shree Metal Industries</h3>
               <p class="project-desc">
-                Designed and delivered a comprehensive corporate website plus branded email
-                infrastructure within two months. Provided 24/7 technical support for three years
-                with proactive maintenance and cost-effective promotional product videos.
+                Establishing a Digital Foundation for Long-Term Growth. Designed and developed a comprehensive 
+                corporate website with secure emails, along with high-value promotional product videos.
               </p>
               <footer class="project-footer">
                 <div class="project-tech">
                   <span class="tag project-tag">Web Dev</span>
-                  <span class="tag project-tag">Email Setup</span>
-                  <span class="tag project-tag">Video Production</span>
+                  <span class="tag project-tag">Media</span>
+                  <span class="tag project-tag">24/7 Support</span>
                 </div>
                 <a href="#contact" class="project-link">View Project <span aria-hidden="true">→</span></a>
               </footer>
@@ -501,18 +453,17 @@
           <!-- Project 2 -->
           <article class="project-card">
             <div class="project-inner">
-              <span class="tag-accent project-type mono micro">Web + Portfolio</span>
-              <h3 class="project-name">CVK Engineers — Urgent Digital Portfolio</h3>
+              <span class="tag-accent project-type mono micro">Digital Portfolio</span>
+              <h3 class="project-name">CVK Engineers</h3>
               <p class="project-desc">
-                Complete website and digital portfolio delivered in 15 days to support
-                a critical project bid. Integrated portfolio section and professional
-                corporate emails. Two years of free maintenance included.
+                Delivering a Professional Digital Portfolio on a Tight Deadline. Developed a complete 
+                polised website and portfolio within an expedited 15-day timeline for critical bidding.
               </p>
               <footer class="project-footer">
                 <div class="project-tech">
-                  <span class="tag project-tag">Web Dev</span>
                   <span class="tag project-tag">Portfolio</span>
-                  <span class="tag project-tag">Email</span>
+                  <span class="tag project-tag">Rapid Delivery</span>
+                  <span class="tag project-tag">IT Maint.</span>
                 </div>
                 <a href="#contact" class="project-link">View Project <span aria-hidden="true">→</span></a>
               </footer>
@@ -523,64 +474,21 @@
           <article class="project-card">
             <div class="project-inner">
               <span class="tag-accent project-type mono micro">Technical Writing</span>
-              <h3 class="project-name">C4i4 — Industry 4.0 Technical Manual</h3>
+              <h3 class="project-name">C4i4 - Center for Industry 4.0</h3>
               <p class="project-desc">
-                Authored an 89-page technical manual covering full-stack AI/data science
-                architecture, database schemas, and complex query logic for the Centre
-                for Industry 4.0 over a three-month engagement.
+                Standardizing Complex AI/Data Science Software with Expert Technical Documentation. 
+                Authored an 89-page technical manual covering full-stack architecture and workflow mapping.
               </p>
               <footer class="project-footer">
                 <div class="project-tech">
-                  <span class="tag project-tag">Technical Writing</span>
-                  <span class="tag project-tag">Industry 4.0</span>
-                  <span class="tag project-tag">AI/Data</span>
+                  <span class="tag project-tag">Tech Docs</span>
+                  <span class="tag project-tag">Data Science</span>
+                  <span class="tag project-tag">System Arch.</span>
                 </div>
                 <a href="#contact" class="project-link">View Project <span aria-hidden="true">→</span></a>
               </footer>
             </div>
           </article>
-
-          <!-- Project 4 -->
-          <article class="project-card">
-            <div class="project-inner">
-              <span class="tag-accent project-type mono micro">Photography &amp; Video</span>
-              <h3 class="project-name">House of Amrth — Product Visuals</h3>
-              <p class="project-desc">
-                Two-day dedicated DSLR shoot for an organic juice brand. Premium color
-                grading with Lightroom. Delivered assets for website, print catalogue,
-                and Instagram across a three-member production crew.
-              </p>
-              <footer class="project-footer">
-                <div class="project-tech">
-                  <span class="tag project-tag">Photography</span>
-                  <span class="tag project-tag">Video</span>
-                  <span class="tag project-tag">Lightroom</span>
-                </div>
-                <a href="#contact" class="project-link">View Project <span aria-hidden="true">→</span></a>
-              </footer>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-         BLOG / INSIGHTS
-    ═══════════════════════════════════════ -->
-    <section id="blog" class="section" aria-label="Blog and insights">
-      <div class="container">
-        <header class="section-intro reveal">
-          <span class="section-label">— Insights</span>
-          <h2 class="heading-2">From the Studio</h2>
-          <p class="body-base">Thoughts, case studies, and technical guides.</p>
-        </header>
-
-        <!-- Populated dynamically by assets/js/blog.js -->
-        <div class="blog-grid reveal-group" id="blog-grid">
-          <!-- Loading state — replaced by blog.js -->
-          <div class="blog-soon">
-            <p>Loading posts…</p>
-          </div>
         </div>
       </div>
     </section>
@@ -596,52 +504,37 @@
         </header>
 
         <div class="testimonials-grid reveal-group">
+          <!-- Card 1 -->
           <article class="testimonial-card card">
             <span class="quote-mark" aria-hidden="true">"</span>
             <blockquote class="quote-text">
-              "Switching to this team was the best decision for our digital needs. The 24/7
-              support is invaluable, and they always deliver high-quality content. Three
-              years later, we still count on them."
+              "Switching to this team was the best decision for our digital needs... The 24/7 support is invaluable, and they always deliver high-quality content... Three years later, we still count on them."
             </blockquote>
             <div class="quote-divider" aria-hidden="true"></div>
-            <p class="client-name">Senior Management</p>
-            <p class="client-role">Shree Metal Industries</p>
+            <p class="client-name">Shree Metal Industries</p>
+            <p class="client-role">Senior Management</p>
           </article>
 
+          <!-- Card 2 -->
           <article class="testimonial-card card">
             <span class="quote-mark" aria-hidden="true">"</span>
             <blockquote class="quote-text">
-              "We were under a massive time crunch, but the team delivered a beautiful
-              website and portfolio in just two weeks. Knowing we have 24/7 support
-              and two years of free maintenance is incredible value."
+              "We were under a massive time crunch, but the team delivered a beautiful, informative website and portfolio in just two weeks... Knowing we also have 24/7 support and two years of free maintenance is incredible value."
             </blockquote>
             <div class="quote-divider" aria-hidden="true"></div>
-            <p class="client-name">Management Team</p>
-            <p class="client-role">CVK Engineers</p>
+            <p class="client-name">CVK Engineers</p>
+            <p class="client-role">Management Team</p>
           </article>
 
+          <!-- Card 3 -->
           <article class="testimonial-card card">
             <span class="quote-mark" aria-hidden="true">"</span>
             <blockquote class="quote-text">
-              "The technical manual they produced is exceptional. They captured our
-              complex AI/data science architecture in a clear 89-page guide. Their
-              commitment to understanding Industry 4.0 first was key to the quality."
+              "The technical manual they produced is exceptional... they captured all of it in a clear, 89-page guide. Their team's commitment to understanding Industry 4.0 first was key to the quality."
             </blockquote>
             <div class="quote-divider" aria-hidden="true"></div>
-            <p class="client-name">Project Head</p>
-            <p class="client-role">C4i4 — Centre for Industry 4.0</p>
-          </article>
-
-          <article class="testimonial-card card">
-            <span class="quote-mark" aria-hidden="true">"</span>
-            <blockquote class="quote-text">
-              "The team captured the genuine freshness of our organic juices perfectly.
-              The level of detail with the professional camera and Lightroom editing
-              really elevates our brand."
-            </blockquote>
-            <div class="quote-divider" aria-hidden="true"></div>
-            <p class="client-name">CEO</p>
-            <p class="client-role">House of Amrth</p>
+            <p class="client-name">C4i4</p>
+            <p class="client-role">Project Head</p>
           </article>
         </div>
       </div>
@@ -661,25 +554,25 @@
           <!-- Left: Text -->
           <div class="about-text reveal">
             <p class="about-para">
-              Sharadchandra Techventures is a boutique software studio based in Katraj, Pune,
-              India, founded in 2023. We are your strategic technical partner — turning complex
-              constraints into elegant, scalable software.
+              SharadChandra TechVentures is a boutique software studio based in India.
+              We work with businesses that need software built properly — not fast and
+              forgotten.
             </p>
             <p class="about-para">
-              From websites and e-commerce to SaaS, APIs, AI systems, and technical documentation —
-              we take on a focused number of clients to deliver real attention and real results.
-              No lock-ins, just clarity, execution, and trust.
+              Our team handles Android development, web applications, desktop software,
+              and technical writing. We take on a small number of clients at a time,
+              which means you get real attention and real results.
             </p>
 
             <ul class="about-values" role="list">
-              <li><span class="check" aria-hidden="true">✓</span> Partner-first — your goals are our KPIs</li>
-              <li><span class="check" aria-hidden="true">✓</span> Built on clarity, execution, and trust</li>
-              <li><span class="check" aria-hidden="true">✓</span> You own your code, your data, your future</li>
+              <li><span class="check" aria-hidden="true">✓</span> Client-first, always</li>
+              <li><span class="check" aria-hidden="true">✓</span> Clean code, honest documentation</li>
+              <li><span class="check" aria-hidden="true">✓</span> No project too specific</li>
             </ul>
 
             <address class="about-contacts">
-              <a href="mailto:info@sinrem.tech" class="tag mono">info@sinrem.tech</a>
-              <a href="tel:+919588643839" class="tag mono">+91 9588 643839</a>
+              <a href="mailto:sinremtech@gmail.com" class="tag mono">sinremtech@gmail.com</a>
+              <a href="tel:+919503119046" class="tag mono">+91 95031 19046</a>
             </address>
           </div>
 
@@ -697,16 +590,16 @@
               <!-- Mini Stats -->
               <div class="about-stats-grid">
                 <div class="about-stat">
-                  <span class="num">2023</span>
-                  <span class="lbl">Est. Year</span>
+                  <span class="num">4yrs</span>
+                  <span class="lbl">Experience</span>
                 </div>
                 <div class="about-stat">
                   <span class="num">20+</span>
                   <span class="lbl">Projects</span>
                 </div>
                 <div class="about-stat">
-                  <span class="num">100%</span>
-                  <span class="lbl">Uptime</span>
+                  <span class="num">15+</span>
+                  <span class="lbl">Clients</span>
                 </div>
               </div>
 
@@ -717,126 +610,6 @@
               </div>
             </div>
           </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-         CAREERS
-    ═══════════════════════════════════════ -->
-    <section id="careers" class="section" aria-label="Careers — join the team">
-      <div class="container">
-        <header class="section-intro reveal">
-          <span class="section-label">— Careers</span>
-          <h2 class="heading-2">Join the Team</h2>
-          <p class="body-base">We're a small team. Every hire matters.</p>
-        </header>
-
-        <div class="careers-grid">
-          <!-- Left: Pitch + Openings -->
-          <div class="reveal">
-            <p class="careers-pitch">
-              We're always looking for developers and writers who care about quality.
-              We work on interesting problems, communicate clearly, and build things
-              that actually get used.
-            </p>
-
-            <div class="openings-list">
-              <div class="opening-card">
-                <div class="opening-info">
-                  <span class="opening-role">Frontend Developer</span>
-                  <span class="opening-desc">Build clean UIs that users actually enjoy.</span>
-                </div>
-                <span class="tag opening-type">Full-time / Remote</span>
-                <a href="#jobs-form" class="btn-small opening-apply">Apply</a>
-              </div>
-
-              <div class="opening-card">
-                <div class="opening-info">
-                  <span class="opening-role">Technical Writer</span>
-                  <span class="opening-desc">Turn complex systems into clear docs.</span>
-                </div>
-                <span class="tag opening-type">Part-time / Remote</span>
-                <a href="#jobs-form" class="btn-small opening-apply">Apply</a>
-              </div>
-
-              <div class="opening-card">
-                <div class="opening-info">
-                  <span class="opening-role">Android Developer</span>
-                  <span class="opening-desc">Build Android apps that don't fall apart.</span>
-                </div>
-                <span class="tag opening-type">Contract / Remote</span>
-                <a href="#jobs-form" class="btn-small opening-apply">Apply</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Application Form -->
-          <div class="apply-form-wrapper reveal" id="jobs-form-wrapper">
-            <h3>Submit Your Application</h3>
-            <form id="jobs-form" novalidate>
-              <div class="form-field">
-                <label for="jobs-name">Full Name</label>
-                <input type="text" id="jobs-name" name="name" placeholder="Your full name" required />
-              </div>
-              <div class="form-field">
-                <label for="jobs-email">Email</label>
-                <input type="email" id="jobs-email" name="email" placeholder="your@email.com" required />
-              </div>
-              <div class="form-field">
-                <label for="jobs-phone">Phone <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
-                <input type="tel" id="jobs-phone" name="phone" placeholder="+91 98765 43210" />
-              </div>
-              <div class="form-field">
-                <label for="jobs-position">Position</label>
-                <select id="jobs-position" name="position" required>
-                  <option value="" disabled selected>Select a position</option>
-                  <option value="Frontend Developer">Frontend Developer</option>
-                  <option value="Backend Developer">Backend Developer</option>
-                  <option value="Android Developer">Android Developer</option>
-                  <option value="Technical Writer">Technical Writer</option>
-                  <option value="UI/UX Designer">UI/UX Designer</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="jobs-experience">Experience</label>
-                <select id="jobs-experience" name="experience" required>
-                  <option value="" disabled selected>Select experience level</option>
-                  <option value="Fresher">Fresher</option>
-                  <option value="1-2 years">1–2 years</option>
-                  <option value="3-5 years">3–5 years</option>
-                  <option value="5+ years">5+ years</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="jobs-portfolio">Portfolio URL <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
-                <input type="url" id="jobs-portfolio" name="portfolio" placeholder="https://yourportfolio.com" />
-              </div>
-              <div class="form-field">
-                <label for="jobs-message">Cover Note <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
-                <textarea id="jobs-message" name="message" rows="4" placeholder="Tell us why you'd be a great fit…"></textarea>
-              </div>
-
-              <!-- Resume Upload -->
-              <div class="form-field">
-                <label>Resume</label>
-                <div class="file-drop" id="file-drop-zone">
-                  <input
-                    type="file"
-                    id="jobs-resume"
-                    name="resume"
-                    accept=".pdf,.doc,.docx"
-                    aria-label="Upload resume (PDF or Word, max 5MB)"
-                  />
-                  <span class="file-drop-icon" aria-hidden="true">📄</span>
-                  <span class="file-hint">Click to upload or drag &amp; drop your resume<br />(PDF or Word, max 5MB)</span>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-primary btn-full">Submit Application</button>
-            </form>
-          </div>
         </div>
       </div>
     </section>
@@ -868,11 +641,11 @@
                 <label for="contact-subject">Subject</label>
                 <select id="contact-subject" name="subject" required>
                   <option value="" disabled selected>Select a project type</option>
-                  <option value="Android App">Android App</option>
-                  <option value="Web Project">Web Project</option>
-                  <option value="Desktop App">Desktop App</option>
-                  <option value="Technical Writing">Technical Writing</option>
-                  <option value="Other">Other</option>
+                  <option value="android">Android App</option>
+                  <option value="web">Web Project</option>
+                  <option value="desktop">Desktop App</option>
+                  <option value="writing">Technical Writing</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
               <div class="form-field">
@@ -889,21 +662,14 @@
             <!-- Email -->
             <div class="contact-card card">
               <p class="contact-label">Email</p>
-              <a href="mailto:info@sinrem.tech" class="contact-value contact-accent">info@sinrem.tech</a>
+              <a href="mailto:sinremtech@gmail.com" class="contact-value contact-accent">sinremtech@gmail.com</a>
               <p class="contact-sub">Best for project inquiries</p>
             </div>
 
-            <!-- WhatsApp -->
+            <!-- Phone -->
             <div class="contact-card card">
-              <p class="contact-label">WhatsApp</p>
-              <a href="https://wa.me/919588643839" class="contact-value contact-accent">+91 9588 643839</a>
-              <p class="contact-sub">Chat with us directly for quick questions</p>
-            </div>
-
-            <!-- Address -->
-            <div class="contact-card card">
-              <p class="contact-label">Visit HQ</p>
-              <p class="contact-value">Katraj, Pune, Maharashtra 411046</p>
+              <p class="contact-label">Phone</p>
+              <a href="tel:+919503119046" class="contact-value contact-accent">+91 95031 19046</a>
               <p class="contact-sub">Available Mon–Sat, 10am–7pm IST</p>
             </div>
 
@@ -911,7 +677,7 @@
             <div class="contact-card card">
               <p class="contact-label">Join the Team</p>
               <p class="contact-value">We're always open to talented developers and writers.</p>
-              <p class="contact-sub">Send your resume to info@sinrem.tech</p>
+              <p class="contact-sub">Send your resume to sinremtech@gmail.com</p>
               <div class="hiring-pill">
                 <span class="dot" aria-hidden="true"></span>
                 We're hiring
@@ -933,13 +699,15 @@
         <!-- Brand -->
         <div class="footer-brand">
           <a href="#hero" class="footer-logo nav-logo" aria-label="sinrem home">
-            <img src="assets/logo.svg" alt="" width="20" height="20" aria-hidden="true" />
+            <span class="logo-mark" aria-hidden="true"></span>
             sinrem
           </a>
-          <p class="footer-tagline">Bespoke software solutions. Built for performance, scale, and security.</p>
+          <p class="footer-tagline">Software that works. Documentation that helps.</p>
           <div class="social-links" aria-label="Social media links">
-            <a href="https://wa.me/919588643839" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">Wa</a>
-            <a href="mailto:info@sinrem.tech" class="social-btn" aria-label="Email">Em</a>
+            <a href="https://linkedin.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">Li</a>
+            <a href="https://github.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">Gh</a>
+            <a href="https://twitter.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Twitter">Tw</a>
+            <a href="https://instagram.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram">In</a>
           </div>
         </div>
 
@@ -950,8 +718,6 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#process">Process</a></li>
-            <li><a href="#blog">Insights</a></li>
-            <li><a href="#careers">Careers</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -961,39 +727,27 @@
         <nav class="footer-services" aria-label="Footer services">
           <span class="footer-col-label">Services</span>
           <ul role="list">
-            <li><a href="#services">Software Development</a></li>
-            <li><a href="#services">Web &amp; Digital Presence</a></li>
-            <li><a href="#services">Data &amp; AI Solutions</a></li>
-            <li><a href="#services">Cloud &amp; Infrastructure</a></li>
-            <li><a href="#services">Cybersecurity</a></li>
+            <li><a href="#services">Android Development</a></li>
+            <li><a href="#services">Web Development</a></li>
+            <li><a href="#services">Desktop Apps</a></li>
             <li><a href="#services">Technical Writing</a></li>
           </ul>
         </nav>
-
-        <!-- Contact -->
-        <div class="footer-contact">
-          <span class="footer-col-label">Contact</span>
-          <ul role="list">
-            <li><a href="mailto:info@sinrem.tech">info@sinrem.tech</a></li>
-            <li><a href="https://wa.me/919588643839">+91 9588 643839</a></li>
-            <li>Katraj, Pune 411046</li>
-          </ul>
-        </div>
       </div>
 
       <!-- Bottom Bar -->
       <div class="footer-bottom">
-        <p>© 2025 Sharadchandra Techventures. All rights reserved.</p>
-        <p>Designed &amp; Built with care in Pune, India 🇮🇳</p>
+        <p>© 2025 SharadChandra TechVentures. All rights reserved.</p>
+        <p>Designed &amp; Built with care in India 🇮🇳</p>
       </div>
     </div>
   </footer>
 
+  <!-- ShapeGrid animated background -->
+  <script src="assets/js/shapegrid.js"></script>
+
   <!-- JS Entry Point (ES Module) -->
   <script type="module" src="assets/js/main.js"></script>
-  <script type="module" src="assets/js/blog.js"></script>
-  <script type="module" src="assets/js/contact-form.js"></script>
-  <script type="module" src="assets/js/jobs-form.js"></script>
 
 </body>
 </html>

@@ -27,9 +27,9 @@
 
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  /* Press into the shadow — shift to where shadow is */
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  opacity: 0.88;
+  box-shadow: 0 6px 20px oklch(0.465 0.147 25 / 0.35);
+  transform: translateY(-1px);
 }
 
 /* ── Ghost Button (outlined + press effect) ─────────────── */
@@ -58,10 +58,11 @@
 
 .btn-ghost:hover,
 .btn-ghost:focus-visible {
-  background-color: var(--color-foreground);
-  color: var(--color-background);
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px oklch(0.465 0.147 25 / 0.30);
+  transform: translateY(-1px);
 }
 
 /* ── Small Button (Navbar CTA) ──────────────────────────── */
@@ -77,19 +78,20 @@
   font-family: var(--font-body);
   font-size: var(--text-micro);
   font-weight: 400;
-  box-shadow: 2px 2px 0px oklch(0.506 0.200 28 / 0.85);
+  box-shadow: var(--shadow-neo);
   transition:
     box-shadow var(--transition-fast),
     transform var(--transition-fast);
   cursor: pointer;
   white-space: nowrap;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .btn-small:hover,
 .btn-small:focus-visible {
-  box-shadow: none;
-  transform: translate(2px, 2px);
+  opacity: 0.88;
+  box-shadow: 0 4px 12px oklch(0.465 0.147 25 / 0.30);
+  transform: translateY(-1px);
 }
 
 /* ── Full width button modifier ─────────────────────────── */
@@ -120,16 +122,16 @@
 
 .tag:hover {
   border-color: var(--color-primary);
-  color: var(--text-primary);
-  box-shadow: 1px 1px 0px oklch(0.506 0.200 28 / 0.7);
-  transform: translate(-1px, -1px);
+  color: var(--color-primary);
+  box-shadow: 0 2px 8px oklch(0.465 0.147 25 / 0.20);
+  transform: translateY(-1px);
 }
 
 /* ── Accent Tag (tinted, for project types) ─────────────── */
 .tag-accent {
   display: inline-flex;
   align-items: center;
-  background-color: oklch(0.502 0.189 27 / 0.1);
+  background-color: oklch(0.465 0.147 25 / 0.08);
   border: 1.5px solid var(--color-primary);
   border-radius: var(--radius-sm);
   padding: 6px 12px;
@@ -164,7 +166,7 @@
 }
 
 .card:hover {
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  box-shadow: 0 8px 24px oklch(0.333 0.050 56 / 0.18);
+  transform: translateY(-2px);
   border-color: var(--color-primary);
 }
