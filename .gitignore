@@ -137,3 +137,14 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# ── Project-specific ──────────────────────────────────────
+# Root-level /assets/ is a duplicate not served by Express.
+# The real frontend assets live in frontend/assets/.
+/assets/
+
+# User-uploaded files (resumes, PDFs) — use cloud storage in production
+/uploads/
+
+# Runtime log output — auto-generated, never commit
+/logs/
