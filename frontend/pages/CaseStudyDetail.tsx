@@ -195,7 +195,7 @@ export default function CaseStudyDetail() {
   }
 
   if (!cs || !nextCs) {
-    return <Navigate to="/404" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (

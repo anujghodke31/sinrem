@@ -22,6 +22,7 @@ const ContactPage = React.lazy(() => import('./pages/Contact'));
 const LoginPage = React.lazy(() => import('./pages/Login'));
 const DashboardPage = React.lazy(() => import('./pages/Dashboard'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
+const CareersPage = React.lazy(() => import('./pages/Careers'));
 
 // Tools / Labs Routes
 const StackArchitectPage = React.lazy(() => import('./pages/tools/StackArchitect'));
@@ -102,6 +103,7 @@ function AppContent() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/careers" element={<CareersPage />} />
               
               {/* Tools / Labs */}
               <Route path="/tools/stack-architect" element={<StackArchitectPage />} />
