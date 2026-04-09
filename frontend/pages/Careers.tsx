@@ -60,7 +60,7 @@ export default function CareersPage() {
               </span>{' '}
               with us.
             </h1>
-            <p className="text-xl font-bold text-foreground/60 max-w-xl leading-relaxed">
+            <p className="text-xl font-bold text-text/70 max-w-xl leading-relaxed">
               We're a small, focused team building bespoke software for real businesses.
               No bureaucracy. No bloat. Just good work with people who care.
             </p>
@@ -71,7 +71,7 @@ export default function CareersPage() {
       {/* Values strip */}
       <div className="border-y-2 border-wati-dark/10 dark:border-white/10 bg-wati-yellow/20 dark:bg-yellow-900/10 py-8">
         <Container>
-          <div className="flex flex-wrap gap-6 sm:gap-12 justify-center text-sm font-black uppercase tracking-widest text-wati-dark/60 dark:text-white/60">
+          <div className="flex flex-wrap gap-6 sm:gap-12 justify-center text-sm font-black uppercase tracking-widest text-wati-dark dark:text-white/80">
             {['Remote-first', 'Async-friendly', 'Ownership culture', 'No micromanagement', 'Ship fast'].map((v) => (
               <span key={v} className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-wati-green" />
@@ -87,7 +87,7 @@ export default function CareersPage() {
         <Container>
           <div className="mb-14">
             <h2 className="text-4xl sm:text-5xl font-black text-text tracking-tight mb-3">Open Roles</h2>
-            <p className="text-foreground/60 font-medium">All roles are remote. We hire for skill, not location.</p>
+            <p className="text-text/70 font-medium">All roles are remote. We hire for skill, not location.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -109,16 +109,16 @@ export default function CareersPage() {
                       </div>
                       <div>
                         <h3 className="text-xl font-black text-wati-dark dark:text-white">{role.title}</h3>
-                        <span className="text-xs font-bold text-foreground/50 uppercase tracking-wide">{role.type}</span>
+                        <span className="text-xs font-bold text-text/60 uppercase tracking-wide">{role.type}</span>
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-sm text-foreground/70 leading-relaxed mb-6 font-medium">{role.description}</p>
+                  <p className="text-sm text-text/80 leading-relaxed mb-6 font-medium">{role.description}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {role.skills.map((s) => (
-                      <span key={s} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-wati-dark/10 dark:border-white/10 bg-wati-dark/5 dark:bg-white/5 text-wati-dark/70 dark:text-white/70">
+                      <span key={s} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-wati-dark/20 dark:border-white/10 bg-gray-100 dark:bg-white/5 text-wati-dark dark:text-white/80">
                         {s}
                       </span>
                     ))}
@@ -142,10 +142,10 @@ export default function CareersPage() {
       <section className="py-20 border-t-2 border-wati-dark/10 dark:border-white/10">
         <Container>
           <div className="rounded-[2rem] border-2 border-wati-dark bg-wati-dark dark:bg-white/5 p-10 sm:p-16 text-center shadow-hard">
-            <h2 className="text-3xl sm:text-4xl font-black text-white dark:text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
               Don't see your role?
             </h2>
-            <p className="text-white/70 font-medium mb-8 max-w-md mx-auto">
+            <p className="text-white/80 font-medium mb-8 max-w-md mx-auto">
               We're always open to talented people. Send us your work and tell us how you'd contribute.
             </p>
             <Button href="/contact" className="bg-wati-green text-wati-dark border-wati-green hover:bg-[#00D075] px-10 py-4 h-auto text-base">
