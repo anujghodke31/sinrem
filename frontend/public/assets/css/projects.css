@@ -1,0 +1,110 @@
+/* ============================================================
+   projects.css — Editorial project grid (wide + 2 equal cards)
+   ============================================================ */
+
+
+
+
+/* ── Projects Grid ──────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* ── Project Card ───────────────────────────────────────── */
+.project-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  /* Accent bookmark tab at top */
+  border-top: 3px solid var(--accent);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Inner Padding ──────────────────────────────────────── */
+.project-inner {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ── Project Type Tag ───────────────────────────────────── */
+.project-type {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: var(--space-3);
+  /* Uses .tag-accent from components.css */
+}
+
+/* ── Project Name ───────────────────────────────────────── */
+.project-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.8;
+}
+
+/* ── Project Description ────────────────────────────────── */
+.project-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 2.2;
+  margin-bottom: var(--space-4);
+  flex: 1;
+}
+
+/* ── Project Card Footer (tech + link) ──────────────────── */
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Small tech tags inside cards ───────────────────────── */
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-tag {
+  /* Override .tag with smaller sizing */
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+}
+
+/* ── View Project Link ──────────────────────────────────── */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 400;
+  color: var(--color-primary);
+  white-space: nowrap;
+  transition: gap var(--transition-fast);
+}
+
+.project-link:hover {
+  gap: 10px;
+}

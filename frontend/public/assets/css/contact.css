@@ -1,0 +1,166 @@
+/* ============================================================
+   contact.css — Contact form + info cards (2-column layout)
+   ============================================================ */
+
+#contact {
+  background-color: var(--bg-surface);
+}
+
+/* ── 2-column grid ──────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* ── Contact Form ───────────────────────────────────────── */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Shared input / select / textarea styles */
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  background-color: rgba(13, 17, 23, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Select arrow */
+.contact-form select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23475569' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.contact-form select option {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+/* ── Form Note ──────────────────────────────────────────── */
+.form-note {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ── Contact Info Stack ─────────────────────────────────── */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Individual Contact Card ────────────────────────────── */
+.contact-card {
+  padding: var(--space-3);
+  /* Extends .card from components.css */
+}
+
+.contact-label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.contact-value {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.contact-accent {
+  color: var(--accent);
+  transition: opacity var(--transition-fast);
+}
+
+.contact-accent:hover {
+  opacity: 0.8;
+}
+
+.contact-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Hiring Pill ────────────────────────────────────────── */
+.hiring-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid var(--success);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  color: var(--success);
+  margin-top: var(--space-2);
+}
+
+.hiring-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--success);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}

@@ -98,7 +98,7 @@
         <div class="hero-content">
           <!-- Badge -->
           <span class="hero-badge pill mono reveal" aria-label="Available for new projects">
-            <span class="status-dot" aria-hidden="true"></span> Available for new projects
+            <span class="dot dot-red" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:red; margin-right:4px;"></span> Available for new projects
           </span>
 
           <!-- Heading -->
@@ -234,79 +234,53 @@
       <div class="container">
         <header class="section-intro reveal">
           <span class="section-label">What We Do</span>
-          <h2 class="heading-2">Full-Stack Expertise. One Studio.</h2>
+          <h2 class="heading-2">Four Services. One Studio.</h2>
         </header>
 
-        <div class="bento-grid reveal-group">
-
-          <!-- Software -->
-          <article class="bento-card bento-software">
-            <span class="bento-cat">Software</span>
-            <div class="bento-bottom">
-              <h3 class="bento-title">Web &amp; Mobile Apps</h3>
-              <p class="bento-sub">Custom-built for scale</p>
-            </div>
+        <div class="services-grid reveal-group">
+          <!-- Card 01 -->
+          <article class="service-card card">
+            <span class="service-number" aria-hidden="true">01</span>
+            <h3 class="service-name">Software Development &amp; Engineering</h3>
+            <div class="service-divider" aria-hidden="true"></div>
+            <p class="service-desc">
+              Custom apps, SaaS platforms, APIs, QA, and AI-first builds tailored to your specific operational needs.
+            </p>
+            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
 
-          <!-- AI / ML -->
-          <article class="bento-card bento-aiml">
-            <span class="bento-cat">AI / ML</span>
-            <div class="bento-bottom">
-              <h3 class="bento-title">AI &amp; Data Systems</h3>
-              <p class="bento-sub">Intelligent automation</p>
-            </div>
+          <!-- Card 02 -->
+          <article class="service-card card">
+            <span class="service-number" aria-hidden="true">02</span>
+            <h3 class="service-name">Web &amp; Digital Presence</h3>
+            <div class="service-divider" aria-hidden="true"></div>
+            <p class="service-desc">
+              High-performance corporate sites, e-commerce, UI/UX, branding, and comprehensive ongoing technical support.
+            </p>
+            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
 
-          <!-- DevOps -->
-          <article class="bento-card bento-devops">
-            <span class="bento-cat">DevOps</span>
-            <div class="bento-bottom">
-              <h3 class="bento-title">CI/CD &amp; Pipelines</h3>
-              <p class="bento-sub">Ship faster, reliably</p>
-            </div>
+          <!-- Card 03 -->
+          <article class="service-card card">
+            <span class="service-number" aria-hidden="true">03</span>
+            <h3 class="service-name">Data &amp; AI Solutions</h3>
+            <div class="service-divider" aria-hidden="true"></div>
+            <p class="service-desc">
+              Business intelligence dashboards, predictive analytics, NLP integrations, and recommendation engine development.
+            </p>
+            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
 
-          <!-- Backend (tall, with logo) -->
-          <article class="bento-card bento-backend">
-            <span class="bento-cat">Backend</span>
-            <div class="bento-logo-wrap">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" class="bento-logo" />
-            </div>
-            <div class="bento-bottom">
-              <h3 class="bento-title">API Engineering</h3>
-              <p class="bento-sub">Fast, secure, documented</p>
-            </div>
+          <!-- Card 04 -->
+          <article class="service-card card">
+            <span class="service-number" aria-hidden="true">04</span>
+            <h3 class="service-name">Cloud &amp; Infrastructure</h3>
+            <div class="service-divider" aria-hidden="true"></div>
+            <p class="service-desc">
+              Cloud hosting on AWS/Azure/GCP, scalable virtual machines, and completely managed IT support and maintenance.
+            </p>
+            <a href="#contact" class="service-link">Explore service <span aria-hidden="true">→</span></a>
           </article>
-
-          <!-- Cloud Infrastructure (tall, with logo) -->
-          <article class="bento-card bento-cloud">
-            <div class="bento-logo-wrap">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="bento-logo" />
-            </div>
-            <div class="bento-bottom">
-              <h3 class="bento-title">Cloud Infrastructure</h3>
-              <p class="bento-sub">AWS, GCP, Docker</p>
-            </div>
-          </article>
-
-          <!-- Design -->
-          <article class="bento-card bento-design">
-            <span class="bento-cat">Design</span>
-            <div class="bento-bottom">
-              <h3 class="bento-title">UI / UX Design</h3>
-              <p class="bento-sub">Interfaces that convert</p>
-            </div>
-          </article>
-
-          <!-- Security -->
-          <article class="bento-card bento-security">
-            <span class="bento-cat">Security</span>
-            <div class="bento-bottom">
-              <h3 class="bento-title">Security &amp; Compliance</h3>
-              <p class="bento-sub">Enterprise-grade protection</p>
-            </div>
-          </article>
-
         </div>
       </div>
     </section>
@@ -612,7 +586,7 @@
 
               <!-- Status Pill -->
               <div class="status-pill" aria-label="Currently available for new projects" style="margin-top: 2rem;">
-                <span class="status-dot" aria-hidden="true"></span>
+                <span class="status-dot" aria-hidden="true" style="background: red; animation: pulse 2s infinite;"></span>
                 Available for new projects
               </div>
             </div>

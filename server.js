@@ -13,6 +13,9 @@ for (const key of REQUIRED_ENV) {
     process.exit(1);
   }
 }
+if (!process.env.GEMINI_API_KEY) {
+  console.warn('⚠️   GEMINI_API_KEY is not set — /api/ai/chat will return errors until configured.');
+}
 if (process.env.JWT_SECRET.length < 32) {
   console.error('❌  JWT_SECRET is too short. Use at least 32 random characters.');
   process.exit(1);
@@ -32,6 +35,7 @@ import contactRoutes  from './routes/contact.js';
 import blogRoutes     from './routes/blog.js';
 import jobRoutes      from './routes/jobs.js';
 import projectRoutes  from './routes/projects.js';
+import aiRoutes       from './routes/ai.js';
 import authMiddleware from './middleware/authMiddleware.js';
 import globalLimiter  from './middleware/globalLimiter.js';
 import logger, { apiLogger } from './config/logger.js';
@@ -108,11 +112,21 @@ app.use(cookieParser());
 // ── Request Logging ───────────────────────────────────────────
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
+} else {
+  // In production: log combined format to Winston so suspicious traffic is captured
+  app.use(morgan('combined', {
+    stream: { write: (msg) => apiLogger.info(msg.trim()) },
+    // Skip health-check pings to reduce noise
+    skip: (req) => req.url === '/health',
+  }));
 }
 
 // ── Body Parsers ──────────────────────────────────────────────
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+
+// ── Health check (for load balancers / uptime monitors) ──────
+app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 // ── API Routes ────────────────────────────────────────────────
 // Apply global scraping/bot limiter to all /api routes
@@ -123,6 +137,7 @@ app.use('/api/contact',  contactRoutes);
 app.use('/api/blog',     blogRoutes);
 app.use('/api/jobs',     jobRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/ai',       aiRoutes);
 
 // ── Protected: resume file downloads (JWT required) ──────────
 app.use('/uploads', authMiddleware, express.static(path.join(__dirname, 'uploads')));
@@ -136,11 +151,13 @@ app.use('/admin', express.static(path.join(__dirname, 'admin')));
 const staticOptions = process.env.NODE_ENV !== 'production'
   ? { etag: false, lastModified: false, setHeaders: (res) => res.setHeader('Cache-Control', 'no-store') }
   : {};
-app.use(express.static(path.join(__dirname, 'frontend'), staticOptions));
+app.use(express.static(path.join(__dirname, 'frontend', 'dist'), staticOptions));
+
+// ── Error Handling ────────────────────────────────────────────
 
 // ── SPA fallback ─────────────────────────────────────────────
 app.get(/^(?!\/api|\/uploads|\/admin).*$/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
 // ── 404 for unmatched API routes ─────────────────────────────

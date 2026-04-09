@@ -1,0 +1,8 @@
+{
+  "ignore": [
+    "frontend/*",
+    "logs/*",
+    ".git"
+  ],
+  "ext": "js,json"
+}

@@ -1,0 +1,82 @@
+/* ============================================================
+   process.css — Horizontal 4-step process with dashed connector
+   ============================================================ */
+
+#process {
+  background-color: var(--bg-primary);
+}
+
+/* ── Steps Row ──────────────────────────────────────────── */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  list-style: none;
+  gap: 0;
+}
+
+/* ── Connector line (pseudo-element) ────────────────────── */
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 24px; /* aligns with center of step number circles */
+  left: calc(12.5% + 24px);
+  width: calc(75% - 48px);
+  height: 1px;
+  background: linear-gradient(to right, var(--accent), var(--border));
+  z-index: 0;
+  /* Dashed effect using repeating-linear-gradient */
+  background: repeating-linear-gradient(
+    to right,
+    var(--accent) 0px,
+    var(--accent) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+  opacity: 0.5;
+}
+
+/* ── Individual Step ────────────────────────────────────── */
+.process-step {
+  padding: var(--space-4);
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Step Number Badge ──────────────────────────────────── */
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--color-primary);
+  border-radius: 0;
+  background-color: var(--bg-primary);
+  font-family: var(--font-heading);
+  font-size: var(--text-micro);
+  font-weight: 400;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0px oklch(0.506 0.200 28 / 0.7);
+}
+
+/* ── Step Name ──────────────────────────────────────────── */
+.step-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.8;
+}
+
+/* ── Step Description ───────────────────────────────────── */
+.step-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 2.2;
+}

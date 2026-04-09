@@ -1,0 +1,87 @@
+/* ============================================================
+   services.css — 2x2 grid of service cards with watermark numbers
+   ============================================================ */
+
+
+
+
+/* ── Services Grid ──────────────────────────────────────── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+/* ── Service Card ───────────────────────────────────────── */
+.service-card {
+  position: relative;
+  overflow: hidden;
+  /* Extends .card from components.css */
+}
+
+/* Override card hover border */
+.service-card:hover {
+  border-color: var(--color-primary);
+}
+
+/* ── Decorative watermark number ────────────────────────── */
+.service-number {
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--color-primary);
+  opacity: 0.15;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Service Name ───────────────────────────────────────── */
+.service-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 1;
+  line-height: 1.8;
+}
+
+/* ── Accent divider line under name ─────────────────────── */
+.service-divider {
+  width: 40px;
+  height: 2px;
+  background-color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Description ────────────────────────────────────────── */
+.service-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 2.2;
+  margin-bottom: var(--space-4);
+}
+
+/* ── Explore Link ───────────────────────────────────────── */
+.service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 400;
+  color: var(--color-primary);
+  transition:
+    gap var(--transition-fast);
+}
+
+.service-link:hover {
+  letter-spacing: 0.03em;
+  gap: 10px;
+}

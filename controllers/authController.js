@@ -137,9 +137,15 @@ export const refresh = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid or expired session. Please log in again.' });
     }
 
-    // Issue a new access token (refresh token itself is NOT rotated here to keep it simple)
-    const accessToken = signAccess(admin);
-    authLogger.info(`Token refreshed`, { username: admin.username, ip: req.ip });
+    // Issue a new access token AND rotate the refresh token (prevents replay after theft)
+    const accessToken        = signAccess(admin);
+    const { raw, hash: newHash } = generateRefreshToken();
+    await Admin.findByIdAndUpdate(admin._id, { refreshTokenHash: newHash });
+
+    // Set the rotated refresh token cookie
+    res.cookie(REFRESH_COOKIE_NAME, raw, refreshCookieOpts);
+
+    authLogger.info(`Token refreshed (refresh token rotated)`, { username: admin.username, ip: req.ip });
 
     res.json({
       success:   true,
