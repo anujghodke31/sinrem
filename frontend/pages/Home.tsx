@@ -262,24 +262,28 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
                  </Button>
               </div>
 
-              {/* Feature Grid - Magic Bento Transition */}
-              <div className="mt-24 w-full">
-                <MagicBento 
-                  textAutoHide={true}
-                  enableStars
-                  enableSpotlight
-                  enableBorderGlow={true}
-                  enableTilt={false}
-                  enableMagnetism={false}
-                  clickEffect
-                  spotlightRadius={400}
-                  particleCount={12}
-                  glowColor="0, 229, 153"
-                  disableAnimations={false}
-                />
-              </div>
-
             </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* 1B. Feature Grid - Magic Bento Transition (Moved OUT of Hero Section) */}
+      <section className="bg-white dark:bg-[#121212] flex flex-col items-center justify-center pb-32 transition-colors duration-300 relative z-20 -mt-16">
+        <Container>
+          <div className="w-full pt-8">
+            <MagicBento 
+              textAutoHide={true}
+              enableStars
+              enableSpotlight
+              enableBorderGlow={true}
+              enableTilt={false}
+              enableMagnetism={false}
+              clickEffect
+              spotlightRadius={400}
+              particleCount={12}
+              glowColor="0, 229, 153"
+              disableAnimations={false}
+            />
           </div>
         </Container>
       </section>

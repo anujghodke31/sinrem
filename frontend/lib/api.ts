@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiUrl } from './apiBase';
 
 // Maps our Express/MongoDB backend "Project" structure to the React frontend's expected UI format
 export function useProjects() {
@@ -7,7 +8,7 @@ export function useProjects() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/projects')
+    fetch(apiUrl('/api/projects'))
       .then(res => res.json())
       .then(json => {
         if (json.success) {

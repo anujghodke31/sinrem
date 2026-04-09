@@ -7,6 +7,7 @@ import { site } from "../lib/site";
 import { ArrowRight, Mail, MessageSquare, MapPin, CheckCircle2, Sparkles } from "lucide-react";
 import { cn } from "../lib/cn";
 import { useAi } from "../context/AiContext";
+import { apiUrl } from "../lib/apiBase";
 
 export default function ContactPage() {
   const { openChat } = useAi();
@@ -32,7 +33,7 @@ export default function ContactPage() {
     
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(apiUrl("/api/contact"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

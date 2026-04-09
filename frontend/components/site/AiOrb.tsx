@@ -8,6 +8,7 @@ import { Button } from "../ui/Button";
 import { site } from "../../lib/site";
 import { cn } from "../../lib/cn";
 import { useAi } from "../../context/AiContext";
+import { apiUrl } from "../../lib/apiBase";
 
 // API key is on the server — frontend calls /api/ai/chat proxy
 
@@ -115,7 +116,7 @@ export function AiOrb() {
 
     try {
       // Send to backend proxy — API key never touches the browser
-      const res = await fetch('/api/ai/chat', {
+      const res = await fetch(apiUrl('/api/ai/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
