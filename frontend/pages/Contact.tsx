@@ -32,25 +32,45 @@ export default function ContactPage() {
     }
     
     setStatus("loading");
+
+    const payload = {
+      name,
+      email,
+      subject: company ? `Project Inquiry from ${company}` : "Project Inquiry",
+      message: need,
+    };
+
+    // Google Apps Script endpoint — works without a backend
+    const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL || '';
+
     try {
-      const res = await fetch(apiUrl("/api/contact"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          subject: company ? `Project Inquiry from ${company}` : "Project Inquiry",
-          message: need
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
+      if (APPS_SCRIPT_URL) {
+        // Send to Google Sheets + email via Apps Script
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          // Apps Script requires text/plain to avoid CORS preflight
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(payload),
+        });
         setStatus("success");
-        setStatusMsg(data.message || "Message sent successfully!");
+        setStatusMsg("Message sent! We'll get back to you within 24 hours.");
         setName(""); setEmail(""); setCompany(""); setNeed("");
       } else {
-        setStatus("error");
-        setStatusMsg(data.message || "Failed to send message.");
+        // Fallback: try the Express backend if deployed
+        const res = await fetch(apiUrl("/api/contact"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setStatus("success");
+          setStatusMsg(data.message || "Message sent successfully!");
+          setName(""); setEmail(""); setCompany(""); setNeed("");
+        } else {
+          setStatus("error");
+          setStatusMsg(data.message || "Failed to send message.");
+        }
       }
     } catch (err: any) {
       setStatus("error");
