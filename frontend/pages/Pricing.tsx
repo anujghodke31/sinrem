@@ -17,7 +17,7 @@ export default function PricingPage() {
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-text mb-6">
             Simple, transparent pricing
           </h1>
-          <p className="text-lg text-muted">
+          <p className="text-lg text-foreground/60">
             Choose the package that fits your stage of growth. No hidden fees.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function PricingPage() {
             >
               <div className="text-center mb-12">
                 <h2 className="text-2xl font-bold text-text">{activeGroup.title}</h2>
-                <p className="mt-2 text-muted max-w-2xl mx-auto">{activeGroup.subtitle}</p>
+                <p className="mt-2 text-foreground/60 max-w-2xl mx-auto">{activeGroup.subtitle}</p>
               </div>
 
               <div className="grid gap-8 lg:grid-cols-3 items-start px-2">
