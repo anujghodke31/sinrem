@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 export function IndustrialVisual() {
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      <svg viewBox="0 0 400 400" className="w-full h-full opacity-60">
+      <svg viewBox="0 0 400 400" className="w-full h-full opacity-75">
         <defs>
           <linearGradient id="metal-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.1" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0.8" />
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0.9" />
           </linearGradient>
         </defs>
         
         {/* Outer Ring - Slow Rotate */}
         <motion.circle
           cx="200" cy="200" r="140"
-          stroke="url(#metal-grad)" strokeWidth="1" fill="none"
+          stroke="url(#metal-grad)" strokeWidth="1.5" fill="none"
           strokeDasharray="4 4"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
@@ -26,7 +26,7 @@ export function IndustrialVisual() {
         {/* Middle Ring - Counter Rotate */}
         <motion.circle
           cx="200" cy="200" r="100"
-          stroke="currentColor" strokeWidth="2" fill="none" strokeOpacity="0.2"
+          stroke="currentColor" strokeWidth="2" fill="none" strokeOpacity="0.35"
           strokeDasharray="40 10"
           animate={{ rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -35,13 +35,13 @@ export function IndustrialVisual() {
         {/* Inner Gear-ish shape */}
         <motion.path
           d="M200 130 L200 270 M130 200 L270 200 M150 150 L250 250 M150 250 L250 150"
-          stroke="currentColor" strokeWidth="1" strokeOpacity="0.3"
+          stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.4"
           animate={{ rotate: 360, scale: [0.9, 1.1, 0.9] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         
         {/* Central Hub */}
-        <circle cx="200" cy="200" r="20" fill="currentColor" fillOpacity="0.1" />
+        <circle cx="200" cy="200" r="20" fill="currentColor" fillOpacity="0.15" />
         <circle cx="200" cy="200" r="4" fill="currentColor" />
       </svg>
     </div>
@@ -53,10 +53,10 @@ export function IndustrialVisual() {
 export function BlueprintVisual() {
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      <svg viewBox="0 0 400 400" className="w-full h-full opacity-70">
+      <svg viewBox="0 0 400 400" className="w-full h-full opacity-80">
         {/* Grid Background */}
         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1"/>
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2"/>
         </pattern>
         <rect width="400" height="400" fill="url(#grid)" />
 
@@ -115,7 +115,7 @@ export function NetworkVisual() {
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
       <svg viewBox="0 0 400 400" className="w-full h-full opacity-80">
         {/* Connections */}
-        <motion.g stroke="currentColor" strokeWidth="1" strokeOpacity="0.2">
+        <motion.g stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.35">
            {points.map((p1, i) => (
              points.map((p2, j) => {
                if (i >= j) return null;
@@ -136,11 +136,11 @@ export function NetworkVisual() {
         {points.map((p, i) => (
           <motion.circle
             key={i}
-            cx={p.x} cy={p.y} r="3"
+            cx={p.x} cy={p.y} r="5"
             fill="currentColor"
             animate={{ 
               scale: [1, 1.5, 1],
-              opacity: [0.5, 1, 0.5]
+              opacity: [0.6, 1, 0.6]
             }}
             transition={{ 
               duration: 2 + Math.random(), 
@@ -153,8 +153,8 @@ export function NetworkVisual() {
         {/* Pulse Ring */}
         <motion.circle
           cx="200" cy="200" r="80"
-          stroke="currentColor" strokeWidth="1" fill="none"
-          animate={{ scale: [0.8, 1.2], opacity: [0.5, 0] }}
+          stroke="currentColor" strokeWidth="1.5" fill="none"
+          animate={{ scale: [0.8, 1.2], opacity: [0.6, 0] }}
           transition={{ duration: 3, repeat: Infinity }}
         />
       </svg>

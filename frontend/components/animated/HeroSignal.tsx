@@ -1,8 +1,15 @@
 import React from 'react';
 import { motion, useReducedMotion } from "framer-motion";
+import { useTheme } from '../../context/ThemeContext';
 
 export function HeroSignal() {
   const reduce = useReducedMotion();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  const rectFill = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)';
+  const rectStroke = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  const laneFill = isDark ? 'rgba(200,200,200,0.1)' : 'rgba(0,0,0,0.07)';
 
   return (
     <div className="relative mx-auto w-full max-w-xl">
@@ -20,16 +27,16 @@ export function HeroSignal() {
         <circle cx="520" cy="90" r="70" fill="url(#g)" opacity="0.1" filter="url(#blur)" />
         <circle cx="200" cy="320" r="90" fill="url(#g)" opacity="0.08" filter="url(#blur)" />
 
-        <rect x="90" y="80" width="540" height="270" rx="26" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" />
+        <rect x="90" y="80" width="540" height="270" rx="26" fill={rectFill} stroke={rectStroke} />
 
-        {/* “Chat / pipeline” lanes */}
+        {/* "Chat / pipeline" lanes */}
         {[
           { y: 150, w: 420 },
           { y: 200, w: 480 },
           { y: 250, w: 360 },
         ].map((row, i) => (
           <g key={i} opacity="0.8">
-            <rect x="140" y={row.y} width={row.w} height="14" rx="7" fill="rgba(120,120,120,0.1)" />
+            <rect x="140" y={row.y} width={row.w} height="14" rx="7" fill={laneFill} />
           </g>
         ))}
 

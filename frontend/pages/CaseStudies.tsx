@@ -220,7 +220,7 @@ export default function CaseStudiesPage() {
       </div>
 
       {/* ── Our Products ─────────────────────────────────── */}
-      <section className="py-20 border-y-4 border-wati-dark/10 dark:border-white/10 bg-gradient-to-br from-wati-greenLight/40 via-white to-wati-blueLight/40 dark:from-[#0d1a12] dark:via-[#121212] dark:to-[#0d1220]">
+      <section className="py-20 border-y-4 border-foreground/10 bg-gradient-to-br from-wati-greenLight/30 via-bg to-wati-blueLight/30 dark:from-[#0d1a12] dark:via-[#121212] dark:to-[#0d1220]">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -233,10 +233,10 @@ export default function CaseStudiesPage() {
               <Sparkles className="text-wati-green" size={20} />
               <span className="text-xs font-black uppercase tracking-widest text-wati-green">Built In-House</span>
             </div>
-            <h2 className="text-5xl sm:text-6xl font-black text-wati-dark dark:text-white tracking-tight mb-4">
+            <h2 className="text-5xl sm:text-6xl font-black text-foreground tracking-tight mb-4">
               Our Products
             </h2>
-            <p className="text-lg text-wati-dark/60 dark:text-white/60 font-medium max-w-xl">
+            <p className="text-lg text-muted-foreground font-medium max-w-xl">
               Beyond client work — products we're building to solve real-world problems at scale.
             </p>
           </motion.div>
@@ -262,7 +262,7 @@ export default function CaseStudiesPage() {
                         <Zap size={10} style={{ color: product.accent }} />
                         {product.category}
                       </div>
-                      <h3 className="text-3xl sm:text-4xl font-black text-wati-dark dark:text-white leading-tight">
+                      <h3 className="text-3xl sm:text-4xl font-black text-foreground leading-tight">
                         {product.name}
                       </h3>
                       <p className="text-base font-bold mt-1" style={{ color: product.accent }}>
@@ -276,14 +276,14 @@ export default function CaseStudiesPage() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-base text-wati-dark/70 dark:text-white/70 leading-relaxed mb-8 font-medium">
+                  <p className="text-base text-foreground/70 leading-relaxed mb-8 font-medium">
                     {product.description}
                   </p>
 
                   {/* Features */}
                   <div className="grid grid-cols-2 gap-2 mb-8">
                     {product.features.map((f, fi) => (
-                      <div key={fi} className="flex items-center gap-2 text-sm font-medium text-wati-dark/80 dark:text-white/80">
+                      <div key={fi} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
                         <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: product.accent }} />
                         {f}
                       </div>
@@ -306,10 +306,10 @@ export default function CaseStudiesPage() {
       <div className="pt-16 pb-4">
         <Container>
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-xs font-black uppercase tracking-widest text-wati-dark/50 dark:text-white/50">Client Work</span>
+            <span className="text-xs font-black uppercase tracking-widest text-foreground/50">Client Work</span>
             <div className="h-px flex-1 bg-wati-dark/10 dark:bg-white/10" />
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-wati-dark dark:text-white tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
             Case Studies
           </h2>
         </Container>

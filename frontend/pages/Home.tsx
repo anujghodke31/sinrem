@@ -1,7 +1,7 @@
 
 import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, CheckCircle2, Zap, Layers, Shield, Sparkles, Box, LayoutGrid, Terminal } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, Zap, Layers, Shield, Sparkles, Box, LayoutGrid } from "lucide-react";
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue } from "framer-motion";
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
@@ -33,7 +33,7 @@ const Sticker: React.FC<{
       delay: 1.5 + delay 
     }}
     className={cn(
-      "absolute flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full border-2 border-black shadow-[4px_4px_0px_0px_#1D1D1B] z-20",
+      "absolute flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-card rounded-full border-2 border-black dark:border-zinc-600 shadow-[4px_4px_0px_0px_#1D1D1B] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] z-20",
       className
     )}
   >
@@ -61,7 +61,7 @@ const PolaroidCard: React.FC<{ project: any, index: number }> = ({ project, inde
   return (
     <Link to={`/case-studies/${project.slug}`} className="group block relative">
        <div 
-         className="relative bg-white p-4 pb-16 border-2 border-black shadow-[8px_8px_0px_0px_#1D1D1B] transition-transform duration-300 group-hover:-translate-y-2 group-hover:rotate-0"
+         className="relative bg-card p-4 pb-16 border-2 border-black dark:border-zinc-700 shadow-[8px_8px_0px_0px_#1D1D1B] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:-translate-y-2 group-hover:rotate-0"
          style={{ transform: `rotate(${rotate}deg)` }}
        >
           {/* Image Area */}
@@ -86,13 +86,13 @@ const PolaroidCard: React.FC<{ project: any, index: number }> = ({ project, inde
              <div>
                 <div className="flex gap-2 mb-3">
                    {project.solution.slice(0, 2).map((tag: string, i: number) => (
-                     <span key={i} className="px-2 py-1 text-[10px] uppercase font-bold border border-black rounded-md bg-wati-yellow/50">
+                     <span key={i} className="px-2 py-1 text-[10px] uppercase font-bold border border-foreground/20 rounded-md bg-foreground/5 text-foreground/70">
                        {tag.split(' ')[0]}
                      </span>
                    ))}
                 </div>
-                <h3 className="text-2xl font-black text-black leading-tight mb-1">{project.company}</h3>
-                <p className="text-sm font-medium text-gray-500 line-clamp-1">{project.title}</p>
+                <h3 className="text-2xl font-black text-foreground leading-tight mb-1">{project.company}</h3>
+                <p className="text-sm font-medium text-muted-foreground line-clamp-1">{project.title}</p>
              </div>
              <div className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center bg-black text-white group-hover:bg-wati-green group-hover:text-black transition-colors">
                 <ArrowUpRight size={20} />
@@ -141,8 +141,8 @@ const VelocityScroll: React.FC<{ children: React.ReactNode, baseVelocity: number
 
 // 5. Bento Grid Item
 const BentoItem: React.FC<{ children: React.ReactNode, className?: string, title?: string }> = ({ children, className, title }) => (
-  <div className={cn("bg-white border-2 border-black p-6 rounded-2xl shadow-hard flex flex-col relative overflow-hidden group", className)}>
-    {title && <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">{title}</div>}
+  <div className={cn("bg-card border-2 border-black dark:border-zinc-700 p-6 rounded-2xl shadow-hard flex flex-col justify-between relative overflow-hidden group min-h-[180px]", className)}>
+    {title && <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">{title}</div>}
     {children}
   </div>
 );
@@ -155,7 +155,7 @@ const TechItem: React.FC<{ name: string, color: string, className?: string }> = 
        <div className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--hover-color)] transition-transform duration-300 group-hover:scale-110">
          <TechIconSVG name={name} className="w-full h-full fill-current" />
        </div>
-       <span className="text-sm sm:text-base font-bold text-gray-500 transition-colors duration-300 group-hover:text-black dark:group-hover:text-white">
+       <span className="text-sm sm:text-base font-bold text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
          {name}
        </span>
     </div>
@@ -176,14 +176,14 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
   const { projects, loading } = useProjects();
 
   return (
-    <main className="bg-white text-black">
+    <main className="bg-bg text-foreground">
       <motion.div className="fixed top-0 left-0 right-0 h-1.5 bg-wati-green origin-left z-[100]" style={{ scaleX }} />
 
       {/* 1. Hero Section - Graph Paper & Stickers */}
-      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20 pb-20 bg-white dark:bg-[#121212] transition-colors duration-300">
+      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20 pb-20 bg-bg transition-colors duration-300">
         
         {/* Animated ShapeGrid Background */}
-        <div className="absolute inset-0 z-0 opacity-[0.2] dark:opacity-[0.1]">
+        <div className="absolute inset-0 z-0 opacity-[0.12] dark:opacity-[0.18]">
            <ShapeGrid 
               direction="diagonal" 
               speed={0.5} 
@@ -222,15 +222,15 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
             <div className="pointer-events-auto">
               
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-4 py-1.5 shadow-[4px_4px_0px_0px_#1D1D1B] mb-8">
+              <div className="inline-flex items-center gap-2 rounded-full border-2 border-foreground/20 bg-card px-4 py-1.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.05)] mb-8">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span className="text-xs font-bold text-black tracking-wide uppercase">
+                <span className="text-xs font-bold text-foreground tracking-wide uppercase">
                   Available for new projects
                 </span>
               </div>
 
               {/* Title with Highlighter Effect */}
-              <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black tracking-tighter text-black dark:text-white leading-[0.9] mb-10 flex flex-col items-center">
+              <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black tracking-tighter text-foreground leading-[0.9] mb-10 flex flex-col items-center">
                 <span className="block mb-2">Build your next</span>
                 <span className="block mb-2">platform with</span>
                 <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
@@ -247,7 +247,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
               </h1>
               
               {/* Subtitle - Restored Full Content */}
-              <p className="text-xl sm:text-2xl font-bold text-gray-500 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed mb-12">
+              <p className="text-xl sm:text-2xl font-bold text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12">
                 Bespoke software solutions. Built for performance, scale, and security. <br className="hidden sm:block"/>
                 From websites and e-commerce to SaaS, APIs, and data/AI systems—engineered for scale.
               </p>
@@ -257,7 +257,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
                  <MagneticButton href="/contact">
                     Talk to us <ArrowRight size={20} className="ml-2 inline-block"/>
                  </MagneticButton>
-                 <Button href="/services" variant="ghost" className="px-8 py-4 h-auto text-lg rounded-full border-2 border-black bg-white hover:bg-gray-100 dark:border-white dark:text-white dark:bg-[#121212] dark:hover:bg-white/10">
+                 <Button href="/services" variant="ghost" className="px-8 py-4 h-auto text-lg rounded-full border-2 border-foreground/30 text-foreground hover:bg-foreground/5">
                     Explore services
                  </Button>
               </div>
@@ -268,7 +268,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
       </section>
 
       {/* 1B. Feature Grid - Magic Bento Transition (Moved OUT of Hero Section) */}
-      <section className="bg-white dark:bg-[#121212] flex flex-col items-center justify-center pb-32 transition-colors duration-300 relative z-20 -mt-16">
+      <section className="bg-bg flex flex-col items-center justify-center pb-32 transition-colors duration-300 relative z-20 -mt-16">
         <Container>
           <div className="w-full pt-8">
             <MagicBento 
@@ -289,14 +289,14 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
       </section>
 
       {/* 2. Velocity Scroll - Caution Tape */}
-      <div className="py-20 bg-white dark:bg-[#121212] overflow-hidden">
+      <div className="py-20 bg-bg overflow-hidden">
         <VelocityScroll baseVelocity={-2}>
            Web Development • Mobile Apps • AI Solutions • Cloud Infrastructure • Cyber Security • UI/UX Design •
         </VelocityScroll>
       </div>
 
       {/* 2b. Our Products Teaser */}
-      <section className="py-20 bg-white dark:bg-[#121212] border-y-2 border-black/5 dark:border-white/5">
+      <section className="py-20 bg-bg border-y-2 border-foreground/5">
         <Container>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
@@ -304,7 +304,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
                 <Sparkles size={16} className="text-wati-green" />
                 <span className="text-xs font-black uppercase tracking-widest text-wati-green">In-House Products</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl font-black text-black dark:text-white tracking-tight">
+              <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
                 Our Products
               </h2>
             </div>
@@ -321,31 +321,31 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="group relative rounded-[1.5rem] border-2 border-black bg-white dark:bg-[#161616] shadow-hard hover:shadow-[6px_6px_0px_0px_#1D1D1B] hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+                className="group relative rounded-[1.5rem] border-2 border-black dark:border-zinc-700 bg-card shadow-hard hover:shadow-[6px_6px_0px_0px_#1D1D1B] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
               >
                 <div className="h-1" style={{ backgroundColor: product.accent }} />
                 <div className="p-7">
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2 block">{product.category}</span>
-                      <h3 className="text-2xl font-black text-black dark:text-white">{product.name}</h3>
+                      <h3 className="text-2xl font-black text-foreground">{product.name}</h3>
                       <p className="text-sm font-bold mt-0.5" style={{ color: product.accent }}>{product.tagline}</p>
                     </div>
-                    <span className="text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border-2 border-black/10 dark:border-white/10 text-black/40 dark:text-white/40 shrink-0 ml-3">
+                    <span className="text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border-2 border-foreground/10 text-foreground/40 shrink-0 ml-3">
                       {product.status}
                     </span>
                   </div>
-                  <p className="text-sm text-black/60 dark:text-white/60 leading-relaxed line-clamp-2 mb-5">
+                  <p className="text-sm text-foreground/60 leading-relaxed line-clamp-2 mb-5">
                     {product.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {product.features.slice(0, 3).map((f, fi) => (
-                      <span key={fi} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-black/70 dark:text-white/70">
+                      <span key={fi} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/70">
                         {f}
                       </span>
                     ))}
                     {product.features.length > 3 && (
-                      <span className="px-2.5 py-1 text-xs font-bold rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-black/40 dark:text-white/40">
+                      <span className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/40">
                         +{product.features.length - 3} more
                       </span>
                     )}
@@ -366,9 +366,9 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
              <div>
                 <Badge className="mb-4 bg-wati-blueLight border-black">Selected Works</Badge>
-                <h3 className="text-5xl sm:text-6xl font-black text-black dark:text-white tracking-tight">
+                <h3 className="text-5xl sm:text-6xl font-black text-foreground tracking-tight">
                   Engineered for <br/>
-                  <span className="text-wati-pink underline decoration-4 decoration-black dark:decoration-white underline-offset-4">Impact.</span>
+                  <span className="text-wati-pink underline decoration-4 decoration-foreground dark:decoration-white underline-offset-4">Impact.</span>
                 </h3>
              </div>
              <Button href="/case-studies" variant="secondary" className="border-2 border-black shadow-hard hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
@@ -397,67 +397,104 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
       </section>
 
       {/* 5. Trust / Tech Stack - Bento Grid */}
-      <section className="py-32 bg-white dark:bg-[#121212]">
+      <section className="py-32 bg-bg">
          <Container>
             <div className="text-center mb-20">
-               <h2 className="text-5xl sm:text-7xl font-black text-black dark:text-white mb-6">Built on modern foundations.</h2>
-               <p className="text-xl font-bold text-gray-500">We don't just write code. We architect systems.</p>
+               <h2 className="text-5xl sm:text-7xl font-black text-foreground mb-6">Built on modern foundations.</h2>
+               <p className="text-xl font-bold text-muted-foreground">We don't just write code. We architect systems.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                
-               {/* Bento 1: Frontend */}
-               <BentoItem className="md:col-span-2 bg-wati-blueLight">
-                  <div className="flex justify-between items-start">
-                     <div className="space-y-2">
-                        <div className="text-3xl font-black">Frontend</div>
-                        <p className="font-bold text-black/60">React, Next.js, TypeScript, Tailwind</p>
+               {/* Bento 1: Frontend — col-span-2 */}
+               <BentoItem className="md:col-span-2 bg-wati-blueLight dark:bg-zinc-800/60">
+                  <div className="flex justify-between items-start mb-6">
+                     <div className="space-y-1">
+                        <div className="text-3xl font-black text-foreground">Frontend</div>
+                        <p className="font-bold text-foreground/60">React, Next.js, TypeScript, Tailwind</p>
                      </div>
-                     <LayoutGrid size={40} className="text-black/20" />
+                     <LayoutGrid size={36} className="text-foreground/20 shrink-0" />
                   </div>
-                  <div className="mt-8 flex gap-4">
-                     {/* Decorative pills */}
-                     <div className="px-4 py-2 bg-white border-2 border-black rounded-lg shadow-sm font-bold text-sm">SSR</div>
-                     <div className="px-4 py-2 bg-white border-2 border-black rounded-lg shadow-sm font-bold text-sm">ISR</div>
-                     <div className="px-4 py-2 bg-white border-2 border-black rounded-lg shadow-sm font-bold text-sm">Edge</div>
+                  <div className="flex flex-wrap gap-4 mt-auto">
+                     {[
+                       { name: 'React', label: 'React' },
+                       { name: 'Next.js', label: 'Next.js' },
+                       { name: 'TypeScript', label: 'TypeScript' },
+                     ].map(({ name, label }) => (
+                       <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                         <TechIconSVG name={name} className="w-5 h-5" />
+                         <span className="text-xs font-bold text-foreground">{label}</span>
+                       </div>
+                     ))}
+                     <div className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" className="w-5 h-5 object-contain" alt="Tailwind" />
+                       <span className="text-xs font-bold text-foreground">Tailwind</span>
+                     </div>
                   </div>
                </BentoItem>
 
                {/* Bento 2: Backend */}
-               <BentoItem className="bg-wati-greenLight">
-                  <div className="space-y-2">
-                     <div className="text-3xl font-black">Backend</div>
-                     <p className="font-bold text-black/60">Node, Python, Go</p>
+               <BentoItem className="bg-wati-greenLight dark:bg-zinc-800/60">
+                  <div className="space-y-1 mb-6">
+                     <div className="text-3xl font-black text-foreground">Backend</div>
+                     <p className="font-bold text-foreground/60">Node, Python, Go</p>
                   </div>
-                  <div className="mt-8">
-                     <Terminal size={60} className="text-black/10 absolute -bottom-4 -right-4 rotate-12" />
+                  <div className="flex flex-wrap gap-3 mt-auto">
+                     {[
+                       { name: 'Node.js', label: 'Node.js' },
+                       { name: 'Python', label: 'Python' },
+                       { name: 'Golang', label: 'Go' },
+                     ].map(({ name, label }) => (
+                       <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                         <TechIconSVG name={name} className="w-5 h-5" />
+                         <span className="text-xs font-bold text-foreground">{label}</span>
+                       </div>
+                     ))}
                   </div>
                </BentoItem>
 
                {/* Bento 3: Cloud */}
-               <BentoItem className="bg-wati-pinkLight">
-                  <div className="space-y-2">
-                     <div className="text-3xl font-black">Cloud</div>
-                     <p className="font-bold text-black/60">AWS, GCP, Vercel</p>
+               <BentoItem className="bg-wati-pinkLight dark:bg-zinc-800/60">
+                  <div className="space-y-1 mb-6">
+                     <div className="text-3xl font-black text-foreground">Cloud</div>
+                     <p className="font-bold text-foreground/60">AWS, GCP, Docker, Vercel</p>
                   </div>
-                  <div className="mt-8 flex gap-2">
-                     <div className="w-3 h-3 rounded-full bg-red-500 border border-black"/>
-                     <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black"/>
-                     <div className="w-3 h-3 rounded-full bg-green-500 border border-black"/>
+                  <div className="flex flex-wrap gap-3 mt-auto">
+                     {[
+                       { name: 'AWS', label: 'AWS' },
+                       { name: 'Google Cloud', label: 'GCP' },
+                       { name: 'Docker', label: 'Docker' },
+                       { name: 'Vercel', label: 'Vercel' },
+                     ].map(({ name, label }) => (
+                       <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                         <TechIconSVG name={name} className="w-5 h-5" />
+                         <span className="text-xs font-bold text-foreground">{label}</span>
+                       </div>
+                     ))}
                   </div>
                </BentoItem>
 
-               {/* Bento 4: AI & Data */}
-               <BentoItem className="md:col-span-2 bg-[#FFF7D1]">
-                  <div className="flex justify-between items-center">
+               {/* Bento 4: AI & Data — col-span-2 */}
+               <BentoItem className="md:col-span-2 bg-[#FFF7D1] dark:bg-zinc-800/60">
+                  <div className="flex justify-between items-start mb-6">
                      <div>
-                        <div className="text-3xl font-black">AI & Data</div>
-                        <p className="font-bold text-black/60">TensorFlow, PyTorch, OpenAI</p>
+                        <div className="text-3xl font-black text-foreground">AI & Data</div>
+                        <p className="font-bold text-foreground/60">TensorFlow, PyTorch, OpenAI, MongoDB</p>
                      </div>
-                     <Sparkles size={40} className="text-black/20" />
+                     <Sparkles size={36} className="text-foreground/20 shrink-0" />
                   </div>
-                  <div className="mt-6 p-4 bg-white/50 border-2 border-black rounded-xl">
-                     <code className="text-xs font-mono font-bold">model.predict(user_growth) // Returns 'Exponential'</code>
+                  <div className="flex flex-wrap gap-3 mt-auto">
+                     {[
+                       { name: 'TensorFlow', label: 'TensorFlow' },
+                       { name: 'PyTorch', label: 'PyTorch' },
+                       { name: 'MongoDB', label: 'MongoDB' },
+                       { name: 'PostgreSQL', label: 'PostgreSQL' },
+                     ].map(({ name, label }) => (
+                       <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                         <TechIconSVG name={name} className="w-5 h-5" />
+                         <span className="text-xs font-bold text-foreground">{label}</span>
+                       </div>
+                     ))}
                   </div>
                </BentoItem>
 
@@ -466,7 +503,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
       </section>
 
       {/* 6. CTA Section - Big Alert */}
-      <section className="py-24 bg-white dark:bg-[#121212] overflow-hidden">
+      <section className="py-24 bg-bg overflow-hidden">
          <Container>
             <div className="bg-wati-yellow border-4 border-black rounded-[3rem] p-8 sm:p-20 relative overflow-hidden shadow-[12px_12px_0px_0px_#1D1D1B]">
                
@@ -482,8 +519,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
                   <h2 className="text-5xl sm:text-7xl font-black text-black mb-8 leading-[0.9]">
                      Stop wrestling with legacy code.
                   </h2>
-                  <p className="text-2xl font-bold text-black/70 mb-12">
-                     Start building the future of your business with a partner that understands performance.
+                  <p className="text-2xl font-bold text-black/70 mb-12">                     Start building the future of your business with a partner that understands performance.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -501,7 +537,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
          {/* Powered by Modern Tech Section */}
          <Container className="mt-24">
             <div className="text-center">
-               <div className="inline-block px-4 py-1.5 rounded-full border border-black/10 bg-gray-50 text-xs font-bold uppercase tracking-widest text-foreground/50 mb-12">
+               <div className="inline-block px-4 py-1.5 rounded-full border border-foreground/15 bg-foreground/5 text-xs font-bold uppercase tracking-widest text-foreground/60 mb-12">
                   Powered by Modern Tech
                </div>
                

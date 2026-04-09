@@ -63,7 +63,6 @@ const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: numbe
                 {service.subtitle}
             </p>
          </div>
-
          <div className="mt-8">
              <div className="flex flex-wrap gap-2">
                 {service.items.slice(0, 3).map((item, i) => (
@@ -94,10 +93,10 @@ export function HorizontalScrollShowcase() {
   const x = useTransform(scrollYProgress, [0, 1], ["2%", "-85%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-white dark:bg-[#121212]">
+    <section ref={targetRef} className="relative h-[400vh] bg-bg">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.4] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(#a1a1aa 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+      <div className="absolute inset-0 opacity-[0.15] dark:opacity-[0.08] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
       />
 
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
@@ -108,7 +107,7 @@ export function HorizontalScrollShowcase() {
              <div className="inline-block px-4 py-1.5 rounded-full bg-wati-yellow border-2 border-black text-xs font-black uppercase tracking-widest mb-6 w-fit shadow-[4px_4px_0px_0px_#1D1D1B]">
                 The Ecosystem
              </div>
-             <h2 className="text-6xl sm:text-8xl font-black tracking-tighter text-wati-dark dark:text-white leading-[0.9] mb-8">
+             <h2 className="text-6xl sm:text-8xl font-black tracking-tighter text-foreground leading-[0.9] mb-8">
                Complete <br />
                <span className="text-transparent bg-clip-text bg-gradient-to-r from-wati-blue to-wati-green">
                  Capabilities.

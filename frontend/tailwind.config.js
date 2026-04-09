@@ -24,19 +24,26 @@ export default {
         card: "hsl(var(--card))",
         text: "hsl(var(--foreground))",
         border: "hsl(var(--border))",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
         brand: {
-          500: "hsl(var(--primary))", 
+          400: "hsl(var(--primary) / 0.8)",
+          500: "hsl(var(--primary))",
+          600: "hsl(var(--primary) / 1.2)",
         },
         // --- Wati Design System Colors (fixed brand palette, not theme-dependent) ---
         wati: {
-          green:      '#00E599',
-          pink:       '#FF6B9D',
-          yellow:     '#FFE566',
-          blue:       '#4FC3FF',
+          green:      '#00C97A',  // slightly deeper for light-mode contrast
+          pink:       '#E8457A',  // deeper pink for readability
+          yellow:     '#F5D800',  // deeper yellow for contrast
+          blue:       '#1A9FD8',  // deeper blue for readability
           dark:       '#1D1D1B',
-          greenLight: '#CCFAEB',
-          pinkLight:  '#FFE0EC',
-          blueLight:  '#E8F4FD',
+          greenLight: '#C2F5E0',  // pastel bg — text must be wati-dark
+          pinkLight:  '#FFD6E7',
+          blueLight:  '#D6EEFF',
+          yellowLight:'#FFF3B0',
         },
         // --- Shadcn Default Theme Properties ---
         input: "hsl(var(--input))",
@@ -54,10 +61,6 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -77,6 +80,7 @@ export default {
         glow: "0 0 0 1px hsl(var(--primary) / .35), 0 20px 70px rgba(0,0,0,.15)",
         soft: "0 10px 40px -10px rgba(0,0,0,.08)",
         hard: "4px 4px 0px 0px #1D1D1B",
+        "hard-white": "4px 4px 0px 0px rgba(255,255,255,0.15)",
       },
       keyframes: {
         "accordion-down": {

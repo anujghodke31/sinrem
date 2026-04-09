@@ -42,8 +42,8 @@ export function Header() {
                 className={cn(
                   "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                   active 
-                    ? "bg-muted/10 text-text font-semibold" 
-                    : "text-foreground/60 hover:text-text hover:bg-muted/5"
+                    ? "bg-muted/10 text-foreground font-semibold" 
+                    : "text-foreground/60 hover:text-foreground hover:bg-muted/5"
                 )}
               >
                 {item.label}
@@ -61,7 +61,7 @@ export function Header() {
         </div>
 
         <button
-          className="md:hidden rounded-lg p-2 text-muted hover:bg-muted/10 hover:text-text"
+          className="md:hidden rounded-lg p-2 text-foreground/60 hover:bg-muted/10 hover:text-foreground"
           onClick={() => setOpen((v) => !v)}
           aria-label="Open menu"
         >
@@ -77,7 +77,7 @@ export function Header() {
                 key={item.href}
                 to={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-4 py-3 text-sm font-medium text-foreground/70 hover:bg-muted/10 hover:text-text"
+                className="rounded-lg px-4 py-3 text-sm font-medium text-foreground/70 hover:bg-muted/10 hover:text-foreground"
               >
                 {item.label}
               </Link>

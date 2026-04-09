@@ -26,9 +26,9 @@ export function Button(props: {
     primary:
       "bg-wati-green text-wati-dark hover:bg-[#00D075]",
     secondary:
-      "bg-white text-wati-dark hover:bg-gray-50",
+      "bg-white dark:bg-zinc-800 text-wati-dark dark:text-foreground hover:bg-gray-50 dark:hover:bg-zinc-700 dark:border-zinc-600",
     ghost:
-      "bg-transparent border-transparent shadow-none hover:bg-muted/10 text-muted hover:text-text hover:shadow-none hover:translate-y-0 active:translate-x-0 active:translate-y-0",
+      "bg-transparent border-transparent shadow-none hover:bg-foreground/5 text-foreground/70 hover:text-foreground hover:shadow-none hover:translate-y-0 active:translate-x-0 active:translate-y-0",
   };
 
   const className = cn(base, styles[v], props.className);

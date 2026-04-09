@@ -7,8 +7,10 @@ export function AmbientGrid() {
         className="absolute inset-0 opacity-[0.18]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.10) 1px, transparent 1px)",
+            // Light mode: dark lines. Dark mode: white lines — handled via CSS var
+            "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
           backgroundSize: "56px 56px",
+          opacity: 0.08,
           maskImage: "radial-gradient(600px 380px at 20% 15%, black 40%, transparent 70%)",
           WebkitMaskImage: "radial-gradient(600px 380px at 20% 15%, black 40%, transparent 70%)",
         }}

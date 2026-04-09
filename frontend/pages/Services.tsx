@@ -129,7 +129,7 @@ export default function ServicesPage() {
                   Excellence.
                 </span>
               </h1>
-              <p className="text-xl sm:text-2xl text-muted font-medium leading-relaxed max-w-2xl border-l-4 border-wati-dark/20 dark:border-white/20 pl-6">
+              <p className="text-xl sm:text-2xl text-muted-foreground font-medium leading-relaxed max-w-2xl border-l-4 border-foreground/20 pl-6">
                 From foundational software to advanced AI systems, we provide the full stack of capabilities required to modernize and scale your enterprise.
               </p>
             </motion.div>
