@@ -168,11 +168,11 @@ const StrategyCard: React.FC<{ index: number, total: number, content: string, th
 
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { projects, loading } = useProjects();
+  const { projects } = useProjects();
   
   const index = projects.findIndex((c) => c.slug === slug);
   const cs = projects[index];
-  const nextCs = projects.length > 0 ? projects[(index + 1) % projects.length] : undefined;
+  const nextCs = projects[(index + 1) % projects.length];
 
   // Get active theme or fallback
   const theme = THEMES[slug || ""] || DEFAULT_THEME;
@@ -186,16 +186,8 @@ export default function CaseStudyDetail() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.95]);
 
-  if (loading) {
-    return (
-      <main className="bg-bg min-h-screen flex items-center justify-center">
-        <div className="text-xl font-bold animate-pulse text-muted">Loading Case Study...</div>
-      </main>
-    );
-  }
-
-  if (!cs || !nextCs) {
-    return <Navigate to="/" replace />;
+  if (!cs) {
+    return <Navigate to="/case-studies" replace />;
   }
 
   return (

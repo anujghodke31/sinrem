@@ -172,7 +172,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
   const { openChat } = useAi();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  const { projects, loading } = useProjects();
+  const { projects } = useProjects();
 
   return (
     <main className="bg-bg text-foreground">
@@ -376,21 +376,11 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {loading ? (
-              <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 text-gray-500 font-bold animate-pulse">
-                Loading featured projects...
+            {projects.slice(0, 3).map((cs, i) => (
+              <div key={cs.slug} className={cn(i === 1 ? "md:translate-y-16" : "")}>
+                <PolaroidCard project={cs} index={i} />
               </div>
-            ) : projects.length === 0 ? (
-              <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 text-gray-500 font-bold">
-                No featured projects found.
-              </div>
-            ) : (
-              projects.slice(0, 3).map((cs, i) => (
-                <div key={cs.slug} className={cn(i === 1 ? "md:translate-y-16" : "")}>
-                  <PolaroidCard project={cs} index={i} />
-                </div>
-              ))
-            )}
+            ))}
           </div>
         </Container>
       </section>

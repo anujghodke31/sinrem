@@ -192,7 +192,7 @@ const CaseStudyRow: React.FC<{ data: CaseStudy, index: number }> = ({ data, inde
 // --- Main Component ---
 
 export default function CaseStudiesPage() {
-  const { projects, loading, error } = useProjects();
+  const { projects } = useProjects();
   return (
     <main className="relative bg-bg overflow-hidden transition-colors duration-300">
       <div className="pt-32 pb-16 sm:pt-40 sm:pb-24">
@@ -316,29 +316,9 @@ export default function CaseStudiesPage() {
       </div>
 
       <div className="flex flex-col gap-4 pb-32">
-        {loading ? (
-           <Container>
-             <div className="py-20 text-center text-xl text-muted animate-pulse">
-               Loading projects...
-             </div>
-           </Container>
-        ) : error ? (
-           <Container>
-             <div className="py-20 text-center text-xl text-red-500">
-               Failed to load projects. Please try again later.
-             </div>
-           </Container>
-        ) : projects.length === 0 ? (
-           <Container>
-             <div className="py-20 text-center text-xl text-muted">
-               No projects found. Check back later!
-             </div>
-           </Container>
-        ) : (
-          projects.map((cs, index) => (
-            <CaseStudyRow key={cs.slug} data={cs} index={index} />
-          ))
-        )}
+        {projects.map((cs, index) => (
+          <CaseStudyRow key={cs.slug} data={cs} index={index} />
+        ))}
       </div>
 
       {/* Footer CTA area - Wati Style */}

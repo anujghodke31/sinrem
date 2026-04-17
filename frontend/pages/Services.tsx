@@ -129,7 +129,7 @@ export default function ServicesPage() {
                   Excellence.
                 </span>
               </h1>
-              <p className="text-xl sm:text-2xl text-muted-foreground font-medium leading-relaxed max-w-2xl border-l-4 border-foreground/20 pl-6">
+              <p className="text-xl sm:text-2xl text-foreground/70 dark:text-foreground/70 font-medium leading-relaxed max-w-2xl border-l-4 border-foreground/20 pl-6">
                 From foundational software to advanced AI systems, we provide the full stack of capabilities required to modernize and scale your enterprise.
               </p>
             </motion.div>
@@ -163,7 +163,7 @@ export default function ServicesPage() {
                         "group flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 border-2",
                         isActive 
                           ? "bg-wati-dark text-white border-wati-dark shadow-hard translate-x-2" 
-                          : "bg-transparent border-transparent text-muted hover:text-text hover:bg-muted/5 hover:border-muted/10"
+                          : "bg-transparent border-transparent text-foreground/60 hover:text-foreground hover:bg-muted/5 hover:border-muted/10"
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -229,7 +229,7 @@ export default function ServicesPage() {
                         </div>
                         <div>
                           <h2 className="text-3xl font-black text-text mb-2">{cat.title}</h2>
-                          <p className="text-lg font-medium text-muted">{cat.subtitle}</p>
+                          <p className="text-lg font-medium text-foreground/70">{cat.subtitle}</p>
                         </div>
                       </div>
                       <div className="shrink-0 pt-2">
@@ -300,7 +300,7 @@ export default function ServicesPage() {
         <Container>
            <div className="max-w-4xl mx-auto text-center">
              <h2 className="text-4xl sm:text-5xl font-black text-text mb-8">Ready to upgrade your infrastructure?</h2>
-             <p className="text-xl font-medium text-muted mb-10 max-w-2xl mx-auto">
+             <p className="text-xl font-medium text-foreground/70 mb-10 max-w-2xl mx-auto">
                Whether you need a simple modernization or a complete digital transformation, we have the team to execute.
              </p>
              <div className="flex flex-col sm:flex-row justify-center gap-4">

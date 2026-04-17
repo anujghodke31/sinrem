@@ -112,7 +112,7 @@ export default function ContactPage() {
               <div className="text-sm font-bold text-brand-500 uppercase tracking-widest mb-6">Contact Us</div>
               
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-text mb-8 leading-[1.05]">
-                <span className="block text-muted/40 transition-colors duration-500">
+                <span className="block text-foreground/50 transition-colors duration-500">
                   {name ? "Hello," : "Let's build"}
                 </span>
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-brand-600">
@@ -120,7 +120,7 @@ export default function ContactPage() {
                 </span>
               </h1>
 
-              <p className="text-xl text-muted leading-relaxed max-w-md mb-12">
+              <p className="text-xl text-foreground/70 leading-relaxed max-w-md mb-12">
                 Got a challenge? We have the engineering. Tell us about your vision, and we’ll figure out the architecture.
               </p>
 
@@ -143,7 +143,7 @@ export default function ContactPage() {
                     <MapPin size={18} />
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-muted/60 mb-1">Visit HQ</div>
+                    <div className="text-sm font-medium text-foreground/60 mb-1">Visit HQ</div>
                     <div className="text-lg font-medium text-text">{site.address}</div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-12">
                    {/* Name Input */}
                    <div className="relative group">
-                      <label htmlFor="name" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'name' ? 'text-brand-500' : 'text-muted')}>
+                      <label htmlFor="name" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'name' ? 'text-brand-500' : 'text-foreground/60')}>
                          01. What's your name? *
                       </label>
                       <input
@@ -173,14 +173,14 @@ export default function ContactPage() {
                         onFocus={() => setFocusedField('name')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="John Doe"
-                        className="w-full bg-transparent border-b-2 border-border py-4 text-2xl sm:text-3xl font-medium text-text placeholder:text-muted/20 outline-none focus:border-brand-500 transition-all duration-300"
+                        className="w-full bg-transparent border-b-2 border-border py-4 text-2xl sm:text-3xl font-medium text-text placeholder:text-foreground/35 outline-none focus:border-brand-500 transition-all duration-300"
                         required
                       />
                    </div>
 
                    {/* Email Input */}
                    <div className="relative group">
-                      <label htmlFor="email" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'email' ? 'text-brand-500' : 'text-muted')}>
+                      <label htmlFor="email" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'email' ? 'text-brand-500' : 'text-foreground/60')}>
                          02. What's your email? *
                       </label>
                       <input
@@ -191,14 +191,14 @@ export default function ContactPage() {
                         onFocus={() => setFocusedField('email')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="john@example.com"
-                        className="w-full bg-transparent border-b-2 border-border py-4 text-2xl sm:text-3xl font-medium text-text placeholder:text-muted/20 outline-none focus:border-brand-500 transition-all duration-300"
+                        className="w-full bg-transparent border-b-2 border-border py-4 text-2xl sm:text-3xl font-medium text-text placeholder:text-foreground/35 outline-none focus:border-brand-500 transition-all duration-300"
                         required
                       />
                    </div>
 
                    {/* Company Input */}
                    <div className="relative group">
-                      <label htmlFor="company" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'company' ? 'text-brand-500' : 'text-muted')}>
+                      <label htmlFor="company" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'company' ? 'text-brand-500' : 'text-foreground/60')}>
                          03. What's your company?
                       </label>
                       <input
@@ -209,13 +209,13 @@ export default function ContactPage() {
                         onFocus={() => setFocusedField('company')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="Acme Corp"
-                        className="w-full bg-transparent border-b-2 border-border py-4 text-2xl sm:text-3xl font-medium text-text placeholder:text-muted/20 outline-none focus:border-brand-500 transition-all duration-300"
+                        className="w-full bg-transparent border-b-2 border-border py-4 text-2xl sm:text-3xl font-medium text-text placeholder:text-foreground/35 outline-none focus:border-brand-500 transition-all duration-300"
                       />
                    </div>
 
                    {/* Need Input */}
                    <div className="relative group">
-                      <label htmlFor="need" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'need' ? 'text-brand-500' : 'text-muted')}>
+                      <label htmlFor="need" className={cn("block text-sm font-medium transition-colors duration-300 mb-2", focusedField === 'need' ? 'text-brand-500' : 'text-foreground/60')}>
                          04. Tell us about your project *
                       </label>
                       <textarea
@@ -226,7 +226,7 @@ export default function ContactPage() {
                         onFocus={() => setFocusedField('need')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="We need a high-performance e-commerce platform..."
-                        className="w-full bg-transparent border-b-2 border-border py-4 text-xl sm:text-2xl font-medium text-text placeholder:text-muted/20 outline-none focus:border-brand-500 transition-all duration-300 resize-none"
+                        className="w-full bg-transparent border-b-2 border-border py-4 text-xl sm:text-2xl font-medium text-text placeholder:text-foreground/35 outline-none focus:border-brand-500 transition-all duration-300 resize-none"
                         required
                       />
                    </div>
@@ -278,7 +278,7 @@ function ContactDetail({ icon, label, value, href }: { icon: React.ReactNode, la
          {icon}
        </div>
        <div>
-         <div className="text-sm font-medium text-muted/60 mb-1 group-hover:text-brand-500 transition-colors">{label}</div>
+         <div className="text-sm font-medium text-foreground/60 mb-1 group-hover:text-brand-500 transition-colors">{label}</div>
          <div className="text-lg font-medium text-text">{value}</div>
        </div>
     </a>
@@ -288,8 +288,8 @@ function ContactDetail({ icon, label, value, href }: { icon: React.ReactNode, la
 function ProcessRow({ num, text }: { num: string, text: string }) {
   return (
     <div className="flex items-center gap-4">
-      <div className="text-xs font-mono font-bold text-brand-500/50">{num}</div>
-      <div className="text-sm text-muted">{text}</div>
+      <div className="text-xs font-mono font-bold text-brand-500">{num}</div>
+      <div className="text-sm text-foreground/70">{text}</div>
     </div>
   )
 }

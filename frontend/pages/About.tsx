@@ -29,7 +29,7 @@ const StatCounter: React.FC<{ value: number, label: string, suffix?: string }> =
   return (
     <div className="text-center p-6 rounded-2xl bg-white dark:bg-card border-2 border-wati-dark dark:border-brand-500 shadow-hard dark:shadow-[4px_4px_0px_0px_#00E785] transition-colors">
       <div ref={nodeRef} className="text-4xl sm:text-5xl font-bold text-wati-dark dark:text-white mb-2 tabular-nums">0</div>
-      <div className="text-sm font-bold text-muted dark:text-gray-400 uppercase tracking-wider">{label}</div>
+      <div className="text-sm font-bold text-foreground/70 dark:text-foreground/60 uppercase tracking-wider">{label}</div>
     </div>
   )
 }
@@ -68,7 +68,7 @@ const VisionMissionSection: React.FC = () => {
                 <h3 className="text-3xl sm:text-4xl font-bold text-wati-dark dark:text-white mb-6">
                    To engineer intelligent software that redefines the future.
                 </h3>
-                <p className="text-lg text-wati-dark/80 dark:text-gray-300 max-w-xl leading-relaxed font-medium">
+                <p className="text-lg text-wati-dark dark:text-gray-100 max-w-xl leading-relaxed font-medium">
                    We envision a world where technology is a seamless bridge, turning ambitious ideas into global, tangible reality. We empower businesses with clarity, efficiency, and secure growth.
                 </p>
              </div>
@@ -102,7 +102,7 @@ const VisionMissionSection: React.FC = () => {
                 <h3 className="text-2xl font-bold text-wati-dark dark:text-white mb-4">
                    Crafting bespoke excellence.
                 </h3>
-                <p className="text-base text-wati-dark/80 dark:text-gray-300 leading-relaxed font-medium">
+                <p className="text-base text-wati-dark dark:text-gray-100 leading-relaxed font-medium">
                    We pioneer by embracing cutting-edge technologies. Our goal is to transform your operational landscape and deliver competitive advantages.
                 </p>
              </div>
@@ -181,7 +181,7 @@ const ProcessStep: React.FC<{ step: { title: string, desc: string }, index: numb
           )} />
 
           <h4 className="text-2xl font-bold mb-3">{step.title}</h4>
-          <p className="text-base font-medium opacity-80 leading-relaxed dark:text-gray-300">{step.desc}</p>
+          <p className="text-base font-medium text-wati-dark dark:text-gray-200 leading-relaxed">{step.desc}</p>
        </div>
     </motion.div>
   )
@@ -201,7 +201,7 @@ const ProcessSection: React.FC = () => {
          <div className="mb-20 md:text-center max-w-3xl mx-auto">
             <h2 className="text-sm font-bold text-brand-600 dark:text-brand-400 uppercase tracking-widest mb-3">The Process</h2>
             <h3 className="text-4xl font-bold text-text mb-6">From concept to code to scale.</h3>
-            <p className="text-lg text-muted">A predictable, transparent workflow designed to mitigate risk.</p>
+            <p className="text-lg text-foreground/70">A predictable, transparent workflow designed to mitigate risk.</p>
          </div>
 
          <div className="relative max-w-5xl mx-auto">
@@ -266,7 +266,7 @@ export default function AboutPage() {
                         <span className="absolute bottom-2 left-0 w-full h-4 bg-wati-green/40 -z-0 skew-x-12"></span>
                       </span> that powers your growth.
                   </h1>
-                  <p className="text-xl sm:text-2xl text-muted leading-relaxed max-w-2xl mx-auto">
+                  <p className="text-xl sm:text-2xl text-foreground/70 leading-relaxed max-w-2xl mx-auto">
                       Sharadchandra Techventures isn't just a dev shop. We are your strategic technical partner, turning complex constraints into elegant, scalable software.
                   </p>
                 </motion.div>
@@ -295,7 +295,7 @@ export default function AboutPage() {
                       Our Promise
                    </div>
                    <h2 className="text-3xl sm:text-5xl font-black mb-6 leading-tight">Built on clarity, execution, and trust.</h2>
-                   <p className="text-lg font-medium opacity-80 mb-8 leading-relaxed">
+                   <p className="text-lg font-medium text-wati-dark/90 dark:text-white/90 mb-8 leading-relaxed">
                       We don't hide behind jargon. We believe in transparent partnerships where you own your code, your data, and your future. No lock-ins, just results.
                    </p>
                    <div className="flex flex-col sm:flex-row gap-4">
