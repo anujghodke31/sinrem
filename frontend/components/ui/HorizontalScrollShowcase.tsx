@@ -113,7 +113,7 @@ export function HorizontalScrollShowcase() {
                  Capabilities.
                </span>
              </h2>
-             <p className="text-xl font-bold text-muted max-w-sm leading-relaxed">
+             <p className="text-xl font-bold text-muted-foreground max-w-sm leading-relaxed">
                A full deck of engineering services designed to scale your business from zero to one, and one to a billion.
              </p>
              <div className="mt-12 flex items-center gap-4">

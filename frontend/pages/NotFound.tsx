@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSEO } from '../lib/useSEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 
 export default function NotFoundPage() {
+  useSEO({ title: 'Page Not Found' });
   return (
     <main className="py-32 bg-bg min-h-[60vh] flex items-center">
       <Container>

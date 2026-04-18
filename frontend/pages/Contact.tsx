@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSEO } from '../lib/useSEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { site } from "../lib/site";
@@ -10,6 +11,7 @@ import { useAi } from "../context/AiContext";
 import { apiUrl } from "../lib/apiBase";
 
 export default function ContactPage() {
+  useSEO({ title: 'Contact', description: 'Get in touch with Sinrem Tech. Tell us about your project and we\'ll respond within 24 hours.', path: '/contact' });
   const { openChat } = useAi();
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
@@ -139,7 +141,7 @@ export default function ContactPage() {
                    href={site.whatsappLink} 
                 />
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-muted/5 border border-border flex items-center justify-center text-muted shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-muted/5 border border-border flex items-center justify-center text-muted-foreground shrink-0">
                     <MapPin size={18} />
                   </div>
                   <div>
@@ -243,11 +245,11 @@ export default function ContactPage() {
                       <Button type="submit" disabled={status === "loading"} className="w-full py-5 text-lg h-auto rounded-xl">
                          {status === "loading" ? "Sending..." : "Send Inquiry"} <ArrowRight size={20} className="ml-2" />
                       </Button>
-                      <div className="text-center text-sm text-muted">or</div>
+                      <div className="text-center text-sm text-muted-foreground">or</div>
                       <Button href={whatsapp} variant="secondary" className="w-full py-5 text-lg h-auto rounded-xl">
                          Chat on WhatsApp
                       </Button>
-                      <div className="text-center text-sm text-muted">or</div>
+                      <div className="text-center text-sm text-muted-foreground">or</div>
                       <Button onClick={openChat} variant="ghost" className="w-full py-5 text-lg h-auto rounded-xl border border-dashed border-brand-500/30 text-brand-500 hover:bg-brand-500/5">
                          <Sparkles size={20} className="mr-2" /> Consult Sinrem AI
                       </Button>
@@ -274,7 +276,7 @@ export default function ContactPage() {
 function ContactDetail({ icon, label, value, href }: { icon: React.ReactNode, label: string, value: string, href: string }) {
   return (
     <a href={href} className="flex gap-4 group">
-       <div className="w-10 h-10 rounded-full bg-muted/5 border border-border flex items-center justify-center text-muted group-hover:text-brand-500 group-hover:border-brand-500/30 transition-all duration-300 shrink-0">
+       <div className="w-10 h-10 rounded-full bg-muted/5 border border-border flex items-center justify-center text-muted-foreground group-hover:text-brand-500 group-hover:border-brand-500/30 transition-all duration-300 shrink-0">
          {icon}
        </div>
        <div>

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useSEO } from '../lib/useSEO';
 import { Container } from "../components/ui/Container";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
@@ -192,6 +193,7 @@ const CaseStudyRow: React.FC<{ data: CaseStudy, index: number }> = ({ data, inde
 // --- Main Component ---
 
 export default function CaseStudiesPage() {
+  useSEO({ title: 'Case Studies & Products', description: 'Explore our portfolio of custom software projects, AI products, and client success stories.', path: '/case-studies' });
   const { projects } = useProjects();
   return (
     <main className="relative bg-bg overflow-hidden transition-colors duration-300">
@@ -210,7 +212,7 @@ export default function CaseStudiesPage() {
                 Delivery.
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl text-muted leading-relaxed font-medium max-w-2xl">
+            <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed font-medium max-w-2xl">
               We don't just claim performance. We engineer it. 
               Explore how we've solved complex challenges for manufacturing, 
               engineering, AI, and retail partners.

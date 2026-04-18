@@ -35,7 +35,7 @@ const StatCard = ({ title, value, trend, trendDir, icon: Icon, delay }: any) => 
     className="bg-card/50 border border-border p-6 rounded-2xl relative overflow-hidden group hover:border-brand-500/30 transition-colors"
   >
     <div className="flex justify-between items-start mb-4">
-      <div className="p-3 bg-muted/10 rounded-xl text-muted group-hover:text-brand-500 group-hover:bg-brand-500/10 transition-colors">
+      <div className="p-3 bg-muted/10 rounded-xl text-muted-foreground group-hover:text-brand-500 group-hover:bg-brand-500/10 transition-colors">
         <Icon size={20} />
       </div>
       {trend && (
@@ -46,7 +46,7 @@ const StatCard = ({ title, value, trend, trendDir, icon: Icon, delay }: any) => 
       )}
     </div>
     <div className="text-3xl font-bold text-text mb-1">{value}</div>
-    <div className="text-sm text-muted">{title}</div>
+    <div className="text-sm text-muted-foreground">{title}</div>
   </motion.div>
 );
 
@@ -86,13 +86,13 @@ const ProjectMilestone = () => {
                      "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors z-10 bg-card",
                      step.status === 'complete' ? "border-brand-500 text-brand-500" :
                      step.status === 'active' ? "border-brand-500 text-black bg-brand-500 shadow-lg shadow-brand-500/40" :
-                     "border-muted/20 text-muted"
+                     "border-muted/20 text-muted-foreground"
                    )}>
                      <Icon size={16} />
                    </div>
                    <div className={cn(
                      "text-xs font-medium",
-                     step.status === 'pending' ? "text-muted" : "text-text"
+                     step.status === 'pending' ? "text-muted-foreground" : "text-text"
                    )}>
                      {step.name}
                    </div>
@@ -104,7 +104,7 @@ const ProjectMilestone = () => {
       </div>
 
       <div className="p-4 bg-muted/5 rounded-xl border border-border/50 text-sm">
-         <div className="text-xs font-bold text-muted uppercase tracking-widest mb-1">Current Focus</div>
+         <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Current Focus</div>
          <span className="text-text font-medium leading-relaxed">Integrating Stripe API and finalizing checkout flow for the Q3 release.</span>
       </div>
     </div>
@@ -171,7 +171,7 @@ export default function DashboardPage() {
           </div>
           <div>
             <h3 className="text-sm font-bold text-text">Experience Total Transparency</h3>
-            <p className="text-sm text-muted">
+            <p className="text-sm text-muted-foreground">
               This is a live demo of our Client Portal. When you partner with Sinrem Tech, you get full access to monitoring, sprints, and code health.
             </p>
           </div>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
           <div>
-             <div className="text-xs font-bold text-muted uppercase tracking-widest mb-1">Project Dashboard</div>
+             <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Project Dashboard</div>
              <h1 className="text-3xl font-bold text-text">Sharadchandra Ecosystem <span className="text-brand-500">.Live</span></h1>
           </div>
           <div className="flex items-center gap-3">
@@ -188,7 +188,7 @@ export default function DashboardPage() {
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 Active
              </div>
-             <div className="text-sm text-muted font-mono">
+             <div className="text-sm text-muted-foreground font-mono">
                 v2.4.0
              </div>
           </div>
@@ -244,7 +244,7 @@ export default function DashboardPage() {
                    </div>
                    <div className="flex gap-2">
                       {['1H', '24H', '7D', '30D'].map(t => (
-                        <button key={t} className={cn("px-2 py-1 text-xs rounded hover:bg-muted/10", t === '24H' ? 'bg-muted/10 text-text font-bold' : 'text-muted')}>
+                        <button key={t} className={cn("px-2 py-1 text-xs rounded hover:bg-muted/10", t === '24H' ? 'bg-muted/10 text-text font-bold' : 'text-muted-foreground')}>
                           {t}
                         </button>
                       ))}
@@ -266,13 +266,13 @@ export default function DashboardPage() {
                       <div className="font-bold text-text flex items-center gap-2">
                         <CheckCircle2 size={18} className="text-blue-500" /> Current Tasks
                       </div>
-                      <span className="text-xs text-muted">Sprint #24</span>
+                      <span className="text-xs text-muted-foreground">Sprint #24</span>
                    </div>
                    <div className="space-y-4">
                       {tickets.map(t => (
                         <div key={t.id} className="p-3 rounded-xl bg-muted/5 border border-border/50 hover:border-brand-500/30 transition-colors">
                            <div className="flex justify-between items-start mb-2">
-                              <span className="text-xs font-mono text-muted">{t.id}</span>
+                              <span className="text-xs font-mono text-muted-foreground">{t.id}</span>
                               <span className={cn(
                                 "text-[10px] px-2 py-0.5 rounded uppercase font-bold",
                                 t.type === 'Feature' ? 'bg-purple-500/10 text-purple-500' :
@@ -283,7 +283,7 @@ export default function DashboardPage() {
                               </span>
                            </div>
                            <div className="text-sm font-medium text-text mb-1">{t.title}</div>
-                           <div className="flex justify-between items-center text-xs text-muted">
+                           <div className="flex justify-between items-center text-xs text-muted-foreground">
                               <span className="text-text">{t.status}</span>
                            </div>
                         </div>
@@ -332,7 +332,7 @@ export default function DashboardPage() {
                            "bg-muted"
                          )} />
                          <div>
-                            <div className="text-xs text-muted mb-0.5 font-mono">{item.time}</div>
+                            <div className="text-xs text-muted-foreground mb-0.5 font-mono">{item.time}</div>
                             <div className="text-sm text-text font-medium leading-tight">{item.text}</div>
                          </div>
                       </div>

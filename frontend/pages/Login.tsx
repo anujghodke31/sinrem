@@ -106,7 +106,7 @@ export default function LoginPage() {
                <h1 className="text-4xl font-bold text-text mb-4">
                  Transparency as <br /> a Service.
                </h1>
-               <p className="text-muted leading-relaxed">
+               <p className="text-muted-foreground leading-relaxed">
                  Login to view real-time project health, server metrics, sprint velocity, and Jira ticket status. We believe you should own your data.
                </p>
              </div>
@@ -118,7 +118,7 @@ export default function LoginPage() {
                    </div>
                    <div>
                       <div className="text-sm font-bold text-text">Real-time Metrics</div>
-                      <div className="text-xs text-muted">Live server & database health monitoring.</div>
+                      <div className="text-xs text-muted-foreground">Live server & database health monitoring.</div>
                    </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -127,7 +127,7 @@ export default function LoginPage() {
                    </div>
                    <div>
                       <div className="text-sm font-bold text-text">Role-Based Access</div>
-                      <div className="text-xs text-muted">Secure, granular permissions for your team.</div>
+                      <div className="text-xs text-muted-foreground">Secure, granular permissions for your team.</div>
                    </div>
                 </div>
              </div>
@@ -137,7 +137,7 @@ export default function LoginPage() {
           <div className="p-8 sm:p-12 flex flex-col justify-center">
              <div className="mb-8">
                <h2 className="text-2xl font-bold text-text mb-2">Welcome back</h2>
-               <p className="text-muted text-sm">Please enter your client credentials.</p>
+               <p className="text-muted-foreground text-sm">Please enter your client credentials.</p>
              </div>
 
              {/* Demo Credentials Box */}
@@ -160,7 +160,7 @@ export default function LoginPage() {
 
              <form onSubmit={handleLogin} className="space-y-6">
                 <div>
-                   <label className="block text-xs font-bold text-muted uppercase tracking-wider mb-2">Email Address</label>
+                   <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Email Address</label>
                    <input 
                      type="email" 
                      value={email}
@@ -174,7 +174,7 @@ export default function LoginPage() {
                    />
                 </div>
                 <div>
-                   <label className="block text-xs font-bold text-muted uppercase tracking-wider mb-2">Password</label>
+                   <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Password</label>
                    <input 
                      type="password" 
                      value={password}
@@ -246,7 +246,7 @@ export default function LoginPage() {
                 </button>
              </form>
              
-             <div className="mt-6 text-center text-xs text-muted">
+             <div className="mt-6 text-center text-xs text-muted-foreground">
                 Protected by 256-bit SSL Encryption. <br />
                 <span className="opacity-50">Authorized personnel only.</span>
              </div>

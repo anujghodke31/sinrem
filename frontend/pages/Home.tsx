@@ -1,6 +1,7 @@
 
 import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
+import { useSEO } from '../lib/useSEO';
 import { ArrowRight, ArrowUpRight, CheckCircle2, Zap, Layers, Shield, Sparkles, Box, LayoutGrid } from "lucide-react";
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue } from "framer-motion";
 import { Container } from "../components/ui/Container";
@@ -169,6 +170,7 @@ interface HomePageProps {
 }
 
 export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps) {
+  useSEO({ title: 'Custom Software & App Development', description: 'Sinrem Tech builds custom web apps, mobile apps, AI solutions, and cloud infrastructure. Bespoke software engineered for performance, scale, and security.', path: '/' });
   const { openChat } = useAi();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });

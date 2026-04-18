@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Header } from './components/site/Header';
 import { Footer } from './components/site/Footer';
@@ -130,9 +130,9 @@ export default function App() {
   return (
     <ThemeProvider>
       <AiProvider>
-        <HashRouter>
+        <BrowserRouter>
           <AppContent />
-        </HashRouter>
+        </BrowserRouter>
       </AiProvider>
     </ThemeProvider>
   );

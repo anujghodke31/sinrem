@@ -77,11 +77,11 @@ const ComponentChip: React.FC<ComponentChipProps> = ({ item, onClick, isSelected
       )}
     >
       <div className="flex items-center gap-3">
-        <div className={cn("p-2 rounded-md transition-colors", isSelected ? "bg-brand-500 text-black" : "bg-muted/10 text-muted group-hover:text-text")}>
+        <div className={cn("p-2 rounded-md transition-colors", isSelected ? "bg-brand-500 text-black" : "bg-muted/10 text-muted-foreground group-hover:text-text")}>
           <Icon size={16} />
         </div>
         <div>
-           <div className={cn("text-sm font-bold transition-colors", isSelected ? "text-text" : "text-muted group-hover:text-text")}>{item.name}</div>
+           <div className={cn("text-sm font-bold transition-colors", isSelected ? "text-text" : "text-muted-foreground group-hover:text-text")}>{item.name}</div>
            <div className="text-[10px] text-muted/60">{item.desc}</div>
         </div>
       </div>
@@ -193,12 +193,12 @@ export default function StackArchitectPage() {
               <span className="text-xs font-bold uppercase tracking-[0.2em]">Sinrem Labs</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text">Stack Architect <span className="text-muted/40">v1.0</span></h1>
-            <p className="mt-2 text-muted max-w-lg">
+            <p className="mt-2 text-muted-foreground max-w-lg">
               Drag-and-drop simulation. Estimate capacity, complexity, and monthly infrastructure costs for your next build.
             </p>
           </div>
           <div className="flex gap-3">
-             <Button variant="ghost" onClick={() => setStack([])} className="text-muted hover:text-text">
+             <Button variant="ghost" onClick={() => setStack([])} className="text-muted-foreground hover:text-text">
                 <RotateCcw size={16} className="mr-2" /> Reset
              </Button>
           </div>
@@ -210,7 +210,7 @@ export default function StackArchitectPage() {
           <div className="lg:col-span-3 space-y-8">
              {['frontend', 'backend', 'database', 'infra'].map((cat) => (
                 <div key={cat}>
-                   <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-4 flex items-center gap-2">
+                   <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4 flex items-center gap-2">
                       {CATEGORY_CONFIG[cat as TechCategory].label}
                    </h3>
                    <div className="space-y-2">
@@ -252,7 +252,7 @@ export default function StackArchitectPage() {
                 {/* Header inside canvas */}
                 <div className="relative z-10 p-6 flex justify-between items-start pointer-events-none">
                    <div className="text-xs font-mono text-muted/50">System Topology View</div>
-                   <div className={cn("px-2 py-1 rounded text-[10px] font-bold uppercase border", stack.length > 0 ? "bg-green-500/10 border-green-500/30 text-green-500" : "bg-muted/10 border-border text-muted")}>
+                   <div className={cn("px-2 py-1 rounded text-[10px] font-bold uppercase border", stack.length > 0 ? "bg-green-500/10 border-green-500/30 text-green-500" : "bg-muted/10 border-border text-muted-foreground")}>
                       {stack.length > 0 ? "System Active" : "Empty Canvas"}
                    </div>
                 </div>
@@ -281,7 +281,7 @@ export default function StackArchitectPage() {
                   <div className="absolute inset-0 z-50 bg-bg/80 backdrop-blur-sm flex flex-col items-center justify-center">
                      <div className="w-16 h-16 border-4 border-brand-500 border-t-transparent rounded-full animate-spin mb-6" />
                      <div className="font-mono text-brand-500 text-sm animate-pulse">RUNNING_SIMULATION...</div>
-                     <div className="mt-2 text-xs text-muted">Calculating throughput vectors</div>
+                     <div className="mt-2 text-xs text-muted-foreground">Calculating throughput vectors</div>
                   </div>
                 )}
 
@@ -314,23 +314,23 @@ export default function StackArchitectPage() {
                  >
                     {/* Capacity */}
                     <div className="bg-card/50 border border-border p-5 rounded-2xl">
-                       <div className="flex items-center gap-2 text-xs font-bold text-muted uppercase tracking-wider mb-2">
+                       <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
                           <Zap size={14} /> Est. Max Concurrency
                        </div>
                        <div className="text-3xl font-mono font-bold text-text">
-                          {metrics.capacity.toLocaleString()} <span className="text-sm text-muted">users/sec</span>
+                          {metrics.capacity.toLocaleString()} <span className="text-sm text-muted-foreground">users/sec</span>
                        </div>
                     </div>
 
                     {/* Cost */}
                     <div className="bg-card/50 border border-border p-5 rounded-2xl">
-                       <div className="flex items-center gap-2 text-xs font-bold text-muted uppercase tracking-wider mb-2">
+                       <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
                           <Cloud size={14} /> Monthly Infra Cost
                        </div>
                        <div className="text-3xl font-mono font-bold text-text">
-                          ${metrics.cost} <span className="text-sm text-muted">/mo</span>
+                          ${metrics.cost} <span className="text-sm text-muted-foreground">/mo</span>
                        </div>
-                       <div className="mt-2 text-[10px] text-muted leading-tight">
+                       <div className="mt-2 text-[10px] text-muted-foreground leading-tight">
                           *Estimate based on standard AWS/Vercel pricing for selected tier.
                        </div>
                     </div>
@@ -338,7 +338,7 @@ export default function StackArchitectPage() {
                     {/* Complexity Meter */}
                     <div className="bg-card/50 border border-border p-5 rounded-2xl">
                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-2 text-xs font-bold text-muted uppercase tracking-wider">
+                          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
                              <Layers size={14} /> Complexity Score
                           </div>
                           <div className={cn("text-xs font-bold px-2 py-0.5 rounded", 
@@ -361,7 +361,7 @@ export default function StackArchitectPage() {
                              )}
                           />
                        </div>
-                       <div className="mt-4 flex items-center gap-2 text-xs text-muted bg-muted/10 p-2 rounded-lg border border-border/50">
+                       <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground bg-muted/10 p-2 rounded-lg border border-border/50">
                           <AlertTriangle size={12} />
                           <span>Dev Velocity Impact: <strong className="text-text">{metrics.velocity}</strong></span>
                        </div>
@@ -369,7 +369,7 @@ export default function StackArchitectPage() {
                     
                     {/* CTA */}
                     <div className="pt-4 border-t border-border space-y-3">
-                       <p className="text-sm text-muted">Need this built for real?</p>
+                       <p className="text-sm text-muted-foreground">Need this built for real?</p>
                        <Button href="/contact" variant="secondary" className="w-full text-xs h-10">
                           Consult an Engineer <ArrowRight size={14} />
                        </Button>

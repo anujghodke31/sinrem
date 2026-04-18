@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform, useInView, animate } from 'framer-motion';
+import { useSEO } from '../lib/useSEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
@@ -230,6 +231,7 @@ const CultureCard: React.FC<{ icon: React.ReactNode, title: string, desc: string
 // --- Main Page Component ---
 
 export default function AboutPage() {
+  useSEO({ title: 'About Us', description: 'Sharadchandra Techventures — a boutique software studio from Pune, India. Building bespoke software since 2023.', path: '/about' });
   // Scroll Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {

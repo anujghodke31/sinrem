@@ -93,7 +93,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
          className="absolute bottom-20 left-10 right-10 h-px bg-white/20 origin-left"
       />
 
-      {/* Forced text-slate-400 instead of text-muted for visibility on dark bg */}
+      {/* Forced text-slate-400 instead of text-muted-foreground for visibility on dark bg */}
       <div className="absolute bottom-10 left-10 flex items-center gap-4 text-[10px] sm:text-xs font-mono font-bold uppercase text-slate-400 tracking-widest mix-blend-difference">
          <div className="tabular-nums">
             {progress}% — 100% Digital Excellence

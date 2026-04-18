@@ -472,18 +472,18 @@ export default function PacketFlow() {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text font-mono">
               PACKET<span className="text-brand-600 dark:text-brand-500">FLOW</span>
             </h1>
-            <p className="mt-2 text-muted font-mono text-sm max-w-md">
+            <p className="mt-2 text-muted-foreground font-mono text-sm max-w-md">
                Restoring uplink connectivity via neural mesh re-routing.
             </p>
           </div>
           
           <div className="flex gap-4">
             <div className="bg-card border border-border p-4 rounded-xl min-w-[120px] shadow-sm">
-               <div className="text-xs text-muted uppercase tracking-widest mb-1 flex items-center gap-1"><HardDrive size={10}/> Level</div>
+               <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1 flex items-center gap-1"><HardDrive size={10}/> Level</div>
                <div className="text-2xl font-bold text-text font-mono">0{currentLevelIdx + 1}</div>
             </div>
             <div className="bg-card border border-border p-4 rounded-xl min-w-[120px] shadow-sm">
-               <div className="text-xs text-muted uppercase tracking-widest mb-1 flex items-center gap-1"><RefreshCw size={10}/> Moves</div>
+               <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1 flex items-center gap-1"><RefreshCw size={10}/> Moves</div>
                <div className="text-2xl font-bold text-brand-600 dark:text-brand-400 font-mono">{moves}</div>
             </div>
           </div>
@@ -520,7 +520,7 @@ export default function PacketFlow() {
                       </motion.div>
                       
                       <h2 className="text-4xl font-bold text-text mb-2 tracking-tight">System Restored</h2>
-                      <p className="text-muted mb-10 font-mono text-sm">Throughput: 100% | Latency: 1ms</p>
+                      <p className="text-muted-foreground mb-10 font-mono text-sm">Throughput: 100% | Latency: 1ms</p>
                       
                       <Button 
                         onClick={() => {
@@ -544,7 +544,7 @@ export default function PacketFlow() {
                      >
                         <CheckCircle2 size={80} className="text-brand-500 mb-6" />
                         <h2 className="text-4xl font-bold text-text mb-6">All Systems Operational</h2>
-                        <Button href="/dashboard" variant="secondary" className="px-8">Return to Dashboard</Button>
+                        <Button href="/" variant="secondary" className="px-8">Return Home</Button>
                      </motion.div>
                   )}
                 </AnimatePresence>
@@ -594,20 +594,20 @@ export default function PacketFlow() {
                    <span className="font-bold uppercase text-xs tracking-widest">Mission Brief</span>
                 </div>
                 <h3 className="text-xl font-bold text-text mb-2">{LEVELS[currentLevelIdx]?.name}</h3>
-                <p className="text-muted text-sm leading-relaxed mb-6">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                    {LEVELS[currentLevelIdx]?.hint}
                 </p>
 
                 <div className="h-px bg-border w-full mb-6" />
 
                 <div className="space-y-3 text-sm">
-                   <div className="flex justify-between items-center text-muted">
+                   <div className="flex justify-between items-center text-muted-foreground">
                       <span>Connection Status</span>
                       <span className={cn("font-bold px-2 py-0.5 rounded text-xs uppercase", gameState === 'playing' ? "bg-yellow-500/10 text-yellow-600 dark:text-yellow-500" : "bg-green-500/10 text-green-600 dark:text-green-500")}>
                         {gameState === 'playing' ? "Disconnected" : "Secure"}
                       </span>
                    </div>
-                   <div className="flex justify-between items-center text-muted">
+                   <div className="flex justify-between items-center text-muted-foreground">
                       <span>Signal Integrity</span>
                       <div className="flex items-center gap-2">
                         <div className="w-24 h-2 bg-muted/20 rounded-full overflow-hidden">
@@ -625,17 +625,17 @@ export default function PacketFlow() {
 
              {/* Legend */}
              <div className="bg-card border border-border p-6 rounded-2xl shadow-sm">
-                 <div className="text-xs font-bold text-muted uppercase tracking-widest mb-4">Component Legend</div>
+                 <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Component Legend</div>
                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 text-sm text-muted">
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
                        <div className="w-8 h-8 rounded-lg bg-card border border-border flex items-center justify-center"><Cpu size={14}/></div>
                        <span><strong>Source:</strong> Data Origin (Fixed)</span>
                     </div>
-                    <div className="flex items-center gap-3 text-sm text-muted">
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
                        <div className="w-8 h-8 rounded-lg bg-card border border-border flex items-center justify-center"><HardDrive size={14}/></div>
                        <span><strong>Target:</strong> Mainframe (Fixed)</span>
                     </div>
-                    <div className="flex items-center gap-3 text-sm text-muted">
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
                        <div className="w-8 h-8 rounded-lg bg-card border border-border flex items-center justify-center"><Lock size={14}/></div>
                        <span><strong>Locked:</strong> Cannot be rotated</span>
                     </div>

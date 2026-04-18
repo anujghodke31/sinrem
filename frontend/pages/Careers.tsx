@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useSEO } from '../lib/useSEO';
 import { Container } from '../components/ui/Container';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
@@ -41,6 +42,7 @@ const openRoles = [
 ];
 
 export default function CareersPage() {
+  useSEO({ title: 'Careers', description: 'Join Sinrem Tech. We\'re hiring frontend developers, backend developers, technical writers, and designers.', path: '/careers' });
   return (
     <main className="bg-bg min-h-screen">
       {/* Hero */}

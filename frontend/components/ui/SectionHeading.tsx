@@ -8,7 +8,7 @@ export function SectionHeading(props: { eyebrow?: string; title: string; subtitl
       ) : null}
       <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-text">{props.title}</h2>
       {props.subtitle ? (
-        <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">{props.subtitle}</p>
+        <p className="mt-4 max-w-2xl text-lg text-muted-foreground leading-relaxed">{props.subtitle}</p>
       ) : null}
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { useSEO } from '../lib/useSEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
@@ -61,6 +62,7 @@ const THEME_CYCLE = [
 ];
 
 export default function ServicesPage() {
+  useSEO({ title: 'Services', description: 'Full-stack software engineering, web development, AI solutions, cloud infrastructure, and digital transformation services.', path: '/services' });
   const { openChat } = useAi();
   const { hash } = useLocation();
   const [activeSection, setActiveSection] = useState(serviceCategories[0].id);
@@ -145,7 +147,7 @@ export default function ServicesPage() {
             {/* Sticky Navigation Sidebar */}
             <div className="hidden lg:block lg:col-span-4 xl:col-span-3">
               <nav className="sticky top-28 space-y-2">
-                <div className="text-xs font-black text-muted uppercase tracking-widest mb-6 px-3">
+                <div className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-6 px-3">
                   Service Ecosystem
                 </div>
                 {serviceCategories.map((cat) => {

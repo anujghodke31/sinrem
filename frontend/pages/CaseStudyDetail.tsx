@@ -243,7 +243,7 @@ export default function CaseStudyDetail() {
               className="flex flex-wrap gap-4 text-sm font-bold"
             >
                {['Strategy', 'Design', 'Development', 'Scale'].map((tag, i) => (
-                 <span key={i} className="px-5 py-2.5 rounded-xl bg-muted/5 border-2 border-muted/20 text-muted uppercase tracking-wide">
+                 <span key={i} className="px-5 py-2.5 rounded-xl bg-muted/5 border-2 border-muted/20 text-muted-foreground uppercase tracking-wide">
                    {tag}
                  </span>
                ))}
@@ -286,11 +286,11 @@ export default function CaseStudyDetail() {
                   <div className="grid grid-cols-2 gap-8 pt-8 border-t-2 border-black/5 dark:border-white/10">
                     <div>
                        <div className="text-5xl font-black text-wati-dark dark:text-white mb-2">24/7</div>
-                       <div className="text-xs font-bold text-muted uppercase tracking-wider">Operation</div>
+                       <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Operation</div>
                     </div>
                     <div>
                        <div className="text-5xl font-black text-wati-dark dark:text-white mb-2">100%</div>
-                       <div className="text-xs font-bold text-muted uppercase tracking-wider">Uptime Goal</div>
+                       <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Uptime Goal</div>
                     </div>
                   </div>
                 </div>
@@ -330,7 +330,7 @@ export default function CaseStudyDetail() {
             
             {/* Impact List */}
             <div>
-              <h2 className="text-sm font-bold text-muted uppercase tracking-widest mb-10">Key Outcomes</h2>
+              <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-10">Key Outcomes</h2>
               <div className="grid gap-6">
                 {cs.impact.map((item, i) => (
                   <motion.div

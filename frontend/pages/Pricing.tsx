@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSEO } from '../lib/useSEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { pricing } from "../lib/content";
@@ -7,6 +8,7 @@ import { Check, Star } from "lucide-react";
 import { cn } from "../lib/cn";
 
 export default function PricingPage() {
+  useSEO({ title: 'Pricing', description: 'Transparent pricing for static websites, e-commerce, and custom-coded web applications. No hidden fees.', path: '/pricing' });
   const [activeTab, setActiveTab] = useState(pricing[0].id);
   const activeGroup = pricing.find(p => p.id === activeTab) || pricing[0];
 
@@ -33,7 +35,7 @@ export default function PricingPage() {
                   onClick={() => setActiveTab(group.id)}
                   className={cn(
                     "relative px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 z-10",
-                    isActive ? "text-text" : "text-muted hover:text-text/80"
+                    isActive ? "text-text" : "text-muted-foreground hover:text-text/80"
                   )}
                 >
                   {isActive && (

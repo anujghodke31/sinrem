@@ -46,7 +46,7 @@ const SliderControl = ({
   return (
     <div className="group">
       <div className="flex justify-between items-end mb-4">
-        <label className="text-sm font-bold text-muted uppercase tracking-wider">{label}</label>
+        <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{label}</label>
         <div className="text-xl font-mono font-bold text-text bg-card border border-border px-3 py-1 rounded-lg shadow-sm group-hover:border-brand-500/50 transition-colors">
            {unit} {value.toLocaleString()} {suffix}
         </div>
@@ -160,7 +160,7 @@ export default function RoiCalculatorPage() {
             The True Cost of <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Latency.</span>
           </h1>
-          <p className="text-xl text-muted leading-relaxed">
+          <p className="text-xl text-muted-foreground leading-relaxed">
             Every second of delay isn't just "slow". It's money leaving your pocket. 
             Use this calculator to quantify exactly how much your load time is costing your business annually.
           </p>
@@ -172,7 +172,7 @@ export default function RoiCalculatorPage() {
           <div className="lg:col-span-5 space-y-8 bg-card border border-border p-8 rounded-3xl shadow-sm h-fit">
              <div className="pb-4 border-b border-border mb-4">
                 <h3 className="font-bold text-lg">Input Metrics</h3>
-                <p className="text-sm text-muted">Adjust based on your analytics.</p>
+                <p className="text-sm text-muted-foreground">Adjust based on your analytics.</p>
              </div>
 
              <SliderControl 
@@ -204,7 +204,7 @@ export default function RoiCalculatorPage() {
                       <Eye size={18} />
                    </div>
                    <div>
-                      <div className="text-xs font-bold uppercase text-muted mb-1">Analysis</div>
+                      <div className="text-xs font-bold uppercase text-muted-foreground mb-1">Analysis</div>
                       <p className="text-sm font-medium text-text">{getInsight()}</p>
                    </div>
                 </div>
@@ -228,7 +228,7 @@ export default function RoiCalculatorPage() {
                   <div className="absolute inset-0 bg-red-500/10 animate-pulse pointer-events-none" />
                 )}
                 
-                <h3 className="text-sm font-bold text-muted uppercase tracking-widest mb-4">Projected Annual Revenue Loss</h3>
+                <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4">Projected Annual Revenue Loss</h3>
                 <div className={cn(
                    "text-5xl sm:text-7xl lg:text-8xl font-black font-mono tracking-tighter mb-4 transition-colors duration-300",
                    metrics.severity === 'critical' ? "text-red-500" :
@@ -237,7 +237,7 @@ export default function RoiCalculatorPage() {
                 )}>
                    ₹<Ticker value={metrics.annualLoss} />
                 </div>
-                <div className="text-muted text-lg max-w-md">
+                <div className="text-muted-foreground text-lg max-w-md">
                    That's money you are actively earning, but <strong className="text-text">failing to collect</strong> due to UX friction.
                 </div>
              </motion.div>
@@ -252,7 +252,7 @@ export default function RoiCalculatorPage() {
                       <div className="text-3xl font-bold text-text">
                          {metrics.bounceIncrease}%
                       </div>
-                      <div className="text-xs font-bold text-muted uppercase">Bounce Probability</div>
+                      <div className="text-xs font-bold text-muted-foreground uppercase">Bounce Probability</div>
                    </div>
                 </div>
                 <div className="bg-card border border-border p-6 rounded-3xl flex items-center gap-4">
@@ -263,7 +263,7 @@ export default function RoiCalculatorPage() {
                       <div className="text-3xl font-bold text-text">
                          <Ticker value={metrics.lostCustomers} />
                       </div>
-                      <div className="text-xs font-bold text-muted uppercase">Lost Customers / Year</div>
+                      <div className="text-xs font-bold text-muted-foreground uppercase">Lost Customers / Year</div>
                    </div>
                 </div>
              </div>
@@ -296,7 +296,7 @@ export default function RoiCalculatorPage() {
                  <AlertCircle size={20} />
               </div>
               <h4 className="text-lg font-bold text-text">The "3-Second" Rule</h4>
-              <p className="text-sm text-muted leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                  53% of mobile users abandon a site that takes longer than 3 seconds to load. If you are at 3.5s, you are literally halving your mobile traffic.
               </p>
            </div>
@@ -305,7 +305,7 @@ export default function RoiCalculatorPage() {
                  <DollarSign size={20} />
               </div>
               <h4 className="text-lg font-bold text-text">SEO Penalty</h4>
-              <p className="text-sm text-muted leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                  Google uses Core Web Vitals as a ranking factor. Slow sites don't just lose customers; they lose the ability to acquire new ones organically.
               </p>
            </div>
@@ -314,7 +314,7 @@ export default function RoiCalculatorPage() {
                  <Activity size={20} />
               </div>
               <h4 className="text-lg font-bold text-text">Compound Effect</h4>
-              <p className="text-sm text-muted leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                  A 1-second delay reduces customer satisfaction by 16%. Dissatisfied customers don't return. The long-term LTV loss is far higher than the calculator shows.
               </p>
            </div>

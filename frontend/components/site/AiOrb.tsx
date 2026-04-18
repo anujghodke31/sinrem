@@ -210,7 +210,7 @@ export function AiOrb() {
                 </div>
                 <button 
                   onClick={() => closeChat()}
-                  className="p-2 hover:bg-muted/10 rounded-full text-muted hover:text-text transition-colors"
+                  className="p-2 hover:bg-muted/10 rounded-full text-muted-foreground hover:text-text transition-colors"
                 >
                   <X size={18} />
                 </button>
@@ -223,7 +223,7 @@ export function AiOrb() {
                     {/* Avatar */}
                     <div className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center shrink-0 border",
-                      msg.role === "model" ? "bg-card border-brand-500/20 text-brand-500" : "bg-muted/20 border-transparent text-muted"
+                      msg.role === "model" ? "bg-card border-brand-500/20 text-brand-500" : "bg-muted/20 border-transparent text-muted-foreground"
                     )}>
                       {msg.role === "model" ? <Bot size={16} /> : <User size={16} />}
                     </div>
