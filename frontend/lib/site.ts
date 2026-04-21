@@ -1,5 +1,5 @@
 export const site = {
-  name: "Sharadchandra Techventures",
+  name: "Sinrem Tech",
   email: "pranit@sinremtech.in",
   phone: "+91 9588643839",
   address: "Katraj, Pune, Maharashtra 411046",

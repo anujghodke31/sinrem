@@ -7,7 +7,5 @@ import './navbar.js';
 import './mobile-menu.js';
 import './reveal.js';
 import './counter.js';
-
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('%csinrem.tech initialized', 'color: #4F8EF7; font-weight: 600;');
-});
+import './modal.js';
+import './careers.js';

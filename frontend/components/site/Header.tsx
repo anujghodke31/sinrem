@@ -26,7 +26,7 @@ export function Header() {
         <Link 
           to="/" 
           className="flex items-center gap-3 group" 
-          aria-label="Sharadchandra Techventures"
+          aria-label="Sinrem Tech"
         >
           <div className="h-10 w-auto flex items-center">
              <Logo className="h-full w-auto text-[#6E4CAE] dark:text-text group-hover:text-brand-500 transition-colors duration-300" />

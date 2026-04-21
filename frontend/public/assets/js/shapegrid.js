@@ -34,6 +34,7 @@ class ShapeGrid {
     this.trailCells     = [];
     this.cellOpacities  = new Map();
     this.rafId          = null;
+    this.isVisible      = true;
     this.numCols        = 0;
     this.numRows        = 0;
 
@@ -44,13 +45,40 @@ class ShapeGrid {
     this._onResize      = this._resize.bind(this);
     this._onMouseMove   = this._handleMouseMove.bind(this);
     this._onMouseLeave  = this._handleMouseLeave.bind(this);
+    this._onVisibilityChange = this._handleVisibilityChange.bind(this);
 
     window.addEventListener('resize', this._onResize);
+    document.addEventListener('visibilitychange', this._onVisibilityChange);
     this.canvas.addEventListener('mousemove', this._onMouseMove);
     this.canvas.addEventListener('mouseleave', this._onMouseLeave);
 
     this._resize();
+    this._setupVisibilityObserver();
     this._tick();
+  }
+
+  _setupVisibilityObserver() {
+    this.observer = new IntersectionObserver((entries) => {
+      this.isVisible = Boolean(entries[0]?.isIntersecting);
+      if (this.isVisible && !this.rafId) {
+        this._tick();
+      } else if (!this.isVisible && this.rafId) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = null;
+      }
+    }, { threshold: 0.01 });
+    this.observer.observe(this.canvas);
+  }
+
+  _handleVisibilityChange() {
+    if (document.hidden && this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+      return;
+    }
+    if (!document.hidden && this.isVisible && !this.rafId) {
+      this._tick();
+    }
   }
 
   // ── Resize ───────────────────────────────────────────────
@@ -255,6 +283,10 @@ class ShapeGrid {
 
   // ── Animation Tick ────────────────────────────────────────
   _tick() {
+    if (document.hidden || !this.isVisible) {
+      this.rafId = null;
+      return;
+    }
     const speed  = Math.max(this.speed, 0.1);
     const wrapX  = this.shape === 'hexagon'  ? this.hexHoriz * 2
                  : this.shape === 'triangle' ? this.squareSize / 2
@@ -337,6 +369,8 @@ class ShapeGrid {
   // ── Destroy ───────────────────────────────────────────────
   destroy() {
     cancelAnimationFrame(this.rafId);
+    document.removeEventListener('visibilitychange', this._onVisibilityChange);
+    if (this.observer) this.observer.disconnect();
     window.removeEventListener('resize', this._onResize);
     this.canvas.removeEventListener('mousemove', this._onMouseMove);
     this.canvas.removeEventListener('mouseleave', this._onMouseLeave);
@@ -355,6 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
     squareSize:       40,
     borderColor:      'rgba(0, 0, 0, 0.08)',
     hoverFillColor:   'rgba(180, 70, 10, 0.16)',
-    hoverTrailAmount: 8
+    hoverTrailAmount: 4
   });
 });

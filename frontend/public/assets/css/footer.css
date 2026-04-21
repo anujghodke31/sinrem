@@ -1,5 +1,5 @@
 /* ============================================================
-   footer.css — 4-column footer: brand | nav | services | contact
+   footer.css — 2-column footer: brand | nav
    ============================================================ */
 
 #footer {
@@ -11,7 +11,7 @@
 /* ── Footer 3-column grid ───────────────────────────────── */
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: var(--space-8);
   padding-bottom: var(--space-6);
 }
@@ -68,9 +68,7 @@
 }
 
 /* ── Nav / Services / Contact Columns ──────────────────── */
-.footer-nav,
-.footer-services,
-.footer-contact {
+.footer-nav {
   display: flex;
   flex-direction: column;
 }
@@ -88,16 +86,12 @@
 }
 
 /* ── Lists ──────────────────────────────────────────────── */
-.footer-nav ul,
-.footer-services ul,
-.footer-contact ul {
+.footer-nav ul {
   list-style: none;
 }
 
 /* ── List Items ─────────────────────────────────────────── */
-.footer-nav li,
-.footer-services li,
-.footer-contact li {
+.footer-nav li {
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-secondary);
@@ -105,18 +99,14 @@
 }
 
 /* ── Links ──────────────────────────────────────────────── */
-.footer-nav a,
-.footer-services a,
-.footer-contact a {
+.footer-nav a {
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-secondary);
   transition: color var(--transition-fast);
 }
 
-.footer-nav a:hover,
-.footer-services a:hover,
-.footer-contact a:hover {
+.footer-nav a:hover {
   color: var(--text-primary);
 }
 

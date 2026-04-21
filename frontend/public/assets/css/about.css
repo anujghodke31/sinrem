@@ -152,27 +152,3 @@
   margin-top: 3px;
 }
 
-/* ── Availability Status Pill ───────────────────────────── */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid var(--success);
-  border-radius: 100px;
-  padding: 8px 16px;
-  margin-top: var(--space-4);
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--success);
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--success);
-  flex-shrink: 0;
-  animation: pulse 2s ease-in-out infinite;
-}

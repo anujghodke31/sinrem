@@ -147,4 +147,7 @@ vite.config.ts.timestamp-*
 /uploads/
 
 # Runtime log output — auto-generated, never commit
-/logs/
+/logs/
+
+# Documentation
+docs/

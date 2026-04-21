@@ -60,7 +60,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
           </div>
         </motion.div>
         <div className="mt-4 text-xs sm:text-sm tracking-[0.4em] uppercase text-brand-400">
-          Techventures
+          Sinrem
         </div>
       </div>
 
