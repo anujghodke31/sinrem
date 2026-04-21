@@ -125,6 +125,7 @@ const StatsSection: React.FC = () => {
            <StatCounter value={20} label="Projects Delivered" suffix="+" />
            <StatCounter value={100} label="Uptime Reliability" suffix="%" />
            <StatCounter value={365} label="Support Coverage" suffix=" Days" />
+           <StatCounter value={100} label="Recurring Clients" suffix="%" />
         </div>
       </Container>
     </section>
@@ -231,7 +232,11 @@ const CultureCard: React.FC<{ icon: React.ReactNode, title: string, desc: string
 // --- Main Page Component ---
 
 export default function AboutPage() {
-  useSEO({ title: 'About Us', description: 'Sharadchandra Techventures — a boutique software studio from Pune, India. Building bespoke software since 2023.', path: '/about' });
+  useSEO({
+    title: "About Us | Sinrem Tech",
+    description: "Learn about Sinrem Tech, our mission, recurring client trust, and the engineering-first approach we use to deliver scalable AI-ready software systems.",
+    path: "/about",
+  });
   // Scroll Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -281,9 +286,6 @@ export default function AboutPage() {
 
       {/* Vision & Mission (Restored 2:1 Layout with Enhanced Aesthetic) */}
       <VisionMissionSection />
-
-      {/* Interactive Process Timeline (Refactored to Tree/Alternating Style) */}
-      <ProcessSection />
 
       {/* Team / Culture / CTA - The "Built on Clarity" Panel */}
       <section className="py-24 sm:py-32 relative">

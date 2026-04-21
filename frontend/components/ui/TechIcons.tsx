@@ -49,6 +49,10 @@ export const TechIconSVG = ({ name, className }: { name: string; className?: str
       return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" {...commonProps} />;
     case 'Selenium':
       return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" {...commonProps} />;
+    case 'OpenAI':
+      return <img src="https://cdn.simpleicons.org/openai" {...commonProps} className={`${className} object-contain dark:invert`} />;
+    case 'LangChain':
+      return <img src="https://cdn.simpleicons.org/langchain" {...commonProps} className={`${className} object-contain dark:invert`} />;
     default:
       return null;
   }

@@ -1,20 +1,21 @@
 
-import React, { useRef } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { useSEO } from '../lib/useSEO';
-import { ArrowRight, ArrowUpRight, CheckCircle2, Zap, Layers, Shield, Sparkles, Box, LayoutGrid } from "lucide-react";
-import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue } from "framer-motion";
+import { ArrowRight, ArrowUpRight, Zap, Sparkles, LayoutGrid } from "lucide-react";
+import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue, useInView } from "framer-motion";
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
-import { HorizontalScrollShowcase } from "../components/ui/HorizontalScrollShowcase";
 import { useProjects } from "../lib/api";
 import { products } from "../lib/content";
 import { cn } from "../lib/cn";
 import { useAi } from "../context/AiContext";
 import { TechIconSVG } from "../components/ui/TechIcons";
 import ShapeGrid from "../components/ui/ShapeGrid";
-import MagicBento from "../components/ui/MagicBento";
+import { LazySection } from "../components/ui/LazySection";
+const HorizontalScrollShowcase = React.lazy(() => import("../components/ui/HorizontalScrollShowcase").then((module) => ({ default: module.HorizontalScrollShowcase })));
+const MagicBento = React.lazy(() => import("../components/ui/MagicBento"));
 
 // --- Sub-components ---
 // 1. Sticker Component (Floating Tech Icons)
@@ -110,6 +111,8 @@ function wrap(min: number, max: number, v: number) {
 }
 
 const VelocityScroll: React.FC<{ children: React.ReactNode, baseVelocity: number }> = ({ children, baseVelocity = 100 }) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(wrapperRef, { amount: 0.1 });
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -118,6 +121,7 @@ const VelocityScroll: React.FC<{ children: React.ReactNode, baseVelocity: number
   const x = useTransform(baseX, (v: number) => `${wrap(-20, -45, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
+    if (!isInView) return;
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
@@ -128,7 +132,7 @@ const VelocityScroll: React.FC<{ children: React.ReactNode, baseVelocity: number
     baseX.set(baseX.get() + moveBy);
   });
   return (
-    <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap bg-wati-yellow border-y-4 border-black py-4 -rotate-1 scale-105 z-10 relative">
+    <div ref={wrapperRef} className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap bg-gradient-to-r from-[#ff4d4f] to-[#ff8a00] border-y-4 border-black py-4 -rotate-1 scale-105 z-10 relative">
       <motion.div className="flex whitespace-nowrap text-4xl sm:text-6xl font-black uppercase tracking-tight text-black" style={{ x }}>
         <span className="block mr-12">{children} </span>
         <span className="block mr-12">{children} </span>
@@ -170,7 +174,29 @@ interface HomePageProps {
 }
 
 export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps) {
-  useSEO({ title: 'Custom Software & App Development', description: 'Sinrem Tech builds custom web apps, mobile apps, AI solutions, and cloud infrastructure. Bespoke software engineered for performance, scale, and security.', path: '/' });
+  useSEO({
+    title: "Sinrem Tech | AI-Powered Custom Software & App Development",
+    description: "Sinrem Tech builds AI-powered custom software, web and mobile apps, cloud systems, and automation workflows to help businesses scale securely and faster.",
+    path: "/",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Sinrem Tech",
+      url: "https://sinremtech.in",
+      logo: "https://sinremtech.in/logo.png",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        availableLanguage: "English",
+        email: "pranit@sinremtech.in",
+        telephone: "+91 9588643839",
+      },
+      sameAs: [
+        "https://www.linkedin.com/company/sinremtech/",
+        "https://www.instagram.com/sinrem_",
+      ],
+    },
+  });
   const { openChat } = useAi();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -212,7 +238,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="Node" />
             </Sticker>
             {/* Bottom Right - Python */}
-            <Sticker className="bottom-[25%] right-[10%] md:right-[20%] rotate-6" delay={0.4}>
+            <Sticker className="bottom-[8%] right-[3%] md:bottom-[16%] md:right-[8%] rotate-6 opacity-80" delay={0.4}>
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="Python" />
             </Sticker>
           </div>
@@ -221,14 +247,6 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
         <Container className="relative z-10 pointer-events-none">
           <div className="max-w-5xl mx-auto text-center">
             <div className="pointer-events-auto">
-
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border-2 border-foreground/20 bg-card px-4 py-1.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.05)] mb-8">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span className="text-xs font-bold text-foreground tracking-wide uppercase">
-                  Available for new projects
-                </span>
-              </div>
 
               {/* Title with Highlighter Effect */}
               <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black tracking-tighter text-foreground leading-[0.9] mb-10 flex flex-col items-center">
@@ -250,7 +268,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
               {/* Subtitle - Restored Full Content */}
               <p className="text-xl sm:text-2xl font-bold text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12">
                 Bespoke software solutions. Built for performance, scale, and security. <br className="hidden sm:block" />
-                From websites and e-commerce to SaaS, APIs, and data/AI systems—engineered for scale.
+                From AI-powered websites and e-commerce to SaaS, APIs, and data automation systems-engineered for scale.
               </p>
 
               {/* Buttons */}
@@ -268,126 +286,149 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
         </Container>
       </section>
 
-      {/* 1B. Feature Grid - Magic Bento Transition (Moved OUT of Hero Section) */}
-      <section className="bg-bg flex flex-col items-center justify-center pb-32 transition-colors duration-300 relative z-20 -mt-16">
-        <Container>
-          <div className="w-full pt-8">
-            <MagicBento
-              textAutoHide={true}
-              enableStars
-              enableSpotlight
-              enableBorderGlow={true}
-              enableTilt={false}
-              enableMagnetism={false}
-              clickEffect
-              spotlightRadius={400}
-              particleCount={12}
-              glowColor="0, 229, 153"
-              disableAnimations={false}
-            />
-          </div>
-        </Container>
-      </section>
-
-      {/* 2. Velocity Scroll - Caution Tape */}
-      <div className="py-20 bg-bg overflow-hidden">
-        <VelocityScroll baseVelocity={-2}>
-          Web Development • Mobile Apps • AI Solutions • Cloud Infrastructure • Cyber Security • UI/UX Design •
-        </VelocityScroll>
-      </div>
-
-      {/* 2b. Our Products Teaser */}
-      <section className="py-20 bg-bg border-y-2 border-foreground/5">
-        <Container>
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles size={16} className="text-wati-green" />
-                <span className="text-xs font-black uppercase tracking-widest text-wati-green">In-House Products</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
-                Our Products
-              </h2>
+      <LazySection placeholderMinHeight="520px" className="bg-bg">
+        {/* 1B. Feature Grid - Magic Bento Transition (Moved OUT of Hero Section) */}
+        <section className="bg-bg flex flex-col items-center justify-center pb-32 transition-colors duration-300 relative z-20 -mt-16">
+          <Container>
+            <div className="w-full pt-8">
+              <Suspense fallback={<div className="h-[420px] w-full rounded-2xl border border-foreground/10 bg-card/40" />}>
+                <MagicBento
+                  textAutoHide={true}
+                  enableStars
+                  enableSpotlight
+                  enableBorderGlow={true}
+                  enableTilt={false}
+                  enableMagnetism={false}
+                  clickEffect
+                  spotlightRadius={400}
+                  particleCount={12}
+                  glowColor="0, 229, 153"
+                  disableAnimations={false}
+                />
+              </Suspense>
             </div>
-            <Link to="/case-studies" className="text-sm font-black uppercase tracking-wide underline underline-offset-4 text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors">
-              View All Work →
-            </Link>
-          </div>
+          </Container>
+        </section>
+      </LazySection>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {products.map((product, i) => (
-              <motion.div
-                key={product.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="group relative rounded-[1.5rem] border-2 border-black dark:border-zinc-700 bg-card shadow-hard hover:shadow-[6px_6px_0px_0px_#1D1D1B] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
-              >
-                <div className="h-1" style={{ backgroundColor: product.accent }} />
-                <div className="p-7">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2 block">{product.category}</span>
-                      <h3 className="text-2xl font-black text-foreground">{product.name}</h3>
-                      <p className="text-sm font-bold mt-0.5" style={{ color: product.accent }}>{product.tagline}</p>
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border-2 border-foreground/10 text-foreground/40 shrink-0 ml-3">
-                      {product.status}
-                    </span>
-                  </div>
-                  <p className="text-sm text-foreground/60 leading-relaxed line-clamp-2 mb-5">
-                    {product.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {product.features.slice(0, 3).map((f, fi) => (
-                      <span key={fi} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/70">
-                        {f}
-                      </span>
-                    ))}
-                    {product.features.length > 3 && (
-                      <span className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/40">
-                        +{product.features.length - 3} more
-                      </span>
-                    )}
-                  </div>
+      <LazySection placeholderMinHeight="220px" className="bg-bg">
+        {/* 2. Velocity Scroll - Caution Tape */}
+        <div className="py-20 bg-bg overflow-hidden">
+          <VelocityScroll baseVelocity={-2}>
+            Web Development • Mobile Apps • AI Solutions • AI Automation • Cloud Infrastructure • Cyber Security • UI/UX Design •
+          </VelocityScroll>
+        </div>
+      </LazySection>
+
+      <LazySection placeholderMinHeight="760px" className="bg-bg">
+        {/* 2b. Our Products Teaser */}
+        <section className="py-20 bg-bg border-y-2 border-foreground/5">
+          <Container>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Sparkles size={16} className="text-wati-green" />
+                  <span className="text-xs font-black uppercase tracking-widest text-wati-green">In-House Products</span>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </Container>
-      </section>
+                <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
+                  Our Products
+                </h2>
+              </div>
+              <Link to="/case-studies" className="text-sm font-black uppercase tracking-wide underline underline-offset-4 text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors">
+                View All Work →
+              </Link>
+            </div>
 
-      {/* 3. Horizontal Scroll Services */}
-      <HorizontalScrollShowcase />
+            <div className="grid md:grid-cols-2 gap-6">
+              {products.map((product, i) => (
+                <motion.div
+                  key={product.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="group relative rounded-[1.5rem] border-2 border-black dark:border-zinc-700 bg-card shadow-hard hover:shadow-[6px_6px_0px_0px_#1D1D1B] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+                >
+                  <div className="h-1" style={{ backgroundColor: product.accent }} />
+                  <div className="aspect-video border-b border-foreground/10 bg-black/10">
+                    <img
+                      src={`https://images.unsplash.com/photo-${i === 0 ? "1518770660439-4636190af475" : "1461749280684-dccba630e2f6"}?auto=format&fit=crop&w=900&q=65`}
+                      alt={product.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="p-7">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <span className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2 block">{product.category}</span>
+                        <h3 className="text-2xl font-black text-foreground">{product.name}</h3>
+                        <p className="text-sm font-bold mt-0.5" style={{ color: product.accent }}>{product.tagline}</p>
+                      </div>
+                      <span className="text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border-2 border-foreground/10 text-foreground/40 shrink-0 ml-3">
+                        {product.status}
+                      </span>
+                    </div>
+                    <p className="text-sm text-foreground/60 leading-relaxed line-clamp-2 mb-5">
+                      {product.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {product.features.slice(0, 3).map((f, fi) => (
+                        <span key={fi} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/70">
+                          {f}
+                        </span>
+                      ))}
+                      {product.features.length > 3 && (
+                        <span className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/40">
+                          +{product.features.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </Container>
+        </section>
+      </LazySection>
+
+      <LazySection placeholderMinHeight="600px" className="bg-bg">
+        {/* 3. Horizontal Scroll Services */}
+        <Suspense fallback={<div className="h-[60vh] bg-bg" />}>
+          <HorizontalScrollShowcase />
+        </Suspense>
+      </LazySection>
 
       {/* 4. Featured Work - Polaroid Grid */}
-      <section className="py-32 bg-[#f0f0f0] dark:bg-[#1a1a1a] border-y-4 border-black">
-        <Container>
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
-            <div>
-              <Badge className="mb-4 bg-wati-blueLight border-black">Selected Works</Badge>
-              <h3 className="text-5xl sm:text-6xl font-black text-foreground tracking-tight">
-                Engineered for <br />
-                <span className="text-wati-pink underline decoration-4 decoration-foreground dark:decoration-white underline-offset-4">Impact.</span>
-              </h3>
-            </div>
-            <Button href="/case-studies" variant="secondary" className="border-2 border-black shadow-hard hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
-              View All Projects
-            </Button>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {projects.slice(0, 3).map((cs, i) => (
-              <div key={cs.slug} className={cn(i === 1 ? "md:translate-y-16" : "")}>
-                <PolaroidCard project={cs} index={i} />
+      <LazySection placeholderMinHeight="900px" className="bg-[#f0f0f0] dark:bg-[#1a1a1a]">
+        <section className="py-32 bg-[#f0f0f0] dark:bg-[#1a1a1a] border-y-4 border-black">
+          <Container>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+              <div>
+                <Badge className="mb-4 bg-wati-blueLight border-black">Selected Works</Badge>
+                <h3 className="text-5xl sm:text-6xl font-black text-foreground tracking-tight">
+                  Engineered for <br />
+                  <span className="text-wati-pink underline decoration-4 decoration-foreground dark:decoration-white underline-offset-4">Impact.</span>
+                </h3>
               </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+              <Button href="/case-studies" variant="secondary" className="border-2 border-black shadow-hard hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                View All Projects
+              </Button>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+              {projects.slice(0, 3).map((cs, i) => (
+                <div key={cs.slug} className={cn(i === 1 ? "md:translate-y-16" : "")}>
+                  <PolaroidCard project={cs} index={i} />
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+      </LazySection>
 
       {/* 5. Trust / Tech Stack - Bento Grid */}
+      <LazySection placeholderMinHeight="1200px" className="bg-bg">
       <section className="py-32 bg-bg">
         <Container>
           <div className="text-center mb-20">
@@ -492,8 +533,10 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
           </div>
         </Container>
       </section>
+      </LazySection>
 
       {/* 6. CTA Section - Big Alert */}
+      <LazySection placeholderMinHeight="1200px" className="bg-bg">
       <section className="py-24 bg-bg overflow-hidden">
         <Container>
           <div className="bg-wati-yellow border-4 border-black rounded-[3rem] p-8 sm:p-20 relative overflow-hidden shadow-[12px_12px_0px_0px_#1D1D1B]">
@@ -566,6 +609,56 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
           </div>
         </Container>
       </section>
+      </LazySection>
+
+      <LazySection placeholderMinHeight="420px" className="bg-bg">
+      <section className="py-24 bg-bg border-y-2 border-foreground/5">
+        <Container>
+          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-10">Trusted By</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {["Shree Metal Industries", "CVK Engineers", "C4i4", "House of Amrth"].map((name) => (
+              <div key={name} className="h-24 rounded-xl border-2 border-black dark:border-zinc-700 bg-card shadow-hard flex items-center justify-center px-4 text-center text-xs font-bold text-foreground/70">
+                {name}
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+      </LazySection>
+
+      <LazySection placeholderMinHeight="520px" className="bg-bg">
+      <section className="py-24 bg-bg">
+        <Container>
+          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-10">What Our Clients Say</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {projects.slice(0, 4).map((p) => (
+              <div key={p.slug} className="rounded-2xl border-2 border-black dark:border-zinc-700 bg-card p-6 shadow-hard">
+                <p className="text-foreground/70 text-sm leading-relaxed mb-4">"{p.testimonial}"</p>
+                <div className="text-sm font-black text-foreground">{p.company}</div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+      </LazySection>
+
+      <LazySection placeholderMinHeight="360px" className="bg-bg">
+      <section className="py-24 bg-bg">
+        <Container>
+          <div className="rounded-3xl border-2 border-black dark:border-zinc-700 bg-card p-8 md:p-12 shadow-hard flex flex-col md:flex-row items-center gap-8">
+            <div className="w-24 h-24 rounded-full bg-foreground/5 border-2 border-foreground/20 relative overflow-hidden">
+              <div className="absolute inset-x-6 top-4 h-8 rounded-full bg-brand-500/40 animate-pulse" />
+              <div className="absolute inset-x-5 bottom-3 h-10 rounded-t-2xl bg-brand-500/20" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-3xl sm:text-4xl font-black text-foreground mb-2">Sinrem Academy</h2>
+              <p className="text-foreground/70 mb-6">Learn. Build. Grow. Training programs for developers and businesses with practical AI and software execution.</p>
+              <Button href="/contact">Explore Academy</Button>
+            </div>
+          </div>
+        </Container>
+      </section>
+      </LazySection>
     </main>
   );
 }

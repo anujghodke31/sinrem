@@ -202,6 +202,10 @@ const ShapeGrid = ({
     };
 
     const updateAnimation = () => {
+      if (document.hidden) {
+        requestRef.current = requestAnimationFrame(updateAnimation);
+        return;
+      }
       const effectiveSpeed = Math.max(speed, 0.1);
       const wrapX = isHex ? hexHoriz * 2 : squareSize;
       const wrapY = isHex ? hexVert : isTri ? squareSize * 2 : squareSize;

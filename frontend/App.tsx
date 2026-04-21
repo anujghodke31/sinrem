@@ -6,6 +6,7 @@ import { Footer } from './components/site/Footer';
 import { ThemeProvider } from './context/ThemeContext';
 import { AiProvider } from './context/AiContext';
 import { Preloader } from './components/ui/Preloader';
+import { site } from './lib/site';
 import HomePage from './pages/Home';
 
 // --- Priority 2: Chatbot (Lazy loaded immediately after main bundle) ---
@@ -16,9 +17,11 @@ const AiOrb = React.lazy(() => import('./components/site/AiOrb').then(module => 
 const ServicesPage = React.lazy(() => import('./pages/Services'));
 const CaseStudiesPage = React.lazy(() => import('./pages/CaseStudies'));
 const CaseStudyDetailPage = React.lazy(() => import('./pages/CaseStudyDetail'));
-const PricingPage = React.lazy(() => import('./pages/Pricing'));
 const AboutPage = React.lazy(() => import('./pages/About'));
 const ContactPage = React.lazy(() => import('./pages/Contact'));
+const TechnologiesPage = React.lazy(() => import('./pages/Technologies'));
+const BlogPage = React.lazy(() => import('./pages/Blog'));
+const AcademyPage = React.lazy(() => import('./pages/Academy'));
 const LoginPage = React.lazy(() => import('./pages/Login'));
 const DashboardPage = React.lazy(() => import('./pages/Dashboard'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
@@ -98,9 +101,12 @@ function AppContent() {
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/case-studies" element={<CaseStudiesPage />} />
               <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
-              <Route path="/pricing" element={<PricingPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/technologies" element={<TechnologiesPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/connect" element={<ContactPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/academy" element={<AcademyPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/careers" element={<CareersPage />} />
@@ -121,6 +127,15 @@ function AppContent() {
         <Suspense fallback={null}>
           <AiOrb />
         </Suspense>
+        <a
+          href={site.whatsappLink}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="fixed bottom-24 right-6 z-[9998] h-12 w-12 rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] flex items-center justify-center text-xl"
+        >
+          W
+        </a>
       </div>
     </>
   );

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Logo } from './Logo';
 
 const CURVE: [number, number, number, number] = [0.76, 0, 0.24, 1]; // Custom cubic-bezier for the wipe
-
-const MAIN_TEXT = "SHARADCHANDRA";
-const SUB_TEXT = "Techventures";
 
 interface PreloaderProps {
   onLoadingComplete: () => void;
@@ -49,39 +47,21 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
       // Forced dark background (slate-950) instead of semantic 'bg-bg' to ensure dark preloader always
       className="fixed inset-0 z-[9999] bg-slate-950 flex flex-col items-center justify-center p-8 sm:p-20 overflow-hidden"
     >
-      <div className="flex flex-col items-center justify-center relative z-10 mix-blend-difference text-white w-full max-w-7xl">
-        
-        {/* Top Label (Like 'The Syndicate') */}
-        <div className="overflow-hidden mb-4 sm:mb-6">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "circOut" }}
-            className="font-display font-bold text-xs sm:text-sm tracking-[0.5em] sm:tracking-[1em] uppercase text-brand-500"
-          >
-            {SUB_TEXT}
-          </motion.div>
+      <div className="flex flex-col items-center justify-center relative z-10 text-white w-full max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="relative"
+        >
+          <div className="absolute inset-0 blur-2xl bg-brand-500/25 rounded-full" />
+          <div className="relative h-16 sm:h-20">
+            <Logo className="h-full w-auto text-brand-500" />
+          </div>
+        </motion.div>
+        <div className="mt-4 text-xs sm:text-sm tracking-[0.4em] uppercase text-brand-400">
+          Techventures
         </div>
-
-        {/* Main Text (Like 'AVANT') */}
-        <div className="flex flex-wrap justify-center gap-0.5 sm:gap-1 overflow-hidden">
-          {MAIN_TEXT.split("").map((char, i) => (
-            <motion.span
-              key={`main-${i}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ 
-                delay: 0.2 + (i * 0.05), // Staggered entry
-                duration: 0.5,
-                ease: "easeOut"
-              }}
-              className="font-display font-bold text-[8vw] sm:text-[6vw] leading-none tracking-tighter"
-            >
-              {char}
-            </motion.span>
-          ))}
-        </div>
-
       </div>
 
       {/* Footer / Progress Line */}

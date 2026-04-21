@@ -62,7 +62,11 @@ const THEME_CYCLE = [
 ];
 
 export default function ServicesPage() {
-  useSEO({ title: 'Services', description: 'Full-stack software engineering, web development, AI solutions, cloud infrastructure, and digital transformation services.', path: '/services' });
+  useSEO({
+    title: "Services | Sinrem Tech",
+    description: "Explore Sinrem Tech services including AI solutions, custom software development, cloud infrastructure, API engineering, and digital modernization.",
+    path: "/services",
+  });
   const { openChat } = useAi();
   const { hash } = useLocation();
   const [activeSection, setActiveSection] = useState(serviceCategories[0].id);

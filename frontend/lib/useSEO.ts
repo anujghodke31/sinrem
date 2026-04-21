@@ -4,38 +4,52 @@ interface SEOProps {
   title: string;
   description?: string;
   path?: string;
+  ogType?: string;
+  jsonLd?: Record<string, any>;
 }
 
-const BASE = 'Sinrem Tech';
 const DOMAIN = 'https://sinremtech.in';
 
-export function useSEO({ title, description, path }: SEOProps) {
+export function useSEO({ title, description, path, ogType = "website", jsonLd }: SEOProps) {
   useEffect(() => {
-    // Title
-    document.title = `${title} | ${BASE}`;
+    document.title = title;
 
-    // Meta description
+    const setMeta = (selector: string, content: string) => {
+      const node = document.querySelector(selector) as HTMLMetaElement | null;
+      if (node) node.content = content;
+    };
+
     if (description) {
-      let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement;
-      if (meta) meta.content = description;
+      setMeta('meta[name="description"]', description);
+      setMeta('meta[property="og:description"]', description);
+      setMeta('meta[name="twitter:description"]', description);
     }
 
-    // Canonical
+    setMeta('meta[name="robots"]', "index, follow");
+    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[name="twitter:title"]', title);
+    setMeta('meta[property="og:type"]', ogType);
+    setMeta('meta[name="twitter:card"]', "summary_large_image");
+    setMeta('meta[property="og:image"]', "https://sinremtech.in/og-image.png");
+    setMeta('meta[name="twitter:image"]', "https://sinremtech.in/og-image.png");
+
     if (path) {
-      let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-      if (link) link.href = `${DOMAIN}${path}`;
-
-      let ogUrl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement;
-      if (ogUrl) ogUrl.content = `${DOMAIN}${path}`;
+      const canonicalUrl = `${DOMAIN}${path}`;
+      const link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (link) link.href = canonicalUrl;
+      setMeta('meta[property="og:url"]', canonicalUrl);
     }
 
-    // OG title + description
-    let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement;
-    if (ogTitle) ogTitle.content = `${title} | ${BASE}`;
-
-    if (description) {
-      let ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement;
-      if (ogDesc) ogDesc.content = description;
+    const scriptId = "org-jsonld";
+    const existingScript = document.getElementById(scriptId);
+    if (jsonLd) {
+      const script = existingScript || document.createElement("script");
+      script.setAttribute("type", "application/ld+json");
+      script.setAttribute("id", scriptId);
+      script.textContent = JSON.stringify(jsonLd);
+      if (!existingScript) document.head.appendChild(script);
+    } else if (existingScript) {
+      existingScript.remove();
     }
-  }, [title, description, path]);
+  }, [title, description, path, ogType, jsonLd]);
 }

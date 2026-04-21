@@ -11,7 +11,11 @@ import { useAi } from "../context/AiContext";
 import { apiUrl } from "../lib/apiBase";
 
 export default function ContactPage() {
-  useSEO({ title: 'Contact', description: 'Get in touch with Sinrem Tech. Tell us about your project and we\'ll respond within 24 hours.', path: '/contact' });
+  useSEO({
+    title: "Connect With Us | Sinrem Tech",
+    description: "Connect with Sinrem Tech to discuss your software or AI project. Share requirements, and our team responds with architecture, timeline, and scope.",
+    path: "/connect",
+  });
   const { openChat } = useAi();
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);

@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { serviceCategories } from "../../lib/content";
 import { ArrowRight, Code, Globe, Database, Briefcase, Cloud, CreditCard, ShieldCheck, Cpu } from "lucide-react";
@@ -31,17 +31,20 @@ const iconMap: Record<string, React.ReactNode> = {
 
 // --- Sub-component ---
 
-const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: number }> = ({ service, index }) => {
+const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: number, onOpen: (service: typeof serviceCategories[0]) => void }> = ({ service, index, onOpen }) => {
   const theme = CARD_THEMES[index % CARD_THEMES.length];
 
   return (
-    <div className={cn(
+    <button
+      type="button"
+      onClick={() => onOpen(service)}
+      className={cn(
         "group relative h-[65vh] w-[85vw] sm:w-[450px] shrink-0 flex flex-col justify-between overflow-hidden rounded-[2rem] border-4 transition-all duration-300 hover:-translate-y-2",
         theme.bg,
         "border-wati-dark", // Always black borders for contrast
         "shadow-hard", // Base hard shadow
         "hover:shadow-[12px_12px_0px_0px_#1D1D1B]" // Deeper shadow on hover
-    )}>
+      )}>
       
       {/* Card Header & Content */}
       <div className="p-8 sm:p-10 h-full flex flex-col">
@@ -78,7 +81,7 @@ const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: numbe
              </div>
          </div>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -86,6 +89,7 @@ const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: numbe
 
 export function HorizontalScrollShowcase() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const [activeService, setActiveService] = useState<(typeof serviceCategories)[0] | null>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
@@ -130,6 +134,7 @@ export function HorizontalScrollShowcase() {
               key={service.id} 
               service={service} 
               index={index} 
+              onOpen={setActiveService}
             />
           ))}
 
@@ -146,6 +151,31 @@ export function HorizontalScrollShowcase() {
 
         </motion.div>
       </div>
+      {activeService && (
+        <div className="fixed inset-0 z-[120] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl rounded-2xl border-2 border-black bg-card p-6 shadow-hard">
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-2xl font-black text-foreground">{activeService.title}</h3>
+              <button type="button" onClick={() => setActiveService(null)} className="text-sm font-bold px-3 py-1 rounded-lg border border-foreground/20">
+                Close
+              </button>
+            </div>
+            <p className="text-foreground/70 mb-5">{activeService.subtitle}</p>
+            <div className="aspect-video rounded-xl overflow-hidden border border-foreground/10 mb-5">
+              <img
+                src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1400&q=80"
+                alt={activeService.title}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <ul className="grid sm:grid-cols-2 gap-2 text-sm font-medium text-foreground/80">
+              {activeService.items.map((item) => (
+                <li key={item}>- {item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

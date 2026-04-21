@@ -7,9 +7,10 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 import { Logo } from "../ui/Logo";
 
 const nav = [
+  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/case-studies", label: "Case Studies" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/technologies", label: "Technologies" },
   { href: "/about", label: "About" },
 ];
 
@@ -55,7 +56,7 @@ export function Header() {
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
           <Button href="/contact" variant="primary" className="rounded-full px-5">
-            Contact
+            Connect
             <ArrowRight size={16} />
           </Button>
         </div>
@@ -85,7 +86,7 @@ export function Header() {
             <div className="flex items-center gap-3 pt-4 mt-2 border-t border-border">
               <ThemeToggle />
               <Button href="/contact" className="flex-1">
-                Contact
+                Connect
                 <ArrowRight size={16} />
               </Button>
             </div>

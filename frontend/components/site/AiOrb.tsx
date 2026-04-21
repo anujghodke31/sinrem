@@ -22,7 +22,6 @@ const PAGE_MESSAGES: Record<string, string[]> = {
   "/": ["Building something big?", "Need a tech partner?", "Scale with us.", "Performance matters."],
   "/services": ["Need custom software?", "Explore AI solutions.", "We build specifically for you.", "Full-stack experts."],
   "/case-studies": ["See our impact.", "Real results.", "Proof of delivery.", "We solve complex problems."],
-  "/pricing": ["Transparent costs.", "Find your package.", "No hidden fees.", "Invest in quality."],
   "/about": ["Est. 2023.", "Meet the engineers.", "Values that matter.", "Your strategic partner."],
   "/contact": ["Ready to start?", "Let's discuss constraints.", "We are online.", "Build the future."],
   "/login": ["Client portal.", "Secure access.", "Check project status.", "View live metrics."],
@@ -49,7 +48,7 @@ export function AiOrb() {
 
   // Chat State
   const [messages, setMessages] = useState<Message[]>([
-    { role: "model", text: `Hello! I'm **Sinrem AI**. I can help you with pricing, technical capabilities, or finding the right stack for your project. \n\n[View Services](/services) [Check Pricing](/pricing)` }
+    { role: "model", text: `Hello! I'm **Sinrem AI**. I can help with technical capabilities, AI automation, and choosing the right stack for your project. \n\n[View Services](/services) [Connect With Team](/contact)` }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -283,7 +282,7 @@ export function AiOrb() {
                 <input 
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about pricing, stack, or services..."
+                  placeholder="Ask about AI, stack, delivery, or services..."
                   className="flex-1 bg-muted/5 border border-border rounded-xl px-4 py-3 text-sm text-text focus:outline-none focus:border-brand-500 transition-colors placeholder:text-muted/40"
                 />
                 <button 
