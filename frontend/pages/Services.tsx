@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
-import { serviceCategories } from "../lib/content";
+import { useContentServices } from "../lib/api";
 import { 
   ArrowRight, Code, Globe, Database, Briefcase, 
   Cloud, CreditCard, ShieldCheck, Cpu, Sparkles, Check
 } from "lucide-react";
 import { cn } from "../lib/cn";
-import { useAi } from "../context/AiContext";
+import { site } from "../lib/site";
 
 // Map icons to IDs
 const iconMap: Record<string, React.ReactNode> = {
@@ -62,14 +62,15 @@ const THEME_CYCLE = [
 ];
 
 export default function ServicesPage() {
-  useSEO({
-    title: "Services | Sinrem Tech",
-    description: "Explore Sinrem Tech services including AI solutions, custom software development, cloud infrastructure, API engineering, and digital modernization.",
-    path: "/services",
-  });
-  const { openChat } = useAi();
   const { hash } = useLocation();
-  const [activeSection, setActiveSection] = useState(serviceCategories[0].id);
+  const { services: serviceCategories } = useContentServices();
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    if (!activeSection && serviceCategories.length > 0) {
+      setActiveSection(serviceCategories[0].id);
+    }
+  }, [activeSection, serviceCategories]);
 
   // Handle hash scrolling
   useEffect(() => {
@@ -81,7 +82,7 @@ export default function ServicesPage() {
         setActiveSection(id);
       }
     }
-  }, [hash]);
+  }, [hash, serviceCategories]);
 
   // Scroll spy effect to update active sidebar link
   useEffect(() => {
@@ -98,7 +99,7 @@ export default function ServicesPage() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [serviceCategories]);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -109,6 +110,7 @@ export default function ServicesPage() {
 
   return (
     <main className="relative bg-bg transition-colors duration-300">
+      <SEO title="Our Services | Web Development, AI Solutions & More" description="Full-stack web development, mobile apps, AI/ML solutions, business intelligence dashboards, product photography, and technical documentation." canonical="/services" />
       {/* Reading Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1.5 bg-brand-500 origin-left z-[60]"
@@ -198,11 +200,11 @@ export default function ServicesPage() {
                          Book Consultation
                        </Button>
                        <Button 
-                         onClick={openChat} 
+                         href={site.whatsappLink}
                          className="w-full text-xs h-10 border-2 border-wati-dark/20 dark:border-white/20 hover:bg-white dark:hover:bg-white/10 transition-colors" 
                          variant="ghost"
                        >
-                         Ask AI Assistant
+                         Chat on WhatsApp
                        </Button>
                     </div>
                   </div>

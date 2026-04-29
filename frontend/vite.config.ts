@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       proxy: {
         '/api': {
-          target: 'http://localhost:5001',
+          target: 'http://localhost:5000',
           changeOrigin: true
         }
       }
@@ -23,13 +23,14 @@ export default defineConfig(({ mode }) => {
             if (id.includes('framer-motion')) return 'motion-vendor';
             if (id.includes('react-dom')) return 'react-dom-vendor';
             if (id.includes('react-router')) return 'router-vendor';
+            if (id.includes('react-helmet-async')) return 'helmet-vendor';
             if (id.includes('gsap')) return 'gsap-vendor';
             if (id.includes('lucide-react')) return 'icons-vendor';
-            if (id.includes('react-markdown')) return 'markdown-vendor';
             return 'vendor';
           }
         }
-      }
+      },
+      chunkSizeWarningLimit: 500,
     },
     resolve: {
       alias: {

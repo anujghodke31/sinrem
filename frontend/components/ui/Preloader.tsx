@@ -2,86 +2,89 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Logo } from './Logo';
 
-const CURVE: [number, number, number, number] = [0.76, 0, 0.24, 1]; // Custom cubic-bezier for the wipe
+const EXIT_EASE: [number, number, number, number] = [0.76, 0, 0.24, 1];
+const ENTER_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 interface PreloaderProps {
   onLoadingComplete: () => void;
 }
 
 export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
-  const [progress, setProgress] = useState(0);
+  const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter');
 
-  // Simulate loading progress
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return prev + Math.floor(Math.random() * 10) + 1;
-      });
-    }, 150);
+    // Logo enters (0.6s) → hold (0.4s) → glitch (0.3s) → scan (0.5s) → exit
+    const holdTimer = setTimeout(() => setPhase('hold'), 600);
+    const exitTimer = setTimeout(() => setPhase('exit'), 1800);
+    const completeTimer = setTimeout(() => onLoadingComplete(), 2400);
 
-    return () => clearInterval(timer);
-  }, []);
-
-  // Trigger completion callback when progress hits 100
-  useEffect(() => {
-    if (progress === 100) {
-      // Reduced delay after 100% to make it feel snappier
-      const timeout = setTimeout(() => {
-        onLoadingComplete();
-      }, 500); 
-      return () => clearTimeout(timeout);
-    }
-  }, [progress, onLoadingComplete]);
+    return () => {
+      clearTimeout(holdTimer);
+      clearTimeout(exitTimer);
+      clearTimeout(completeTimer);
+    };
+  }, [onLoadingComplete]);
 
   return (
     <motion.div
-      initial={{ y: 0 }}
-      exit={{ 
-        y: "-100%",
-        transition: { duration: 1.2, ease: CURVE } 
-      }}
-      // Forced dark background (slate-950) instead of semantic 'bg-bg' to ensure dark preloader always
-      className="fixed inset-0 z-[9999] bg-slate-950 flex flex-col items-center justify-center p-8 sm:p-20 overflow-hidden"
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.4, ease: EXIT_EASE } }}
     >
-      <div className="flex flex-col items-center justify-center relative z-10 text-white w-full max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="relative"
-        >
-          <div className="absolute inset-0 blur-2xl bg-brand-500/25 rounded-full" />
-          <div className="relative h-16 sm:h-20">
-            <Logo className="h-full w-auto text-brand-500" />
-          </div>
-        </motion.div>
-        <div className="mt-4 text-xs sm:text-sm tracking-[0.4em] uppercase text-brand-400">
-          Sinrem
-        </div>
-      </div>
-
-      {/* Footer / Progress Line */}
-      <motion.div 
-         initial={{ scaleX: 0 }}
-         animate={{ scaleX: 1 }}
-         transition={{ duration: 1.5, ease: "easeInOut" }}
-         // Forced white/20 instead of muted/20 for visibility on dark bg
-         className="absolute bottom-20 left-10 right-10 h-px bg-white/20 origin-left"
+      {/* Top half */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-1/2 bg-[#0a0a0a]"
+        animate={phase === 'exit' ? { y: '-100%' } : { y: 0 }}
+        transition={{ duration: 0.5, ease: EXIT_EASE }}
+      />
+      {/* Bottom half */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#0a0a0a]"
+        animate={phase === 'exit' ? { y: '100%' } : { y: 0 }}
+        transition={{ duration: 0.5, ease: EXIT_EASE }}
       />
 
-      {/* Forced text-slate-400 instead of text-muted-foreground for visibility on dark bg */}
-      <div className="absolute bottom-10 left-10 flex items-center gap-4 text-[10px] sm:text-xs font-mono font-bold uppercase text-slate-400 tracking-widest mix-blend-difference">
-         <div className="tabular-nums">
-            {progress}% — 100% Digital Excellence
-         </div>
-      </div>
+      {/* Centered logo */}
+      <motion.div
+        className="relative z-10 flex flex-col items-center"
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={
+          phase === 'exit'
+            ? { scale: 1.1, opacity: 0 }
+            : phase === 'hold'
+            ? { scale: 1, opacity: 1, x: [0, -4, 4, -3, 0], transition: { x: { duration: 0.24, ease: 'linear' } } }
+            : { scale: 1, opacity: 1 }
+        }
+        transition={{ duration: 0.6, ease: ENTER_EASE }}
+      >
+        {/* Glow */}
+        <div className="absolute inset-0 blur-3xl bg-wati-green/20 rounded-full scale-150" />
 
-      {/* Background Noise/Grain for texture */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none noise" />
+        {/* Logo */}
+        <div className="relative h-16 sm:h-20">
+          <Logo className="h-full w-auto text-white drop-shadow-[0_0_30px_rgba(0,229,153,0.4)]" />
+        </div>
+
+        {/* Brand text */}
+        <motion.div
+          className="mt-4 text-xs sm:text-sm tracking-[0.4em] uppercase text-white/60 font-mono"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.4 }}
+        >
+          Sinrem Tech
+        </motion.div>
+
+        {/* Scan line */}
+        {phase === 'hold' && (
+          <motion.div
+            className="absolute left-0 right-0 h-px bg-wati-green/60"
+            initial={{ top: 0, scaleY: 0 }}
+            animate={{ top: '100%', scaleY: 1 }}
+            transition={{ duration: 0.5, ease: 'linear', delay: 0.2 }}
+          />
+        )}
+      </motion.div>
     </motion.div>
   );
-}
+};

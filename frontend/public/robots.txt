@@ -1,3 +1,12 @@
 User-agent: *
 Allow: /
+
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /logs/
+Disallow: /login
+Disallow: /dashboard
+
 Sitemap: https://sinremtech.in/sitemap.xml

@@ -1,21 +1,24 @@
 
 import React, { Suspense, useRef } from 'react';
 import { Link } from "react-router-dom";
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { ArrowRight, ArrowUpRight, Zap, Sparkles, LayoutGrid } from "lucide-react";
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue, useInView } from "framer-motion";
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
-import { useProjects } from "../lib/api";
+import { useHomepageSections, useProjects } from "../lib/api";
 import { products } from "../lib/content";
 import { cn } from "../lib/cn";
-import { useAi } from "../context/AiContext";
 import { TechIconSVG } from "../components/ui/TechIcons";
+import { site } from "../lib/site";
 import ShapeGrid from "../components/ui/ShapeGrid";
 import { LazySection } from "../components/ui/LazySection";
 const HorizontalScrollShowcase = React.lazy(() => import("../components/ui/HorizontalScrollShowcase").then((module) => ({ default: module.HorizontalScrollShowcase })));
 const MagicBento = React.lazy(() => import("../components/ui/MagicBento"));
+const ClientsMarquee = React.lazy(() => import("../components/ui/ClientsMarquee"));
+const Testimonials = React.lazy(() => import("../components/ui/Testimonials"));
+const AcademySection = React.lazy(() => import("../components/ui/AcademySection"));
 
 // --- Sub-components ---
 // 1. Sticker Component (Floating Tech Icons)
@@ -174,40 +177,29 @@ interface HomePageProps {
 }
 
 export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps) {
-  useSEO({
-    title: "Sinrem Tech | AI-Powered Custom Software & App Development",
-    description: "Sinrem Tech builds AI-powered custom software, web and mobile apps, cloud systems, and automation workflows to help businesses scale securely and faster.",
-    path: "/",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "Sinrem Tech",
-      url: "https://sinremtech.in",
-      logo: "https://sinremtech.in/logo.png",
-      contactPoint: {
-        "@type": "ContactPoint",
-        contactType: "customer support",
-        availableLanguage: "English",
-        email: "pranit@sinremtech.in",
-        telephone: "+91 9588643839",
-      },
-      sameAs: [
-        "https://www.linkedin.com/company/sinremtech/",
-        "https://www.instagram.com/sinrem_",
-      ],
-    },
-  });
-  const { openChat } = useAi();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const { projects } = useProjects();
+  const { sectionKeys } = useHomepageSections();
+  const enabledSections = new Set(sectionKeys);
+  const useApiSections = sectionKeys.length > 0;
+  const isSectionEnabled = (key: string) => (useApiSections ? enabledSections.has(key) : true);
+  const defaultTopMidOrder = ["products", "showcase", "featured-work", "tech-stack", "cta"];
+  const topMidSectionOrder = useApiSections
+    ? sectionKeys.filter((key) => defaultTopMidOrder.includes(key))
+    : defaultTopMidOrder;
+  const defaultBottomOrder = ["trusted-by", "testimonials", "academy"];
+  const bottomSectionOrder = useApiSections
+    ? sectionKeys.filter((key) => defaultBottomOrder.includes(key))
+    : defaultBottomOrder;
 
   return (
     <main className="bg-bg text-foreground">
+      <SEO title="Sinrem Tech | AI-Powered Custom Software & App Development" description="Sinrem Tech builds AI-powered custom software, web and mobile apps, cloud systems, and automation workflows to help businesses scale securely and faster." canonical="/" />
       <motion.div className="fixed top-0 left-0 right-0 h-1.5 bg-wati-green origin-left z-[100]" style={{ scaleX }} />
 
       {/* 1. Hero Section - Graph Paper & Stickers */}
-      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20 pb-20 bg-bg transition-colors duration-300">
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20 pb-10 bg-bg transition-colors duration-300">
 
         {/* Animated ShapeGrid Background */}
         <div className="absolute inset-0 z-0 opacity-[0.12] dark:opacity-[0.18]">
@@ -227,19 +219,19 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
           <div className="relative w-full h-full max-w-[1400px] mx-auto">
             {/* Top Left - React */}
             <Sticker className="top-[15%] left-[5%] md:left-[10%] rotate-12" delay={0.1}>
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="React" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="React" loading="lazy" />
             </Sticker>
             {/* Bottom Left - AWS */}
-            <Sticker className="bottom-[20%] left-[8%] md:left-[15%] -rotate-6" delay={0.2}>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" className="w-8 h-8 md:w-10 md:h-10 object-contain" alt="AWS" />
+            <Sticker className="hidden md:flex bottom-[20%] left-[8%] md:left-[15%] -rotate-6" delay={0.2}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" className="w-8 h-8 md:w-10 md:h-10 object-contain" alt="AWS" loading="lazy" />
             </Sticker>
             {/* Top Right - Node */}
             <Sticker className="top-[20%] right-[5%] md:right-[12%] -rotate-12" delay={0.3}>
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="Node" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="Node" loading="lazy" />
             </Sticker>
             {/* Bottom Right - Python */}
-            <Sticker className="bottom-[8%] right-[3%] md:bottom-[16%] md:right-[8%] rotate-6 opacity-80" delay={0.4}>
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="Python" />
+            <Sticker className="hidden md:flex bottom-[8%] right-[3%] md:bottom-[16%] md:right-[8%] rotate-6 opacity-80" delay={0.4}>
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-8 h-8 md:w-10 md:h-10" alt="Python" loading="lazy" />
             </Sticker>
           </div>
         </div>
@@ -288,7 +280,7 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
 
       <LazySection placeholderMinHeight="520px" className="bg-bg">
         {/* 1B. Feature Grid - Magic Bento Transition (Moved OUT of Hero Section) */}
-        <section className="bg-bg flex flex-col items-center justify-center pb-32 transition-colors duration-300 relative z-20 -mt-16">
+        <section className="bg-bg flex flex-col items-center justify-center pb-16 transition-colors duration-300 relative z-20 -mt-16">
           <Container>
             <div className="w-full pt-8">
               <Suspense fallback={<div className="h-[420px] w-full rounded-2xl border border-foreground/10 bg-card/40" />}>
@@ -313,352 +305,309 @@ export default function HomePage({ isPreloading, shouldAnimate }: HomePageProps)
 
       <LazySection placeholderMinHeight="220px" className="bg-bg">
         {/* 2. Velocity Scroll - Caution Tape */}
-        <div className="py-20 bg-bg overflow-hidden">
+        <div className="py-10 bg-bg overflow-hidden">
           <VelocityScroll baseVelocity={-2}>
             Web Development • Mobile Apps • AI Solutions • AI Automation • Cloud Infrastructure • Cyber Security • UI/UX Design •
           </VelocityScroll>
         </div>
       </LazySection>
 
-      <LazySection placeholderMinHeight="760px" className="bg-bg">
-        {/* 2b. Our Products Teaser */}
-        <section className="py-20 bg-bg border-y-2 border-foreground/5">
-          <Container>
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles size={16} className="text-wati-green" />
-                  <span className="text-xs font-black uppercase tracking-widest text-wati-green">In-House Products</span>
-                </div>
-                <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
-                  Our Products
-                </h2>
-              </div>
-              <Link to="/case-studies" className="text-sm font-black uppercase tracking-wide underline underline-offset-4 text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors">
-                View All Work →
-              </Link>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {products.map((product, i) => (
-                <motion.div
-                  key={product.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="group relative rounded-[1.5rem] border-2 border-black dark:border-zinc-700 bg-card shadow-hard hover:shadow-[6px_6px_0px_0px_#1D1D1B] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
-                >
-                  <div className="h-1" style={{ backgroundColor: product.accent }} />
-                  <div className="aspect-video border-b border-foreground/10 bg-black/10">
-                    <img
-                      src={`https://images.unsplash.com/photo-${i === 0 ? "1518770660439-4636190af475" : "1461749280684-dccba630e2f6"}?auto=format&fit=crop&w=900&q=65`}
-                      alt={product.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="p-7">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <span className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2 block">{product.category}</span>
-                        <h3 className="text-2xl font-black text-foreground">{product.name}</h3>
-                        <p className="text-sm font-bold mt-0.5" style={{ color: product.accent }}>{product.tagline}</p>
+      {topMidSectionOrder.map((sectionKey) => {
+        if (sectionKey === "products" && isSectionEnabled("products")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="760px" className="bg-bg">
+              <section className="py-16 bg-bg border-y-2 border-foreground/5">
+                <Container>
+                  <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Sparkles size={16} className="text-wati-green" />
+                        <span className="text-xs font-black uppercase tracking-widest text-wati-green">In-House Products</span>
                       </div>
-                      <span className="text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border-2 border-foreground/10 text-foreground/40 shrink-0 ml-3">
-                        {product.status}
-                      </span>
+                      <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
+                        Our Products
+                      </h2>
                     </div>
-                    <p className="text-sm text-foreground/60 leading-relaxed line-clamp-2 mb-5">
-                      {product.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {product.features.slice(0, 3).map((f, fi) => (
-                        <span key={fi} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/70">
-                          {f}
-                        </span>
-                      ))}
-                      {product.features.length > 3 && (
-                        <span className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/40">
-                          +{product.features.length - 3} more
-                        </span>
-                      )}
+                    <Link to="/case-studies" className="text-sm font-black uppercase tracking-wide underline underline-offset-4 text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors">
+                      View All Work →
+                    </Link>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {products.map((product, i) => (
+                      <motion.div
+                        key={product.slug}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: i * 0.1 }}
+                        className="group relative rounded-[1.5rem] border-2 border-black dark:border-zinc-700 bg-card shadow-hard hover:shadow-[6px_6px_0px_0px_#1D1D1B] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+                      >
+                        <div className="h-1" style={{ backgroundColor: product.accent }} />
+                        <div className="aspect-video border-b border-foreground/10 bg-black/10">
+                          <img
+                            src={`https://images.unsplash.com/photo-${i === 0 ? "1518770660439-4636190af475" : "1461749280684-dccba630e2f6"}?auto=format&fit=crop&w=900&q=65`}
+                            alt={product.name}
+                            loading="lazy"
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div className="p-7">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <span className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2 block">{product.category}</span>
+                              <h3 className="text-2xl font-black text-foreground">{product.name}</h3>
+                              <p className="text-sm font-bold mt-0.5" style={{ color: product.accent }}>{product.tagline}</p>
+                            </div>
+                            <span className="text-[10px] font-black uppercase tracking-wide px-2.5 py-1 rounded-full border-2 border-foreground/10 text-foreground/40 shrink-0 ml-3">
+                              {product.status}
+                            </span>
+                          </div>
+                          <p className="text-sm text-foreground/60 leading-relaxed line-clamp-2 mb-5">
+                            {product.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {product.features.slice(0, 3).map((f, fi) => (
+                              <span key={fi} className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/70">
+                                {f}
+                              </span>
+                            ))}
+                            {product.features.length > 3 && (
+                              <span className="px-2.5 py-1 text-xs font-bold rounded-lg border border-foreground/10 bg-foreground/5 text-foreground/40">
+                                +{product.features.length - 3} more
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </Container>
+              </section>
+            </LazySection>
+          );
+        }
+
+        if (sectionKey === "showcase" && isSectionEnabled("showcase")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="600px" className="bg-bg">
+              <Suspense fallback={<div className="h-[60vh] bg-bg" />}>
+                <HorizontalScrollShowcase />
+              </Suspense>
+            </LazySection>
+          );
+        }
+
+        if (sectionKey === "featured-work" && isSectionEnabled("featured-work")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="900px" className="bg-[#f0f0f0] dark:bg-[#1a1a1a]">
+              <section className="py-20 bg-[#f0f0f0] dark:bg-[#1a1a1a] border-y-4 border-black">
+                <Container>
+                  <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                      <Badge className="mb-4 bg-wati-blueLight border-black">Selected Works</Badge>
+                      <h3 className="text-5xl sm:text-6xl font-black text-foreground tracking-tight">
+                        Engineered for <br />
+                        <span className="text-wati-pink underline decoration-4 decoration-foreground dark:decoration-white underline-offset-4">Impact.</span>
+                      </h3>
+                    </div>
+                    <Button href="/case-studies" variant="secondary" className="border-2 border-black shadow-hard hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                      View All Projects
+                    </Button>
+                  </div>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    {projects.slice(0, 3).map((cs, i) => (
+                      <div key={cs.slug} className={cn(i === 1 ? "md:translate-y-16" : "")}>
+                        <PolaroidCard project={cs} index={i} />
+                      </div>
+                    ))}
+                  </div>
+                </Container>
+              </section>
+            </LazySection>
+          );
+        }
+
+        if (sectionKey === "tech-stack" && isSectionEnabled("tech-stack")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="600px" className="bg-bg">
+              <section className="py-20 bg-bg">
+                <Container>
+                  <div className="text-center mb-12">
+                    <h2 className="text-5xl sm:text-7xl font-black text-foreground mb-6">Built on modern foundations.</h2>
+                    <p className="text-xl font-bold text-muted-foreground">We don't just write code. We architect systems.</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <BentoItem className="md:col-span-2 bg-wati-blueLight dark:bg-zinc-800/60">
+                      <div className="flex justify-between items-start mb-6">
+                        <div className="space-y-1">
+                          <div className="text-3xl font-black text-foreground">Web Development</div>
+                          <p className="font-bold text-foreground/60">MongoDB, Express, React, Node.js, Next.js</p>
+                        </div>
+                        <LayoutGrid size={36} className="text-foreground/20 shrink-0" />
+                      </div>
+                      <div className="flex flex-wrap gap-3 mt-auto">
+                        {['React', 'Next.js', 'Node.js', 'Express', 'TypeScript', 'Tailwind CSS', 'WordPress'].map((name) => (
+                          <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                            <TechIconSVG name={name} className="w-5 h-5" />
+                            <span className="text-xs font-bold text-foreground">{name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </BentoItem>
+                    <BentoItem className="bg-wati-greenLight dark:bg-zinc-800/60">
+                      <div className="space-y-1 mb-6">
+                        <div className="text-3xl font-black text-foreground">AI & Data</div>
+                        <p className="font-bold text-foreground/60">Gemini, OpenAI, Python, TensorFlow</p>
+                      </div>
+                      <div className="flex flex-wrap gap-3 mt-auto">
+                        {['Google Gemini', 'OpenAI', 'Python', 'TensorFlow', 'LangChain'].map((name) => (
+                          <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                            <TechIconSVG name={name} className="w-5 h-5" />
+                            <span className="text-xs font-bold text-foreground">{name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </BentoItem>
+                    <BentoItem className="bg-wati-pinkLight dark:bg-zinc-800/60">
+                      <div className="space-y-1 mb-6">
+                        <div className="text-3xl font-black text-foreground">Cloud & DevOps</div>
+                        <p className="font-bold text-foreground/60">AWS, Azure, GCP, Docker</p>
+                      </div>
+                      <div className="flex flex-wrap gap-3 mt-auto">
+                        {['AWS', 'Azure', 'Google Cloud', 'Docker', 'GitHub Actions'].map((name) => (
+                          <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                            <TechIconSVG name={name} className="w-5 h-5" />
+                            <span className="text-xs font-bold text-foreground">{name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </BentoItem>
+                    <BentoItem className="md:col-span-2 bg-[#FFF7D1] dark:bg-zinc-800/60">
+                      <div className="flex justify-between items-start mb-6">
+                        <div>
+                          <div className="text-3xl font-black text-foreground">Mobile & Business</div>
+                          <p className="font-bold text-foreground/60">Android, Firebase, Slack, Jira</p>
+                        </div>
+                        <Sparkles size={36} className="text-foreground/20 shrink-0" />
+                      </div>
+                      <div className="flex flex-wrap gap-3 mt-auto">
+                        {['Android Studio', 'Firebase', 'MongoDB', 'PostgreSQL', 'Slack', 'Jira'].map((name) => (
+                          <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
+                            <TechIconSVG name={name} className="w-5 h-5" />
+                            <span className="text-xs font-bold text-foreground">{name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </BentoItem>
+                  </div>
+                </Container>
+              </section>
+            </LazySection>
+          );
+        }
+
+        if (sectionKey === "cta" && isSectionEnabled("cta")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="500px" className="bg-bg">
+              <section className="py-16 bg-bg overflow-hidden">
+                <Container>
+                  <div className="bg-wati-yellow border-4 border-black rounded-[3rem] p-8 sm:p-14 relative overflow-hidden shadow-[12px_12px_0px_0px_#1D1D1B]">
+                    <div className="absolute -top-10 -right-10 text-black/10 rotate-12">
+                      <Zap size={300} />
+                    </div>
+                    <div className="relative z-10 max-w-3xl">
+                      <div className="inline-block px-4 py-2 bg-black text-white font-bold uppercase tracking-widest rounded-lg mb-6">
+                        Ready to Scale?
+                      </div>
+                      <h2 className="text-5xl sm:text-7xl font-black text-black mb-8 leading-[0.9]">
+                        Stop wrestling with legacy code.
+                      </h2>
+                      <p className="text-2xl font-bold text-black/70 mb-12">Start building the future of your business with a partner that understands performance.</p>
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <Button href="/contact" className="h-16 px-10 text-xl bg-white text-black border-2 border-black shadow-hard hover:shadow-none hover:translate-x-1 hover:translate-y-1">
+                          Schedule Consultation
+                        </Button>
+                        <Button href={site.whatsappLink} variant="ghost" className="h-16 px-10 text-xl border-2 border-black text-black hover:bg-black/5">
+                          Chat on WhatsApp
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </Container>
-        </section>
-      </LazySection>
-
-      <LazySection placeholderMinHeight="600px" className="bg-bg">
-        {/* 3. Horizontal Scroll Services */}
-        <Suspense fallback={<div className="h-[60vh] bg-bg" />}>
-          <HorizontalScrollShowcase />
-        </Suspense>
-      </LazySection>
-
-      {/* 4. Featured Work - Polaroid Grid */}
-      <LazySection placeholderMinHeight="900px" className="bg-[#f0f0f0] dark:bg-[#1a1a1a]">
-        <section className="py-32 bg-[#f0f0f0] dark:bg-[#1a1a1a] border-y-4 border-black">
-          <Container>
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
-              <div>
-                <Badge className="mb-4 bg-wati-blueLight border-black">Selected Works</Badge>
-                <h3 className="text-5xl sm:text-6xl font-black text-foreground tracking-tight">
-                  Engineered for <br />
-                  <span className="text-wati-pink underline decoration-4 decoration-foreground dark:decoration-white underline-offset-4">Impact.</span>
-                </h3>
-              </div>
-              <Button href="/case-studies" variant="secondary" className="border-2 border-black shadow-hard hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
-                View All Projects
-              </Button>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-              {projects.slice(0, 3).map((cs, i) => (
-                <div key={cs.slug} className={cn(i === 1 ? "md:translate-y-16" : "")}>
-                  <PolaroidCard project={cs} index={i} />
-                </div>
-              ))}
-            </div>
-          </Container>
-        </section>
-      </LazySection>
-
-      {/* 5. Trust / Tech Stack - Bento Grid */}
-      <LazySection placeholderMinHeight="1200px" className="bg-bg">
-      <section className="py-32 bg-bg">
-        <Container>
-          <div className="text-center mb-20">
-            <h2 className="text-5xl sm:text-7xl font-black text-foreground mb-6">Built on modern foundations.</h2>
-            <p className="text-xl font-bold text-muted-foreground">We don't just write code. We architect systems.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-
-            {/* Bento 1: Frontend — col-span-2 */}
-            <BentoItem className="md:col-span-2 bg-wati-blueLight dark:bg-zinc-800/60">
-              <div className="flex justify-between items-start mb-6">
-                <div className="space-y-1">
-                  <div className="text-3xl font-black text-foreground">Frontend</div>
-                  <p className="font-bold text-foreground/60">React, Next.js, TypeScript, Tailwind</p>
-                </div>
-                <LayoutGrid size={36} className="text-foreground/20 shrink-0" />
-              </div>
-              <div className="flex flex-wrap gap-4 mt-auto">
-                {[
-                  { name: 'React', label: 'React' },
-                  { name: 'Next.js', label: 'Next.js' },
-                  { name: 'TypeScript', label: 'TypeScript' },
-                ].map(({ name, label }) => (
-                  <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
-                    <TechIconSVG name={name} className="w-5 h-5" />
-                    <span className="text-xs font-bold text-foreground">{label}</span>
+                </Container>
+                <Container className="mt-24">
+                  <div className="text-center">
+                    <div className="inline-block px-4 py-1.5 rounded-full border border-foreground/15 bg-foreground/5 text-xs font-bold uppercase tracking-widest text-foreground/60 mb-12">
+                      Powered by Modern Tech
+                    </div>
+                    <div className="flex flex-col gap-10 opacity-80 hover:opacity-100 transition-opacity">
+                      <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8">
+                        <TechItem name="React" color="#61DAFB" />
+                        <TechItem name="Next.js" color="currentColor" />
+                        <TechItem name="TypeScript" color="#3178C6" />
+                        <TechItem name="Node.js" color="#339933" />
+                        <TechItem name="Python" color="#3776AB" />
+                        <TechItem name="Golang" color="#00ADD8" />
+                      </div>
+                      <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8">
+                        <TechItem name="AWS" color="#FF9900" />
+                        <TechItem name="Google Cloud" color="#4285F4" />
+                        <TechItem name="Docker" color="#2496ED" />
+                        <TechItem name="Vercel" color="currentColor" />
+                        <TechItem name="Git" color="#F05032" />
+                        <TechItem name="PostgreSQL" color="#4169E1" />
+                        <TechItem name="MongoDB" color="#47A248" />
+                      </div>
+                      <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8">
+                        <TechItem name="TensorFlow" color="#FF6F00" />
+                        <TechItem name="PyTorch" color="#EE4C2C" />
+                        <TechItem name="OpenCV" color="#5C3EE8" />
+                        <TechItem name="FastAPI" color="#009688" />
+                        <TechItem name="Selenium" color="#43B02A" />
+                      </div>
+                    </div>
                   </div>
-                ))}
-                <div className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" className="w-5 h-5 object-contain" alt="Tailwind" />
-                  <span className="text-xs font-bold text-foreground">Tailwind</span>
-                </div>
-              </div>
-            </BentoItem>
+                </Container>
+              </section>
+            </LazySection>
+          );
+        }
 
-            {/* Bento 2: Backend */}
-            <BentoItem className="bg-wati-greenLight dark:bg-zinc-800/60">
-              <div className="space-y-1 mb-6">
-                <div className="text-3xl font-black text-foreground">Backend</div>
-                <p className="font-bold text-foreground/60">Node, Python, Go</p>
-              </div>
-              <div className="flex flex-wrap gap-3 mt-auto">
-                {[
-                  { name: 'Node.js', label: 'Node.js' },
-                  { name: 'Python', label: 'Python' },
-                  { name: 'Golang', label: 'Go' },
-                ].map(({ name, label }) => (
-                  <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
-                    <TechIconSVG name={name} className="w-5 h-5" />
-                    <span className="text-xs font-bold text-foreground">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </BentoItem>
+        return null;
+      })}
 
-            {/* Bento 3: Cloud */}
-            <BentoItem className="bg-wati-pinkLight dark:bg-zinc-800/60">
-              <div className="space-y-1 mb-6">
-                <div className="text-3xl font-black text-foreground">Cloud</div>
-                <p className="font-bold text-foreground/60">AWS, GCP, Docker, Vercel</p>
-              </div>
-              <div className="flex flex-wrap gap-3 mt-auto">
-                {[
-                  { name: 'AWS', label: 'AWS' },
-                  { name: 'Google Cloud', label: 'GCP' },
-                  { name: 'Docker', label: 'Docker' },
-                  { name: 'Vercel', label: 'Vercel' },
-                ].map(({ name, label }) => (
-                  <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/70 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
-                    <TechIconSVG name={name} className="w-5 h-5" />
-                    <span className="text-xs font-bold text-foreground">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </BentoItem>
+      {bottomSectionOrder.map((sectionKey) => {
+        if (sectionKey === "trusted-by" && isSectionEnabled("trusted-by")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="200px" className="bg-bg">
+              <Suspense fallback={null}>
+                <ClientsMarquee />
+              </Suspense>
+            </LazySection>
+          );
+        }
 
-            {/* Bento 4: AI & Data — col-span-2 */}
-            <BentoItem className="md:col-span-2 bg-[#FFF7D1] dark:bg-zinc-800/60">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <div className="text-3xl font-black text-foreground">AI & Data</div>
-                  <p className="font-bold text-foreground/60">TensorFlow, PyTorch, OpenAI, MongoDB</p>
-                </div>
-                <Sparkles size={36} className="text-foreground/20 shrink-0" />
-              </div>
-              <div className="flex flex-wrap gap-3 mt-auto">
-                {[
-                  { name: 'TensorFlow', label: 'TensorFlow' },
-                  { name: 'PyTorch', label: 'PyTorch' },
-                  { name: 'MongoDB', label: 'MongoDB' },
-                  { name: 'PostgreSQL', label: 'PostgreSQL' },
-                ].map(({ name, label }) => (
-                  <div key={name} className="flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-zinc-700/70 rounded-xl border border-black/10 dark:border-zinc-600">
-                    <TechIconSVG name={name} className="w-5 h-5" />
-                    <span className="text-xs font-bold text-foreground">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </BentoItem>
+        if (sectionKey === "testimonials" && isSectionEnabled("testimonials")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="520px" className="bg-bg">
+              <Suspense fallback={null}>
+                <Testimonials />
+              </Suspense>
+            </LazySection>
+          );
+        }
 
-          </div>
-        </Container>
-      </section>
-      </LazySection>
+        if (sectionKey === "academy" && isSectionEnabled("academy")) {
+          return (
+            <LazySection key={sectionKey} placeholderMinHeight="500px" className="bg-bg">
+              <Suspense fallback={null}>
+                <AcademySection />
+              </Suspense>
+            </LazySection>
+          );
+        }
 
-      {/* 6. CTA Section - Big Alert */}
-      <LazySection placeholderMinHeight="1200px" className="bg-bg">
-      <section className="py-24 bg-bg overflow-hidden">
-        <Container>
-          <div className="bg-wati-yellow border-4 border-black rounded-[3rem] p-8 sm:p-20 relative overflow-hidden shadow-[12px_12px_0px_0px_#1D1D1B]">
-
-            {/* Decorative Bolt */}
-            <div className="absolute -top-10 -right-10 text-black/10 rotate-12">
-              <Zap size={300} />
-            </div>
-
-            <div className="relative z-10 max-w-3xl">
-              <div className="inline-block px-4 py-2 bg-black text-white font-bold uppercase tracking-widest rounded-lg mb-6">
-                Ready to Scale?
-              </div>
-              <h2 className="text-5xl sm:text-7xl font-black text-black mb-8 leading-[0.9]">
-                Stop wrestling with legacy code.
-              </h2>
-              <p className="text-2xl font-bold text-black/70 mb-12">                     Start building the future of your business with a partner that understands performance.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button href="/contact" className="h-16 px-10 text-xl bg-white text-black border-2 border-black shadow-hard hover:shadow-none hover:translate-x-1 hover:translate-y-1">
-                  Schedule Consultation
-                </Button>
-                <Button onClick={openChat} variant="ghost" className="h-16 px-10 text-xl border-2 border-black text-black hover:bg-black/5">
-                  <Sparkles className="mr-2" /> Ask AI Assistant
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Container>
-
-        {/* Powered by Modern Tech Section */}
-        <Container className="mt-24">
-          <div className="text-center">
-            <div className="inline-block px-4 py-1.5 rounded-full border border-foreground/15 bg-foreground/5 text-xs font-bold uppercase tracking-widest text-foreground/60 mb-12">
-              Powered by Modern Tech
-            </div>
-
-            <div className="flex flex-col gap-10 opacity-80 hover:opacity-100 transition-opacity">
-              {/* Row 1 - 6 Items */}
-              <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8">
-                <TechItem name="React" color="#61DAFB" />
-                <TechItem name="Next.js" color="currentColor" />
-                <TechItem name="TypeScript" color="#3178C6" />
-                <TechItem name="Node.js" color="#339933" />
-                <TechItem name="Python" color="#3776AB" />
-                <TechItem name="Golang" color="#00ADD8" />
-              </div>
-
-              {/* Row 2 - 7 Items */}
-              <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8">
-                <TechItem name="AWS" color="#FF9900" />
-                <TechItem name="Google Cloud" color="#4285F4" />
-                <TechItem name="Docker" color="#2496ED" />
-                <TechItem name="Vercel" color="currentColor" />
-                <TechItem name="Git" color="#F05032" />
-                <TechItem name="PostgreSQL" color="#4169E1" />
-                <TechItem name="MongoDB" color="#47A248" />
-              </div>
-
-              {/* Row 3 - 5 Items */}
-              <div className="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8">
-                <TechItem name="TensorFlow" color="#FF6F00" />
-                <TechItem name="PyTorch" color="#EE4C2C" />
-                <TechItem name="OpenCV" color="#5C3EE8" />
-                <TechItem name="FastAPI" color="#009688" />
-                <TechItem name="Selenium" color="#43B02A" />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-      </LazySection>
-
-      <LazySection placeholderMinHeight="420px" className="bg-bg">
-      <section className="py-24 bg-bg border-y-2 border-foreground/5">
-        <Container>
-          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-10">Trusted By</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {["Shree Metal Industries", "CVK Engineers", "C4i4", "House of Amrth"].map((name) => (
-              <div key={name} className="h-24 rounded-xl border-2 border-black dark:border-zinc-700 bg-card shadow-hard flex items-center justify-center px-4 text-center text-xs font-bold text-foreground/70">
-                {name}
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-      </LazySection>
-
-      <LazySection placeholderMinHeight="520px" className="bg-bg">
-      <section className="py-24 bg-bg">
-        <Container>
-          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-10">What Our Clients Say</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {projects.slice(0, 4).map((p) => (
-              <div key={p.slug} className="rounded-2xl border-2 border-black dark:border-zinc-700 bg-card p-6 shadow-hard">
-                <p className="text-foreground/70 text-sm leading-relaxed mb-4">"{p.testimonial}"</p>
-                <div className="text-sm font-black text-foreground">{p.company}</div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-      </LazySection>
-
-      <LazySection placeholderMinHeight="360px" className="bg-bg">
-      <section className="py-24 bg-bg">
-        <Container>
-          <div className="rounded-3xl border-2 border-black dark:border-zinc-700 bg-card p-8 md:p-12 shadow-hard flex flex-col md:flex-row items-center gap-8">
-            <div className="w-24 h-24 rounded-full bg-foreground/5 border-2 border-foreground/20 relative overflow-hidden">
-              <div className="absolute inset-x-6 top-4 h-8 rounded-full bg-brand-500/40 animate-pulse" />
-              <div className="absolute inset-x-5 bottom-3 h-10 rounded-t-2xl bg-brand-500/20" />
-            </div>
-            <div className="flex-1">
-              <h2 className="text-3xl sm:text-4xl font-black text-foreground mb-2">Sinrem Academy</h2>
-              <p className="text-foreground/70 mb-6">Learn. Build. Grow. Training programs for developers and businesses with practical AI and software execution.</p>
-              <Button href="/contact">Explore Academy</Button>
-            </div>
-          </div>
-        </Container>
-      </section>
-      </LazySection>
+        return null;
+      })}
     </main>
   );
 }

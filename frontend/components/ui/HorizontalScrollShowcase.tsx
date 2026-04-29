@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { serviceCategories } from "../../lib/content";
+import { useContentServices, type DynamicServiceCategory } from "../../lib/api";
 import { ArrowRight, Code, Globe, Database, Briefcase, Cloud, CreditCard, ShieldCheck, Cpu } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { cn } from "../../lib/cn";
@@ -31,7 +31,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 // --- Sub-component ---
 
-const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: number, onOpen: (service: typeof serviceCategories[0]) => void }> = ({ service, index, onOpen }) => {
+const ServiceCard: React.FC<{ service: DynamicServiceCategory, index: number, onOpen: (service: DynamicServiceCategory) => void }> = ({ service, index, onOpen }) => {
   const theme = CARD_THEMES[index % CARD_THEMES.length];
 
   return (
@@ -53,7 +53,7 @@ const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: numbe
              "w-16 h-16 rounded-2xl border-2 border-black flex items-center justify-center bg-white shadow-[4px_4px_0px_0px_#1D1D1B]",
              theme.text
            )}>
-              {iconMap[service.id]}
+              {iconMap[service.id] || <Cpu className="w-8 h-8" />}
            </div>
            <span className="text-6xl font-black text-black/10 font-sans">0{index + 1}</span>
          </div>
@@ -89,7 +89,8 @@ const ServiceCard: React.FC<{ service: typeof serviceCategories[0], index: numbe
 
 export function HorizontalScrollShowcase() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const [activeService, setActiveService] = useState<(typeof serviceCategories)[0] | null>(null);
+  const [activeService, setActiveService] = useState<DynamicServiceCategory | null>(null);
+  const { services } = useContentServices();
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
@@ -129,7 +130,7 @@ export function HorizontalScrollShowcase() {
           </div>
 
           {/* Service Cards */}
-          {serviceCategories.map((service, index) => (
+          {services.map((service, index) => (
             <ServiceCard 
               key={service.id} 
               service={service} 

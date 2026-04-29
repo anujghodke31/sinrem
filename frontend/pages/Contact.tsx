@@ -1,22 +1,15 @@
 import React, { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 import { site } from "../lib/site";
-import { ArrowRight, Mail, MessageSquare, MapPin, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, Mail, MessageSquare, MapPin, CheckCircle2 } from "lucide-react";
 import { cn } from "../lib/cn";
-import { useAi } from "../context/AiContext";
 import { apiUrl } from "../lib/apiBase";
 
 export default function ContactPage() {
-  useSEO({
-    title: "Connect With Us | Sinrem Tech",
-    description: "Connect with Sinrem Tech to discuss your software or AI project. Share requirements, and our team responds with architecture, timeline, and scope.",
-    path: "/connect",
-  });
-  const { openChat } = useAi();
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const preselect = searchParams.get("package") ?? "";
@@ -101,6 +94,7 @@ export default function ContactPage() {
 
   return (
     <main className="relative min-h-screen bg-bg pt-24 pb-20 sm:pt-32 overflow-hidden">
+      <SEO title="Connect With Us" description="Get in touch with Sinrem Tech. Call +91 9503119046 or email info@sinrem.tech. Office in Katraj, Pune, Maharashtra." canonical="/contact" />
       {/* Ambient Background Effects */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none translate-y-1/3 -translate-x-1/3" />
@@ -254,8 +248,8 @@ export default function ContactPage() {
                          Chat on WhatsApp
                       </Button>
                       <div className="text-center text-sm text-muted-foreground">or</div>
-                      <Button onClick={openChat} variant="ghost" className="w-full py-5 text-lg h-auto rounded-xl border border-dashed border-brand-500/30 text-brand-500 hover:bg-brand-500/5">
-                         <Sparkles size={20} className="mr-2" /> Consult Sinrem AI
+                      <Button href={site.whatsappLink} variant="ghost" className="w-full py-5 text-lg h-auto rounded-xl border border-dashed border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5">
+                         Chat on WhatsApp
                       </Button>
                    </div>
                 </form>

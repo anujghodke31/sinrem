@@ -249,178 +249,158 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
-export type PricingTier = {
-  name: string;
-  price: string;
-  features: string[];
-  cta: string;
-  params: string;
-};
 
-export type PricingGroup = {
-  id: string;
-  title: string;
-  subtitle: string;
-  tiers: PricingTier[];
-  notes?: string[];
-};
+// ── Clients ───────────────────────────────────────────────────
+export const clients = [
+  { name: 'Aadya Exim', logo: '/clients/aadya-exim.svg', url: '#' },
+  { name: 'Entrelogy Business School', logo: '/clients/entrelogy.svg', url: '#' },
+  { name: 'CVK Engineers', logo: '/clients/cvk-engineers.svg', url: '#' },
+  { name: 'Malhar Powertronics', logo: '/clients/malhar-powertronics.svg', url: '#' },
+  { name: 'Shree Metal Industries', logo: '/clients/shree-metal.svg', url: '#' },
+  { name: 'C4i4 – Center for Industry 4.0', logo: '/clients/c4i4.svg', url: '#' },
+  { name: 'House of Amrth', logo: '/clients/house-of-amrth.svg', url: '#' },
+];
 
-export const pricing: PricingGroup[] = [
+// ── Testimonials ──────────────────────────────────────────────
+export const testimonials = [
   {
-    id: "static",
-    title: "Static Website Packages",
-    subtitle: "Fast, clean, professional presence with core integrations.",
-    tiers: [
-      {
-        name: "Silver",
-        price: "₹4,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year)",
-          "Hosting (1 year)",
-        ],
-        cta: "Choose Silver",
-        params: "static-silver",
-      },
-      {
-        name: "Gold",
-        price: "₹6,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year)",
-          "Hosting (1 year)",
-        ],
-        cta: "Choose Gold",
-        params: "static-gold",
-      },
-      {
-        name: "Platinum",
-        price: "₹9,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year)",
-          "Hosting (1 year)",
-          "1 year maintenance",
-          "100 professional webmails (1GB per email)",
-        ],
-        cta: "Choose Platinum",
-        params: "static-platinum",
-      },
-    ],
-    notes: [
-      "Rent option: First time payment ₹1000 + domain cost; then ₹500 rent.",
+    name: 'Senior Management',
+    role: 'Shree Metal Industries',
+    avatar: '/testimonials/shree-metal.jpg',
+    quote: 'Switching to this team was the best decision for our digital needs. They became a reliable partner. The 24/7 support is invaluable, and they always deliver high-quality content without the huge agency price tag. Three years later, we still count on them.',
+    rating: 5,
+    company: 'Shree Metal Industries',
+    companyLogo: '/clients/shree-metal.svg',
+    projectTag: 'Website + Email + Video Production',
+  },
+  {
+    name: 'Management Team',
+    role: 'CVK Engineers',
+    avatar: '/testimonials/cvk-engineers.jpg',
+    quote: 'We were under a massive time crunch, but the team delivered a beautiful, informative website and portfolio in just two weeks, exactly as promised. Knowing we also have 24/7 support and two years of free maintenance is incredible value.',
+    rating: 5,
+    company: 'CVK Engineers',
+    companyLogo: '/clients/cvk-engineers.svg',
+    projectTag: '15-Day Rapid Deployment',
+  },
+  {
+    name: 'Project Head',
+    role: 'C4i4 – Center for Industry 4.0',
+    avatar: '/testimonials/c4i4.jpg',
+    quote: 'The technical manual they produced is exceptional. Our software has many moving parts — AI, databases, web components — and they captured all of it in a clear, 89-page guide. This document is now the backbone of our technical training.',
+    rating: 5,
+    company: 'C4i4',
+    companyLogo: '/clients/c4i4.svg',
+    projectTag: 'AI/Data Science Documentation',
+  },
+  {
+    name: 'CEO',
+    role: 'House of Amrth',
+    avatar: '/testimonials/house-of-amrth.jpg',
+    quote: 'The two-day shoot was incredibly productive. The team captured the genuine freshness of our organic juices perfectly. The professional camera and Lightroom editing really elevates our brand. We could not be happier with the results.',
+    rating: 5,
+    company: 'House of Amrth',
+    companyLogo: '/clients/house-of-amrth.svg',
+    projectTag: 'Product Photography & Video',
+  },
+];
+
+// ── Tech Stack ────────────────────────────────────────────────
+export const techStack = [
+  {
+    category: 'Web Development',
+    techs: [
+      { name: 'MongoDB' }, { name: 'Express' }, { name: 'React' },
+      { name: 'Node.js' }, { name: 'Next.js' }, { name: 'TypeScript' },
+      { name: 'Tailwind CSS' }, { name: 'WordPress' },
     ],
   },
   {
-    id: "wp-ecom",
-    title: "E-commerce WordPress Packages",
-    subtitle: "Quick launch with store features, blog, and payment integration.",
-    tiers: [
-      {
-        name: "Silver",
-        price: "₹9,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Purchase + Add to cart, Contact Us, Gallery",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year) + Hosting (1 year)",
-          "Blog",
-          "Payment gateway integration",
-          "Shipping",
-        ],
-        cta: "Choose Silver",
-        params: "wp-silver",
-      },
-      {
-        name: "Gold",
-        price: "₹14,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year) + Hosting (1 year)",
-          "Blog",
-          "Payment gateway integration",
-          "Purchase + Add to cart",
-          "Shipping",
-        ],
-        cta: "Choose Gold",
-        params: "wp-gold",
-      },
-      {
-        name: "Platinum",
-        price: "₹19,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year) + Hosting (1 year)",
-          "Blog",
-          "Payment gateway",
-          "Purchase + Add to cart",
-          "Shipping",
-          "1 year maintenance",
-          "100 professional webmails (1GB per email)",
-        ],
-        cta: "Choose Platinum",
-        params: "wp-platinum",
-      },
+    category: 'AI & Data',
+    techs: [
+      { name: 'Google Gemini' }, { name: 'OpenAI' }, { name: 'Python' },
+      { name: 'TensorFlow' }, { name: 'LangChain' }, { name: 'Hugging Face' },
     ],
   },
   {
-    id: "coded-ecom",
-    title: "E-commerce Coded Website Packages",
-    subtitle: "Higher performance and flexibility with custom-coded builds.",
-    tiers: [
-      {
-        name: "Silver",
-        price: "₹24,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Purchase + Add to cart",
-          "Blog",
-          "Payment gateway integration",
-          "Shipping",
-        ],
-        cta: "Choose Silver",
-        params: "coded-silver",
-      },
-      {
-        name: "Gold",
-        price: "₹32,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year) + Hosting (1 year)",
-          "Blog",
-          "Payment gateway",
-          "Purchase + Add to cart",
-          "Shipping",
-        ],
-        cta: "Choose Gold",
-        params: "coded-gold",
-      },
-      {
-        name: "Platinum",
-        price: "₹39,999 + GST",
-        features: [
-          "Pages: Home, About Us, Services/Product, Gallery, Contact Us",
-          "Email + WhatsApp + Google Map integration",
-          "Domain (1 year) + Hosting (1 year)",
-          "Blog",
-          "Payment gateway",
-          "Purchase + Add to cart",
-          "Shipping",
-          "1 year maintenance",
-          "100 professional webmails (1GB per email)",
-        ],
-        cta: "Choose Platinum",
-        params: "coded-platinum",
-      },
+    category: 'Mobile & APIs',
+    techs: [
+      { name: 'Android Studio' }, { name: 'WhatsApp API' },
+      { name: 'REST APIs' }, { name: 'Firebase' },
     ],
-    notes: [
-      "Payment options: 50% advance / 50% after deployment; 40%-20%-20%; EMI 9 months.",
+  },
+  {
+    category: 'Cloud & DevOps',
+    techs: [
+      { name: 'AWS' }, { name: 'Azure' }, { name: 'Google Cloud' },
+      { name: 'Docker' }, { name: 'GitHub Actions' },
+    ],
+  },
+  {
+    category: 'Business Tools',
+    techs: [
+      { name: 'Google Workspace' }, { name: 'Zoho' },
+      { name: 'Slack' }, { name: 'Jira' },
     ],
   },
 ];
+
+// ── Academy ───────────────────────────────────────────────────
+export const academy = {
+  tagline: 'Learn. Build. Launch.',
+  headline: 'Sinrem Trainings',
+  description: 'Hands-on courses in AI, design thinking, and business automation — built for students, founders, and professionals who want to build real things.',
+  features: [
+    'Live cohort-based programs',
+    'Real-world project curriculum',
+    'Mentorship from industry practitioners',
+    'Lifetime access to Sinrem Education Community',
+  ],
+  ctaLabel: 'Register Now',
+  ctaHref: '/academy',
+  courses: [
+    {
+      title: 'Design Thinking',
+      duration: '1 Day',
+      price: 299,
+      originalPrice: 599,
+      description: 'Learn how to start your business while still in college. From empathizing to launching.',
+      highlights: ['Empathy mapping & ideation', 'Prototype and test your idea', 'Sinrem Education Community membership'],
+    },
+    {
+      title: 'AI Foundation Training',
+      duration: '2 Days',
+      price: 499,
+      originalPrice: 999,
+      description: 'Learn the exact working of AI and how to apply it. Hands-on with 20+ AI tools.',
+      highlights: ['How AI and LLMs work', 'Hands-on with 20 AI tools', 'Build your own AI chatbot'],
+    },
+    {
+      title: 'Build Your Business Using AI',
+      duration: '3 Days',
+      price: 999,
+      originalPrice: 1999,
+      description: 'Learn to build and automate your entire business using AI tools.',
+      highlights: ['AI tools for every function', 'Automate marketing & ops', 'Launch by Day 3'],
+    },
+  ],
+};
+
+// ── About Stats ───────────────────────────────────────────────
+export const aboutStats = [
+  { value: '100%', label: 'Recurring Clients' },
+  { value: '20+', label: 'Clients Served' },
+  { value: '2+', label: 'Years in Business' },
+  { value: '3', label: 'Service Verticals' },
+];
+
+export const companyTimeline = [
+  { date: 'April 2023', milestone: 'Founded', detail: 'Registered Sharadchandra TechVentures with a focus on web development.' },
+  { date: 'December 2023', milestone: 'Expanded Services', detail: 'Launched mobile app development, technical writing, e-commerce, and software maintenance.' },
+  { date: 'April 2024', milestone: 'Research Phase', detail: 'Added market research services to help businesses validate new product ideas.' },
+  { date: 'December 2024', milestone: 'Sinrem Events', detail: 'Launched hackathons and networking events under the Sinrem Events vertical.' },
+  { date: 'April 2025', milestone: 'WhatsApp Business API', detail: 'Launched WhatsApp Business API integration services alongside product photography.' },
+  { date: 'December 2025', milestone: 'AI Services + Sinrem Trainings', detail: 'Officially launched AI/ML service offerings and the Sinrem Trainings education vertical.' },
+];
+
+export const companyMission = 'To make India digital — helping businesses build their online presence and build automated software systems for growth.';

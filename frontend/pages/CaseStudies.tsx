@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { Container } from "../components/ui/Container";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
@@ -193,10 +193,10 @@ const CaseStudyRow: React.FC<{ data: CaseStudy, index: number }> = ({ data, inde
 // --- Main Component ---
 
 export default function CaseStudiesPage() {
-  useSEO({ title: 'Case Studies & Products', description: 'Explore our portfolio of custom software projects, AI products, and client success stories.', path: '/case-studies' });
   const { projects } = useProjects();
   return (
     <main className="relative bg-bg overflow-hidden transition-colors duration-300">
+      <SEO title="Client Case Studies & Products" description="Real results for real clients — Shree Metal Industries, CVK Engineers, C4i4, House of Amrth. See how Sinrem Tech delivers." canonical="/case-studies" />
       <div className="pt-32 pb-16 sm:pt-40 sm:pb-24">
         <Container>
           <motion.div

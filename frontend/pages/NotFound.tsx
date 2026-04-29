@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
 
 export default function NotFoundPage() {
-  useSEO({ title: 'Page Not Found' });
   return (
     <main className="py-32 bg-bg min-h-[60vh] flex items-center">
+      <SEO title="Page Not Found" description="The page you're looking for doesn't exist." noIndex={true} />
       <Container>
         <div className="max-w-lg">
           <div className="text-8xl font-black text-foreground/10 mb-4">404</div>

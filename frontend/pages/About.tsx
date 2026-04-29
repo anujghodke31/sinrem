@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform, useInView, animate } from 'framer-motion';
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
+import StatBar from "../components/ui/StatBar";
 import { Badge } from "../components/ui/Badge";
 import { site } from "../lib/site";
 import { ArrowRight, Target, Lightbulb, Zap, CheckCircle2, Award, Users } from "lucide-react";
@@ -132,93 +133,6 @@ const StatsSection: React.FC = () => {
   )
 }
 
-const ProcessStep: React.FC<{ step: { title: string, desc: string }, index: number }> = ({ step, index }) => {
-  // Wati Color Cycle: Blue -> Green -> Pink -> Yellow
-  // Updated for dark mode support
-  const colors = [
-    "bg-wati-blueLight dark:bg-[#1A1A1A] dark:border-wati-blue",
-    "bg-wati-greenLight dark:bg-[#1A1A1A] dark:border-wati-green",
-    "bg-wati-pinkLight dark:bg-[#1A1A1A] dark:border-wati-pink",
-    "bg-[#FFF7D1] dark:bg-[#1A1A1A] dark:border-wati-yellow" 
-  ];
-  
-  const bgColor = colors[index % colors.length];
-  const isEven = index % 2 === 0;
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={cn(
-        "relative flex items-center mb-12 md:justify-between",
-        isEven ? "md:flex-row-reverse" : "md:flex-row"
-      )}
-    >
-       {/* Desktop Spacer */}
-       <div className="hidden md:block w-5/12" />
-
-       {/* Center Node (Timeline Marker) */}
-       <div className={cn(
-           "absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-2 z-10 flex items-center justify-center font-black text-lg shadow-hard",
-           "bg-white border-wati-dark text-wati-dark",
-           "dark:bg-zinc-900 dark:border-brand-500 dark:text-brand-500 dark:shadow-[4px_4px_0px_0px_#00E785]" // Dark mode styles
-       )}>
-          {index + 1}
-       </div>
-
-       {/* Content Card */}
-       <div className={cn(
-         "w-[calc(100%-4rem)] ml-20 md:ml-0 md:w-5/12 p-8 rounded-3xl border-2 shadow-hard relative",
-         "border-wati-dark text-wati-dark",
-         "dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.1)] dark:text-white", // Dark mode override
-         bgColor
-       )}>
-          {/* Decorative Connector Line */}
-          <div className={cn(
-            "hidden md:block absolute top-1/2 -translate-y-1/2 w-8 h-0.5",
-            isEven ? "-right-8" : "-left-8",
-            "bg-wati-dark dark:bg-brand-500" // High contrast connector in dark mode
-          )} />
-
-          <h4 className="text-2xl font-bold mb-3">{step.title}</h4>
-          <p className="text-base font-medium text-wati-dark dark:text-gray-200 leading-relaxed">{step.desc}</p>
-       </div>
-    </motion.div>
-  )
-}
-
-const ProcessSection: React.FC = () => {
-  const steps = [
-    { title: "Discover", desc: "We deep dive into your goals, workflows, and constraints. No assumptions, just data." },
-    { title: "Design", desc: "Architecting a solution that fits your scale and budget. We create the blueprint." },
-    { title: "Build", desc: "Agile development with a focus on security and performance. Code that lasts." },
-    { title: "Deploy & Support", desc: "Reliable launch, proactive monitoring, and 24/7 ongoing improvements." },
-  ];
-
-  return (
-    <section className="py-24 sm:py-32 bg-bg overflow-hidden">
-      <Container>
-         <div className="mb-20 md:text-center max-w-3xl mx-auto">
-            <h2 className="text-sm font-bold text-brand-600 dark:text-brand-400 uppercase tracking-widest mb-3">The Process</h2>
-            <h3 className="text-4xl font-bold text-text mb-6">From concept to code to scale.</h3>
-            <p className="text-lg text-foreground/70">A predictable, transparent workflow designed to mitigate risk.</p>
-         </div>
-
-         <div className="relative max-w-5xl mx-auto">
-            {/* Center Timeline Line */}
-            <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-1 -translate-x-1/2 rounded-full bg-wati-dark/20 dark:bg-white/20" />
-            
-            {steps.map((step, i) => (
-                <ProcessStep key={i} step={step} index={i} />
-            ))}
-         </div>
-      </Container>
-    </section>
-  )
-}
-
 const CultureCard: React.FC<{ icon: React.ReactNode, title: string, desc: string }> = ({ icon, title, desc }) => {
   return (
     <div className="p-4 rounded-xl bg-white/50 dark:bg-white/5 border border-wati-dark/20 dark:border-white/20 hover:bg-white dark:hover:bg-white/10 hover:border-wati-dark dark:hover:border-white/50 transition-all">
@@ -232,11 +146,6 @@ const CultureCard: React.FC<{ icon: React.ReactNode, title: string, desc: string
 // --- Main Page Component ---
 
 export default function AboutPage() {
-  useSEO({
-    title: "About Us | Sinrem Tech",
-    description: "Learn about Sinrem Tech, our mission, recurring client trust, and the engineering-first approach we use to deliver scalable AI-ready software systems.",
-    path: "/about",
-  });
   // Scroll Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -247,6 +156,7 @@ export default function AboutPage() {
 
   return (
     <main className="relative bg-bg overflow-hidden transition-colors duration-300">
+      <SEO title="About Us" description="Sharadchandra TechVentures — founded April 2023 in Pune. We make India digital through bespoke software, AI automation, and 24/7 technical partnerships." canonical="/about" />
       {/* Reading Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-brand-500 origin-left z-50"
@@ -280,6 +190,11 @@ export default function AboutPage() {
             </div>
          </Container>
       </section>
+
+      {/* Real Stats Bar */}
+      <Container>
+        <StatBar />
+      </Container>
 
       {/* Stats Section with Animated Counters */}
       <StatsSection />

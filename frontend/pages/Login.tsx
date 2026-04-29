@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Lock, ArrowRight, ShieldCheck, Cpu, Key, AlertCircle } from "lucide-react";
 import { Container } from "../components/ui/Container";
 import { Button } from "../components/ui/Button";
+import SEO from '../components/site/SEO';
 import { InteractiveMesh } from "../components/animated/InteractiveMesh";
 import { cn } from "../lib/cn";
 
@@ -86,6 +87,7 @@ export default function LoginPage() {
 
   return (
     <main className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-bg">
+      <SEO title="Members Login" description="Sinrem Tech members login." canonical="/login" noIndex={true} />
       {/* Background FX */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <InteractiveMesh />

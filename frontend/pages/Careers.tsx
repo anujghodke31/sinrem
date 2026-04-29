@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useSEO } from '../lib/useSEO';
+import SEO from '../components/site/SEO';
 import { Container } from '../components/ui/Container';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
@@ -42,9 +42,9 @@ const openRoles = [
 ];
 
 export default function CareersPage() {
-  useSEO({ title: 'Careers', description: 'Join Sinrem Tech. We\'re hiring frontend developers, backend developers, technical writers, and designers.', path: '/careers' });
   return (
     <main className="bg-bg min-h-screen">
+      <SEO title="Careers & Internships" description="Join Sinrem Tech. We're hiring for MERN development, AI/ML, data analysis, graphics design, and business development roles." canonical="/careers" />
       {/* Hero */}
       <div className="pt-32 pb-20 sm:pt-40 sm:pb-28">
         <Container>

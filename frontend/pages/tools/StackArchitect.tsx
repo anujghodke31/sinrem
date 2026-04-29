@@ -4,7 +4,7 @@ import { Container } from "../../components/ui/Container";
 import { Button } from "../../components/ui/Button";
 import { Badge } from "../../components/ui/Badge";
 import { cn } from "../../lib/cn";
-import { useAi } from "../../context/AiContext"; // Import Context
+import { site } from "../../lib/site";
 import { 
   Cpu, Database, Globe, Server, Cloud, Zap, Trash2, 
   RotateCcw, Share2, AlertTriangle, CheckCircle2, 
@@ -129,7 +129,6 @@ const GridNode: React.FC<GridNodeProps> = ({ item, onRemove }) => {
 // --- Main Page ---
 
 export default function StackArchitectPage() {
-  const { openChat } = useAi(); // Hook for AI Chat
   const [stack, setStack] = useState<TechComponent[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -374,13 +373,13 @@ export default function StackArchitectPage() {
                           Consult an Engineer <ArrowRight size={14} />
                        </Button>
                        
-                       {/* New AI Consult Button */}
+                       {/* WhatsApp Consult Button */}
                        <Button 
-                         onClick={openChat} 
+                         href={site.whatsappLink}
                          variant="ghost" 
-                         className="w-full text-xs h-10 text-brand-600 dark:text-brand-400 border border-brand-500/20 hover:bg-brand-500/5 hover:border-brand-500/50"
+                         className="w-full text-xs h-10 text-[#25D366] border border-[#25D366]/20 hover:bg-[#25D366]/5 hover:border-[#25D366]/50"
                        >
-                          <Sparkles size={14} className="mr-2" /> Validate with AI
+                          Discuss on WhatsApp
                        </Button>
                     </div>
 
