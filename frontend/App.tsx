@@ -6,6 +6,7 @@ import { Footer } from './components/site/Footer';
 import { ThemeProvider } from './context/ThemeContext';
 import { Preloader } from './components/ui/Preloader';
 import { site } from './lib/site';
+import { useGATracking } from './lib/useGATracking';
 import HomePage from './pages/Home';
 
 // --- Priority 3: On-Demand Pages (Lazy loaded on navigation) ---
@@ -47,6 +48,9 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [showHeroAnim, setShowHeroAnim] = useState(false);
   const location = useLocation();
+
+  // Track route changes in GA4 (SPA needs manual page_view events)
+  useGATracking();
 
   // 1. Lock Body Scroll during Preloading
   useEffect(() => {

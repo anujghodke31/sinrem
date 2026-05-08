@@ -52,7 +52,7 @@ export const chat = async (req, res) => {
 
     const text =
       response.text ||
-      "I'm having trouble connecting right now. Please try again or email info@sinrem.tech.";
+      "I'm having trouble connecting right now. Please try again or email pranit@sinremtech.in.";
 
     res.json({ success: true, text });
   } catch (err) {

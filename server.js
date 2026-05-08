@@ -36,6 +36,7 @@ import blogRoutes     from './routes/blog.js';
 import jobRoutes      from './routes/jobs.js';
 import projectRoutes  from './routes/projects.js';
 import aiRoutes       from './routes/ai.js';
+import contentRoutes  from './routes/content.js';
 import authMiddleware from './middleware/authMiddleware.js';
 import globalLimiter  from './middleware/globalLimiter.js';
 import logger, { apiLogger } from './config/logger.js';
@@ -66,7 +67,7 @@ app.use(
         defaultSrc:  ["'self'"],
         styleSrc:    ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         fontSrc:     ["'self'", 'https://fonts.gstatic.com'],
-        scriptSrc:   ["'self'"],
+        scriptSrc:   ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
         imgSrc:      ["'self'", 'data:', 'https:'],
         // Prevent admin panel from being embedded in iframes (clickjacking)
         frameAncestors: ["'none'"],
@@ -138,6 +139,7 @@ app.use('/api/blog',     blogRoutes);
 app.use('/api/jobs',     jobRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/ai',       aiRoutes);
+app.use('/api/content',  contentRoutes);
 
 // ── Protected: resume file downloads (JWT required) ──────────
 app.use('/uploads', authMiddleware, express.static(path.join(__dirname, 'uploads')));
@@ -146,12 +148,24 @@ app.use('/uploads', authMiddleware, express.static(path.join(__dirname, 'uploads
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
 // ── Static: Public frontend ───────────────────────────────────
-// In development: disable caching so CSS/JS changes are served immediately.
-// In production: Express default ETags + max-age apply.
-const staticOptions = process.env.NODE_ENV !== 'production'
-  ? { etag: false, lastModified: false, setHeaders: (res) => res.setHeader('Cache-Control', 'no-store') }
-  : {};
-app.use(express.static(path.join(__dirname, 'frontend', 'dist'), staticOptions));
+if (process.env.NODE_ENV === 'production') {
+  // Hashed assets (JS/CSS) — cache for 1 year (immutable, Vite fingerprints filenames)
+  app.use('/assets', express.static(
+    path.join(__dirname, 'frontend', 'dist', 'assets'),
+    { maxAge: '1y', immutable: true }
+  ));
+  // Root files (index.html, robots.txt, sitemap.xml) — no cache
+  app.use(express.static(
+    path.join(__dirname, 'frontend', 'dist'),
+    { maxAge: 0, etag: true }
+  ));
+} else {
+  // Dev: no caching
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist'), {
+    etag: false, lastModified: false,
+    setHeaders: (res) => res.setHeader('Cache-Control', 'no-store'),
+  }));
+}
 
 // ── Error Handling ────────────────────────────────────────────
 
