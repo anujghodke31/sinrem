@@ -73,13 +73,14 @@ pages/Contact.tsx(43,41): error TS2339: Property 'env' does not exist on type 'I
 
 ## 4. Proposed PRs (Follow-up)
 
-1.  **P0 - Fix deps & versions:** Update `package.json` engines to `>=20.19.0`, fix Node 18 peer/engine warnings by enforcing Node 20, and run `npm audit fix` for root and frontend.
-2.  **P0 - Fix TS errors:** Resolve `DynamicServiceCategory` import in `HorizontalScrollShowcase.tsx` and fix `ImportMeta` typing (`import.meta.env`) in Vite frontend (likely needs `vite/client` added to `tsconfig.json` types).
-3.  **P0 - Fix Vite proxy & ports:** Resolve `:5000` vs `:5001` conflict in Vite config vs Backend port, and verify clean startup for both. Update `README.md` to reflect standard port.
-4.  **P0 - Build & Server Boot:** Fix vanilla vs SPA routing collision in `server.js`. Document canonical root choice. Ensure `node server.js` serves SPA, `/admin`, `/api`, `/health` properly.
-5.  **P0 - Seed & API Errors:** Verify `npm run seed` idempotency. Validate and fix any 5xx throwing routes under `/api/*` (check `/api/ai/chat`, `/api/contact`, etc.).
+1.  **P0 - Fix deps & versions:** Update `package.json` engines to `>=20.19.0` to align with frontend dependencies requirement, fix Node 18 peer/engine warnings by enforcing Node 20, and run `npm audit fix` for root and frontend.
+2.  **P0 - Fix TS errors:** Fix `DynamicServiceCategory` type missing by adding `export type { ServiceCategory as DynamicServiceCategory } from './content';` to `frontend/lib/api.ts` and fix `ImportMeta` typing (`import.meta.env`) in Vite frontend by adding `"vite/client"` to `compilerOptions.types` in `frontend/tsconfig.json`.
+3.  **P0 - Fix Vite proxy & ports:** Update `README.md` to replace instances of `:5001` with `:5000` because the `vite.config.ts` proxy correctly points to `http://localhost:5000`.
+4.  **P0 - Build & Server Boot:** The vanilla vs SPA routing collision is a non-issue in code. `server.js` serves SPA at `/` but doesn't serve the vanilla site at root. The `express.static` call on `frontend/dist` intercepts `/` and serves `frontend/dist/index.html`. Thus the vanilla site is completely ignored. I will create a PR to update `README.md` to clarify that the SPA is the canonical root and the vanilla site is not served at root by `server.js`.
+5.  **P0 - Seed & API Errors:**
+    *   No code changes are needed for API validation! The validation rules are already correctly set in the routes (`contact.js`, `jobs.js`, etc.) using `express-validator` and `validateRequest` middleware.
+    *   No code changes are needed for `scripts/seed.js`! It already checks `existing` user via `Admin.findOne` before creating a new one, so it is fully idempotent. I just need to document that `mongod` must be running locally to run the seed script.
 
 ## 5. Ambiguities & Clarifications needed from Anuj
 
-*   **Canonical Root:** The README notes both `index.html` (vanilla) and `frontend/dist/index.html` (SPA) compete for `/`. Which one should be the actual `/` route in production? (My proposal: the React SPA from `frontend/dist` should be `/`, and we can either move the vanilla site to a different route like `/legacy`, or we can consolidate them. If no preference, I will serve SPA at `/` and perhaps move vanilla to `/v1` or similar, or just serve SPA at `/` and drop vanilla index.html from root routing.)
-*   **Port:** The README mentions backend is on `:5000`, but Vite proxies to `:5001`. I will standardize on `:5000` for both backend and proxy.
+*   None! All ambiguities have been resolved through code exploration. The Vite proxy port is `5000` and the canonical root is definitely the SPA since `server.js` ignores the vanilla `index.html`.
