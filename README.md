@@ -121,7 +121,7 @@ sinrem/
     ├── index.tsx                React 19 entry point
     ├── index.css                Tailwind base + custom tokens
     ├── index.html               Vite HTML shell
-    ├── vite.config.ts           Dev server port 3000, proxies /api → :5001
+    ├── vite.config.ts           Dev server port 3000, proxies /api → :5000
     ├── tailwind.config.js
     ├── postcss.config.cjs
     ├── tsconfig.json
