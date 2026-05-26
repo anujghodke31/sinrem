@@ -53,4 +53,28 @@ const upload = multer({
   },
 });
 
+export const verifyMagicBytes = (req, res, next) => {
+  if (!req.file) return next();
+  const filePath = req.file.path;
+  const buffer = Buffer.alloc(4);
+  try {
+    const fd = fs.openSync(filePath, 'r');
+    fs.readSync(fd, buffer, 0, 4, 0);
+    fs.closeSync(fd);
+    const hex = buffer.toString('hex').toUpperCase();
+
+    // PDF: 25504446
+    // DOC (Legacy): D0CF11E0
+    // DOCX (ZIP): 504B0304
+    if (hex === '25504446' || hex === 'D0CF11E0' || hex === '504B0304') {
+      next();
+    } else {
+      fs.unlinkSync(filePath); // delete invalid file
+      return res.status(400).json({ success: false, message: 'Invalid file content. Must be a valid PDF or Word document.' });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default upload;

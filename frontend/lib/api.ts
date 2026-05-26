@@ -4,7 +4,7 @@
 
 import { caseStudies, serviceCategories } from './content';
 
-export { caseStudies as staticProjects } from './content';
+export { caseStudies as staticProjects, type ServiceCategory as DynamicServiceCategory } from './content';
 
 export function useProjects() {
   return { projects: caseStudies, loading: false, error: null };

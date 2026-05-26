@@ -5,7 +5,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import rateLimiter    from '../middleware/rateLimiter.js';
 import authMiddleware from '../middleware/authMiddleware.js';
-import upload         from '../middleware/upload.js';
+import upload, { verifyMagicBytes } from '../middleware/upload.js';
 import validateRequest from '../middleware/validate.js';
 import validateId      from '../middleware/validateId.js';
 import {
@@ -34,6 +34,7 @@ router.post(
   '/',
   rateLimiter,
   upload.single('resume'),
+  verifyMagicBytes,
   jobValidation,
   validateRequest,
   submitApplication

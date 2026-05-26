@@ -69,6 +69,7 @@ app.use(
         fontSrc:     ["'self'", 'https://fonts.gstatic.com'],
         scriptSrc:   ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
         imgSrc:      ["'self'", 'data:', 'https:'],
+        connectSrc:  ["'self'", process.env.VITE_APPS_SCRIPT_URL || '*'],
         // Prevent admin panel from being embedded in iframes (clickjacking)
         frameAncestors: ["'none'"],
       },
@@ -96,7 +97,7 @@ app.use(
       if (!origin && process.env.NODE_ENV === 'production') {
         return callback(new Error('CORS: Origin header required'));
       }
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (allowedOrigins.includes(origin) || (!origin && process.env.NODE_ENV !== 'production')) {
         callback(null, true);
       } else {
         callback(new Error(`CORS: ${origin} not allowed`));
@@ -168,6 +169,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // ── Error Handling ────────────────────────────────────────────
+
+// ── Vanilla site ─────────────────────────────────────────────
+app.get('/vanilla', (req, res) => {
+  res.sendFile(path.join(__dirname, 'vanilla.html'));
+});
 
 // ── SPA fallback ─────────────────────────────────────────────
 app.get(/^(?!\/api|\/uploads|\/admin).*$/, (req, res) => {
