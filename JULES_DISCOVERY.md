@@ -100,15 +100,28 @@ Additionally, `vite build` throws errors about `import.meta.env` when building t
 ```
 # npm audit report
 
+@protobufjs/utf8  <=1.1.0
+Severity: moderate
+protobufjs has overlong UTF-8 decoding - https://github.com/advisories/GHSA-q6x5-8v7m-xcrf
+fix available via `npm audit fix`
+node_modules/@protobufjs/utf8
+
 nodemailer  <=8.0.4
 Severity: moderate
 Nodemailer Vulnerable to SMTP Command Injection via CRLF in Transport name Option (EHLO/HELO)  - https://github.com/advisories/GHSA-vvjj-xcjg-gr5g
 fix available via `npm audit fix`
 node_modules/nodemailer
 
-protobufjs  <7.5.5
+protobufjs  <=7.5.5
 Severity: critical
 Arbitrary code execution in protobufjs - https://github.com/advisories/GHSA-xq3m-2v4x-88gg
+protobuf.js: Code injection through bytes field defaults in generated toObject code - https://github.com/advisories/GHSA-66ff-xgx4-vchm
+protobuf.js: Denial of service from crafted field names in generated code - https://github.com/advisories/GHSA-2pr8-phx7-x9h3
+protobuf.js: Prototype injection in generated message constructors - https://github.com/advisories/GHSA-fx83-v9x8-x52w
+protobuf.js: Code generation gadget after prototype pollution - https://github.com/advisories/GHSA-75px-5xx7-5xc7
+protobuf.js: Process-wide denial of service through unsafe option paths - https://github.com/advisories/GHSA-jvwf-75h9-cwgg
+protobuf.js: Denial of service through unbounded protobuf recursion - https://github.com/advisories/GHSA-685m-2w69-288q
+protobufjs has overlong UTF-8 decoding - https://github.com/advisories/GHSA-q6x5-8v7m-xcrf
 fix available via `npm audit fix`
 node_modules/protobufjs
 
@@ -121,6 +134,12 @@ To address all issues, run:
 ### Frontend
 ```
 # npm audit report
+
+@protobufjs/utf8  <=1.1.0
+Severity: moderate
+protobufjs has overlong UTF-8 decoding - https://github.com/advisories/GHSA-q6x5-8v7m-xcrf
+fix available via `npm audit fix`
+node_modules/@protobufjs/utf8
 
 postcss  <8.5.10
 Severity: moderate
