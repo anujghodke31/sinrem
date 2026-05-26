@@ -1,3 +1,10 @@
+export interface DynamicServiceCategory {
+  id: string;
+  title: string;
+  subtitle: string;
+  items: string[];
+}
+
 // ── Static data hooks ─────────────────────────────────────────
 // All public content lives in content.ts. No API calls needed.
 // These hooks exist for backwards compatibility with page imports.

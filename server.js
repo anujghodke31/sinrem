@@ -30,6 +30,7 @@ import path         from 'path';
 import { fileURLToPath } from 'url';
 
 import connectDB      from './config/db.js';
+import mongoose       from 'mongoose';
 import authRoutes     from './routes/auth.js';
 import contactRoutes  from './routes/contact.js';
 import blogRoutes     from './routes/blog.js';
@@ -127,7 +128,12 @@ app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // ── Health check (for load balancers / uptime monitors) ──────
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/health', (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  res.json({
+    status: dbState === 1 ? 'ok' : 'degraded'
+  });
+});
 
 // ── API Routes ────────────────────────────────────────────────
 // Apply global scraping/bot limiter to all /api routes
@@ -169,7 +175,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // ── Error Handling ────────────────────────────────────────────
 
-// ── SPA fallback ─────────────────────────────────────────────
+// ── SPA fallback (Canonical Root) ────────────────────────────
 app.get(/^(?!\/api|\/uploads|\/admin).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
