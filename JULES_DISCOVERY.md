@@ -1,6 +1,6 @@
 # Discovery PR
 
-## 1. P0 Errors found
+This document summarizes the findings from the initial discovery phase, outlining the issues identified based on the P0 priorities and the `npm audit` / `tsc` checks. No code changes have been made in this PR; we are awaiting review of this discovery before proceeding with fixes.
 
 ### `npm install`
 ```
@@ -33,8 +33,7 @@ added 270 packages, and audited 271 packages in 10s
 
 1 moderate severity vulnerability
 
-To address all issues, run:
-  npm audit fix
+**Conclusion on Node Version:** Node 20 is strictly required by the frontend dependencies (`@google/genai`, `vitejs/plugin-react`, `react-router`). We should bump the `engines` node in `package.json` to `>=20.19.0` to enforce this and resolve the warnings cleanly.
 
 Run `npm audit` for details.
  npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
@@ -143,11 +142,17 @@ lib/apiBase.ts(8,17): error TS2339: Property 'env' does not exist on type 'Impor
 pages/Contact.tsx(43,41): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
 ```
 
-## 4. Proposed follow-up PRs
-1. **Fix build and TS errors:** Fix TS errors in `HorizontalScrollShowcase.tsx` by exporting `ServiceCategory` from `content.ts` instead of `DynamicServiceCategory`. Create `frontend/vite-env.d.ts` to include `vite/client` so `import.meta.env` is recognized by TypeScript. Fix `vite build` error by ensuring `vite/client` types are available.
-2. **Fix `package.json` engines & updates:** Update `package.json` to pin `node` engine to `>=18.0.0` or update dependencies to fix npm audit. Update README to reflect port `5000` for proxy instead of `5001`.
-3. **Fix frontend build + Vite config:** Fix `index.html` root resolution (vanilla vs SPA). Update server.js to use SPA `index.html` as fallback.
-4. **Fix Seed logic:** Ensure `npm run seed` doesn't crash on re-run.
+## 4. Proposed PRs (Follow-up)
 
-## 5. Ambiguities for Anuj
-- The task says "decide one canonical root — currently both `index.html` (vanilla) and `frontend/dist/index.html` (SPA) compete for `/`. Pick one". I propose making the SPA the canonical root by deleting the vanilla `index.html` since the React SPA seems to be the primary app. Is this acceptable?
+1.  **P0 - Fix deps & versions:** Update `package.json` engines to `>=20.19.0`, fix Node 18 peer/engine warnings by enforcing Node 20, and run `npm audit fix` for root and frontend.
+2.  **P0 - Fix TS errors:** Resolve `DynamicServiceCategory` import in `HorizontalScrollShowcase.tsx` (by importing `ServiceCategory` from `../../lib/content` instead) and fix `ImportMeta` typing (`import.meta.env`) in Vite frontend (by adding `vite/client` to `tsconfig.json` types).
+3.  **P0 - Fix Vite proxy & ports:** Resolve `:5000` vs `:5001` conflict in Vite config vs Backend port. The configuration already correctly targets `5000`. Update `README.md` to reflect standard port `:5000`.
+4.  **P0 - Build & Server Boot:** Fix vanilla vs SPA routing collision in `server.js`. Document canonical root choice (using SPA). Ensure `node server.js` serves SPA, `/admin`, `/api`, `/health` properly.
+5.  **P0 - Seed & API Errors:** Fix `scripts/seed.js` idempotency (it shouldn't crash if `dotenv` or other env vars are missing during CI, but wait, `dotenv` issue was my local execution. We need to verify `seed.js` handles `MongoServerError` properly on rerun, though current logic seems robust). Validate and add express-validator rules to 5xx throwing routes under `/api/*` if any are missing.
+
+## 5. Ambiguities & Clarifications needed from Anuj
+
+*   **Canonical Root:** The README notes both `index.html` (vanilla) and `frontend/dist/index.html` (SPA) compete for `/`. Which one should be the actual `/` route in production?
+    *   *My Proposal:* Make the React SPA (`frontend/dist`) the canonical root at `/`, and either drop the vanilla `index.html` or move it to a `/v1` route. For the purpose of the PRs, I will serve SPA at `/`.
+*   **Port:** The README mentions backend is on `:5000`, but Vite proxies to `:5001`.
+    *   *My Proposal:* The code already uses `:5000` in both `server.js` and `frontend/vite.config.ts`. I will simply update `README.md` to reflect `:5000` consistently.
