@@ -2,14 +2,16 @@
 
 This document summarizes the findings from the initial discovery phase, outlining the issues identified based on the P0 priorities and the `npm audit` / `tsc` checks. No code changes have been made in this PR; we are awaiting review of this discovery before proceeding with fixes.
 
-### `npm install`
+## 1. P0 Execution Findings
+
+### `npm install` (root)
 ```
-added 239 packages, and audited 240 packages in 12s
+added 239 packages, and audited 240 packages in 13s
 
 31 packages are looking for funding
   run `npm fund` for details
 
-2 vulnerabilities (1 moderate, 1 critical)
+8 vulnerabilities (7 moderate, 1 critical)
 
 To address all issues, run:
   npm audit fix
@@ -18,29 +20,55 @@ Run `npm audit` for details.
  npm warn deprecated multer@1.4.5-lts.2: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
 npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
 npm notice
-npm notice New minor version of npm available! 11.11.0 -> 11.14.1
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.14.1
-npm notice To update run: npm install -g npm@11.14.1
+npm notice New minor version of npm available! 11.11.0 -> 11.16.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+npm notice To update run: npm install -g npm@11.16.0
 npm notice
 ```
 
 ### `cd frontend && npm install`
 ```
-added 270 packages, and audited 271 packages in 10s
+added 270 packages, and audited 271 packages in 11s
 
 99 packages are looking for funding
   run `npm fund` for details
 
-1 moderate severity vulnerability
+4 vulnerabilities (3 moderate, 1 high)
 
-**Conclusion on Node Version:** Node 20 is strictly required by the frontend dependencies (`@google/genai`, `vitejs/plugin-react`, `react-router`). We should bump the `engines` node in `package.json` to `>=20.19.0` to enforce this and resolve the warnings cleanly.
+To address all issues, run:
+  npm audit fix
 
 Run `npm audit` for details.
  npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
 ```
+**Conclusion on Node Version:** Node 20 is strongly recommended (and practically required by newer React ecosystem deps). We should bump the `engines` node in `package.json` to `>=20.19.0` to enforce this and resolve engine warnings cleanly.
+
+### `npm run dev` (backend)
+```
+> sinrem@1.0.0 dev
+> nodemon server.js
+
+[nodemon] 3.1.14
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,json
+[nodemon] starting `node server.js`
+[nodemon] app crashed - waiting for file changes before starting...
+ ❌  Missing required environment variable: MONGO_URI. Set it in .env and restart.
+```
+Works normally when env variables are provided. Port defaults to `5000`.
 
 ### `cd frontend && npm run dev`
-Works, Vite proxies to `:5000` (which is correctly set in `vite.config.ts`, but the README falsely mentions `:5001`).
+```
+> copy-of-sharadchandra-techventures@0.0.0 dev
+> vite
+
+  VITE v6.4.2  ready in 325 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://192.168.0.2:3000/
+```
+Works, Vite proxies to `http://localhost:5000` (which is correctly set in `frontend/vite.config.ts`, but the README falsely mentions `:5001`).
 
 ### `cd frontend && npm run build`
 ```
@@ -53,37 +81,9 @@ transforming...
 rendering chunks...
 computing gzip size...
 dist/index.html                                     3.22 kB │ gzip:  1.17 kB
-dist/assets/MagicBento-BpRlfAt-.css                 3.79 kB │ gzip:  1.30 kB
-dist/assets/index-Dp4Pm5ui.css                     82.79 kB │ gzip: 12.62 kB
-dist/assets/NotFound-hrLFK7QK.js                    0.92 kB │ gzip:  0.49 kB
-dist/assets/Blog-LqhCvxq_.js                        0.96 kB │ gzip:  0.55 kB
-dist/assets/ClientsMarquee-DDfmA_vA.js              1.39 kB │ gzip:  0.73 kB
-dist/assets/Technologies-B7bKUKdy.js                1.57 kB │ gzip:  0.75 kB
-dist/assets/Testimonials-B9zd7jbU.js                2.34 kB │ gzip:  1.04 kB
-dist/assets/AcademySection-D9jQ3447.js              2.75 kB │ gzip:  0.96 kB
-dist/assets/Academy-CRpi73HH.js                     2.79 kB │ gzip:  1.11 kB
-dist/assets/Careers-DxsmEoqW.js                     5.88 kB │ gzip:  2.38 kB
-dist/assets/HorizontalScrollShowcase-Bjyj4I1K.js    6.85 kB │ gzip:  2.35 kB
-dist/assets/Contact-CQehnMuP.js                     8.99 kB │ gzip:  2.95 kB
-dist/assets/Login-0lIHTohS.js                       9.04 kB │ gzip:  3.29 kB
-dist/assets/Services-46_TpJba.js                    9.47 kB │ gzip:  3.30 kB
-dist/assets/About-CwQ34Eoy.js                       9.55 kB │ gzip:  3.10 kB
-dist/assets/RoiCalculator-DqY7iEdE.js               9.71 kB │ gzip:  3.24 kB
-dist/assets/MagicBento-DsbvYqx0.js                  9.80 kB │ gzip:  3.22 kB
-dist/assets/Dashboard-o3mgtlrV.js                  10.77 kB │ gzip:  3.11 kB
-dist/assets/CaseStudyDetail-DoSAmYoZ.js            10.87 kB │ gzip:  3.21 kB
-dist/assets/StackArchitect-52Nkc_fD.js             11.29 kB │ gzip:  3.67 kB
-dist/assets/helmet-vendor-Cu8GhC0H.js              14.39 kB │ gzip:  5.30 kB
-dist/assets/CaseStudies-Cp6LCbbs.js                14.60 kB │ gzip:  4.33 kB
-dist/assets/PacketFlow-DjBTHMb3.js                 17.17 kB │ gzip:  4.87 kB
-dist/assets/icons-vendor-C7pTi-_4.js               26.96 kB │ gzip:  6.05 kB
-dist/assets/router-vendor-DMF94DVC.js              36.69 kB │ gzip: 13.21 kB
-dist/assets/motion-vendor-oNUUZJQE.js              46.88 kB │ gzip: 16.61 kB
-dist/assets/gsap-vendor-CB87Sc6I.js                70.32 kB │ gzip: 27.76 kB
-dist/assets/index-BN_s2ffJ.js                      79.83 kB │ gzip: 26.99 kB
-dist/assets/vendor-CdZsUu8m.js                    152.27 kB │ gzip: 50.79 kB
+... (assets output omitted for brevity) ...
 dist/assets/react-dom-vendor-BgbIt6BQ.js          180.88 kB │ gzip: 56.45 kB
-✓ built in 8.24s
+✓ built in 7.59s
 ```
 Fails due to TypeScript errors when `vite build` triggers type checking:
 ```
@@ -92,11 +92,10 @@ lib/apiBase.ts(7,37): error TS2339: Property 'env' does not exist on type 'Impor
 lib/apiBase.ts(8,17): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
 pages/Contact.tsx(43,41): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
 ```
-Additionally, `vite build` throws errors about `import.meta.env` when building the application.
 
 ## 2. npm audit advisories
 
-### Backend
+### Backend (`npm audit --omit=dev`)
 ```
 # npm audit report
 
@@ -112,26 +111,32 @@ Nodemailer Vulnerable to SMTP Command Injection via CRLF in Transport name Optio
 fix available via `npm audit fix`
 node_modules/nodemailer
 
-protobufjs  <=7.5.5
+protobufjs  <=7.5.7
 Severity: critical
 Arbitrary code execution in protobufjs - https://github.com/advisories/GHSA-xq3m-2v4x-88gg
-protobuf.js: Code injection through bytes field defaults in generated toObject code - https://github.com/advisories/GHSA-66ff-xgx4-vchm
-protobuf.js: Denial of service from crafted field names in generated code - https://github.com/advisories/GHSA-2pr8-phx7-x9h3
-protobuf.js: Prototype injection in generated message constructors - https://github.com/advisories/GHSA-fx83-v9x8-x52w
-protobuf.js: Code generation gadget after prototype pollution - https://github.com/advisories/GHSA-75px-5xx7-5xc7
-protobuf.js: Process-wide denial of service through unsafe option paths - https://github.com/advisories/GHSA-jvwf-75h9-cwgg
-protobuf.js: Denial of service through unbounded protobuf recursion - https://github.com/advisories/GHSA-685m-2w69-288q
-protobufjs has overlong UTF-8 decoding - https://github.com/advisories/GHSA-q6x5-8v7m-xcrf
+... (7 sub-vulnerabilities omitted for brevity) ...
 fix available via `npm audit fix`
 node_modules/protobufjs
 
-2 vulnerabilities (1 moderate, 1 critical)
+qs  6.11.1 - 6.15.1
+Severity: moderate
+qs has a remotely triggerable DoS: qs.stringify crashes with TypeError on null/undefined entries in comma-format arrays when encodeValuesOnly is set - https://github.com/advisories/GHSA-q8mj-m7cp-5q26
+fix available via `npm audit fix`
+node_modules/qs
+
+ws  8.0.0 - 8.20.0
+Severity: moderate
+ws: Uninitialized memory disclosure - https://github.com/advisories/GHSA-58qx-3vcg-4xpx
+fix available via `npm audit fix`
+node_modules/ws
+
+7 vulnerabilities (6 moderate, 1 critical)
 
 To address all issues, run:
   npm audit fix
 ```
 
-### Frontend
+### Frontend (`cd frontend && npm audit --omit=dev`)
 ```
 # npm audit report
 
@@ -147,7 +152,19 @@ PostCSS has XSS via Unescaped </style> in its CSS Stringify Output - https://git
 fix available via `npm audit fix`
 node_modules/postcss
 
-1 moderate severity vulnerability
+protobufjs  <=7.5.7
+Severity: high
+... (8 sub-vulnerabilities omitted for brevity) ...
+fix available via `npm audit fix`
+node_modules/protobufjs
+
+ws  8.0.0 - 8.20.0
+Severity: moderate
+ws: Uninitialized memory disclosure - https://github.com/advisories/GHSA-58qx-3vcg-4xpx
+fix available via `npm audit fix`
+node_modules/ws
+
+4 vulnerabilities (3 moderate, 1 high)
 
 To address all issues, run:
   npm audit fix
@@ -163,15 +180,13 @@ pages/Contact.tsx(43,41): error TS2339: Property 'env' does not exist on type 'I
 
 ## 4. Proposed PRs (Follow-up)
 
-1.  **P0 - Fix deps & versions:** Update `package.json` engines to `>=20.19.0`, fix Node 18 peer/engine warnings by enforcing Node 20, and run `npm audit fix` for root and frontend.
-2.  **P0 - Fix TS errors:** Resolve `DynamicServiceCategory` import in `HorizontalScrollShowcase.tsx` (by importing `ServiceCategory` from `../../lib/content` instead) and fix `ImportMeta` typing (`import.meta.env`) in Vite frontend (by adding `vite/client` to `tsconfig.json` types).
-3.  **P0 - Fix Vite proxy & ports:** Resolve `:5000` vs `:5001` conflict in Vite config vs Backend port. The configuration already correctly targets `5000`. Update `README.md` to reflect standard port `:5000`.
-4.  **P0 - Build & Server Boot:** Fix vanilla vs SPA routing collision in `server.js`. Document canonical root choice (using SPA). Ensure `node server.js` serves SPA, `/admin`, `/api`, `/health` properly.
-5.  **P0 - Seed & API Errors:** Fix `scripts/seed.js` idempotency (it shouldn't crash if `dotenv` or other env vars are missing during CI, but wait, `dotenv` issue was my local execution. We need to verify `seed.js` handles `MongoServerError` properly on rerun, though current logic seems robust). Validate and add express-validator rules to 5xx throwing routes under `/api/*` if any are missing.
+1.  **P0 - Fix Deps & Node Engine**: Bump `engines.node` to `>=20.19.0` in the root `package.json`. Run `npm audit fix` across both root and frontend to patch `protobufjs`, `qs`, `ws`, `postcss`, and `nodemailer`. Add justification to the PR description for dependency updates.
+2.  **P0 - Fix Vite Types & TS Build**: Add `"vite/client"` to `compilerOptions.types` in `frontend/tsconfig.json` to resolve `import.meta.env` errors. Fix the import of `DynamicServiceCategory` (now `ServiceCategory`) in `HorizontalScrollShowcase.tsx`.
+3.  **P0 - Fix README & Vite Port Alignment**: Update `README.md` to consistently refer to backend port `:5000` (resolving the incorrect `:5001` mention).
+4.  **P0 - Fix Vanilla vs. SPA Routing**: In `server.js`, configure the SPA (`frontend/dist/index.html`) as the canonical root at `/` while removing or redirecting the vanilla `index.html` file to avoid collisions. Document this design decision in the PR and README.
+5.  **P0 - Validate API Routes**: Audit the remaining `/api/*` POST endpoints for validation using `express-validator` to prevent any 5xx errors from invalid payloads.
 
 ## 5. Ambiguities & Clarifications needed from Anuj
 
-*   **Canonical Root:** The README notes both `index.html` (vanilla) and `frontend/dist/index.html` (SPA) compete for `/`. Which one should be the actual `/` route in production?
-    *   *My Proposal:* Make the React SPA (`frontend/dist`) the canonical root at `/`, and either drop the vanilla `index.html` or move it to a `/v1` route. For the purpose of the PRs, I will serve SPA at `/`.
-*   **Port:** The README mentions backend is on `:5000`, but Vite proxies to `:5001`.
-    *   *My Proposal:* The code already uses `:5000` in both `server.js` and `frontend/vite.config.ts`. I will simply update `README.md` to reflect `:5000` consistently.
+*   **Canonical Root:** The README notes both `index.html` (vanilla) and `frontend/dist/index.html` (SPA) compete for `/`. I plan to make the React SPA the canonical root at `/`, effectively rendering the vanilla root `index.html` legacy. Should the vanilla index be deleted entirely, or renamed to something like `legacy.html`? I will default to renaming it to `legacy.html` and setting the SPA to the root.
+*   **Vite Proxy Port:** The README mentions backend is on `:5000`, but Vite proxies to `:5001`. The backend defaults to `:5000` and `vite.config.ts` targets `:5000`. I will correct the `README.md` documentation to match the codebase (`:5000`).
