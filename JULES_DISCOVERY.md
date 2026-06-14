@@ -4,7 +4,7 @@ This document summarizes the findings from the initial discovery phase, outlinin
 
 ### `npm install`
 ```
-added 239 packages, and audited 240 packages in 12s
+added 239 packages, and audited 240 packages in 8s
 
 31 packages are looking for funding
   run `npm fund` for details
